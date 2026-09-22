@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#00082B;font-family:'Inter',system-ui,sans-serif;color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:#16D7DA;text-decoration:none}
+  a:hover{color:#2ECC86}
+  ::selection{background:#16D7DA;color:#00082B}
+  @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes trailpulse{0%,100%{opacity:.45}50%{opacity:.8}}
+  @keyframes pulsecta{0%,100%{box-shadow:0 0 0 0 rgba(46,204,134,.42)}50%{box-shadow:0 0 0 18px rgba(46,204,134,0)}}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+  @media (max-width:860px){[data-desk]{display:none!important}}
+  @media (min-width:861px){[data-mob]{display:none!important}}
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#00082B">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#00082B"></rect>
+    <defs><linearGradient id="thb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#16D7DA"></stop><stop offset="1" stop-color="#2ECC86"></stop></linearGradient></defs>
+    <rect x="490" y="300" width="220" height="220" rx="52" fill="url(#thb)"></rect>
+    <text x="600" y="445" font-family="Montserrat, Arial, sans-serif" font-size="120" font-weight="900" fill="#00082B" text-anchor="middle">T</text>
+  </svg>
+</template>
+
+<div style="background:#00082B">
+
+<header style="position:sticky;top:0;z-index:60;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(0,8,43,.74);border-bottom:1px solid rgba(255,255,255,.08)">
+  <div style="max-width:1160px;margin:0 auto;padding:12px clamp(16px,4vw,40px);display:flex;align-items:center;gap:20px">
+    <a href="#topo" style="display:flex;align-items:center;flex:0 0 auto"><img src="assets/logo-6.png" alt="Tapiti Digital" style="height:26px;width:auto;filter:brightness(0) invert(1)"></a>
+    <nav data-desk="1" style="flex:1;display:flex;justify-content:center;gap:34px">
+      <a href="#solucoes" style="font:600 13px 'Montserrat';letter-spacing:.06em;text-transform:uppercase;color:#9FB0CB" style-hover="color:#ffffff">Soluções</a>
+      <a href="#engenharia" style="font:600 13px 'Montserrat';letter-spacing:.06em;text-transform:uppercase;color:#9FB0CB" style-hover="color:#ffffff">Engenharia</a>
+      <a href="#quem-somos" style="font:600 13px 'Montserrat';letter-spacing:.06em;text-transform:uppercase;color:#9FB0CB" style-hover="color:#ffffff">Quem Somos</a>
+    </nav>
+    <div style="flex:1" data-mob="1"></div>
+    <a href="{{ waLink }}" target="_blank" rel="noopener" style="flex:0 0 auto;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#16D7DA,#2ECC86);color:#00082B;font:800 13px 'Montserrat';letter-spacing:.01em;padding:11px 18px;border-radius:12px;min-height:44px;box-sizing:border-box" style-hover="filter:brightness(1.08)">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      <span data-desk="1">Agendar Consultoria</span><span data-mob="1">Falar com IA</span>
+    </a>
+  </div>
+</header>
+
+<section id="topo" data-screen-label="Hero" style="position:relative;overflow:hidden;background:radial-gradient(120% 110% at 78% 12%,#052a63 0%,#00133b 48%,#00082B 100%)">
+  <svg viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;opacity:.5;animation:trailpulse 9s ease-in-out infinite" aria-hidden="true">
+    <defs>
+      <linearGradient id="h1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#001B4D" stop-opacity="0"></stop><stop offset="1" stop-color="#16D7DA"></stop></linearGradient>
+      <linearGradient id="h2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0E7C8C" stop-opacity="0"></stop><stop offset="1" stop-color="#2ECC86"></stop></linearGradient>
+    </defs>
+    <path d="M-100 430 Q 500 210 1600 400" fill="none" stroke="url(#h1)" stroke-width="2.5" stroke-linecap="round"></path>
+    <path d="M-100 500 Q 560 280 1600 470" fill="none" stroke="url(#h2)" stroke-width="2" stroke-linecap="round"></path>
+    <path d="M-100 360 Q 480 190 1600 340" fill="none" stroke="url(#h1)" stroke-width="1.5" stroke-linecap="round" stroke-opacity=".7"></path>
+  </svg>
+  <div style="position:relative;max-width:1160px;margin:0 auto;padding:clamp(48px,9vw,92px) clamp(16px,4vw,40px) clamp(56px,9vw,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:clamp(40px,6vw,56px);align-items:center">
+    <div style="min-width:0">
+      <div style="display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(22,215,218,.34);background:rgba(22,215,218,.08);border-radius:999px;padding:7px 14px;margin-bottom:22px;white-space:nowrap;max-width:100%;overflow:hidden">
+        <span style="width:7px;height:7px;border-radius:50%;background:#2ECC86;animation:blink 2.4s ease-in-out infinite"></span>
+        <span style="font:600 clamp(10px,1.3vw,11.5px) 'JetBrains Mono';letter-spacing:.08em;color:#16D7DA;white-space:nowrap">IA ONLINE · RESPOSTA EM SEGUNDOS</span>
+      </div>
+      <h1 style="font:900 clamp(30px,5vw,58px)/1.06 'Montserrat';letter-spacing:-.026em;margin:0 0 22px;text-wrap:pretty;overflow-wrap:break-word">Automação Inteligente e Infraestrutura de Nível Enterprise para o seu Negócio.</h1>
+      <p style="font:400 clamp(16px,2.2vw,19px)/1.62 'Inter';color:#B9C6DB;margin:0 0 32px;max-width:56ch;text-wrap:pretty">Elimine gargalos de atendimento e domine o Google. Sites de alta performance e agentes de IA que atendem via WhatsApp, redes sociais e telefone 24 horas por dia.</p>
+      <a href="{{ waLink }}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:11px;width:100%;max-width:440px;background:linear-gradient(135deg,#16D7DA,#2ECC86);color:#00082B;font:800 clamp(14px,2.1vw,16px)/1.2 'Montserrat';text-align:center;padding:19px 22px;border-radius:14px;min-height:56px;box-shadow:0 16px 40px rgba(22,215,218,.22)" style-hover="filter:brightness(1.08);transform:translateY(-1px)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        Agendar Consultoria Gratuita via WhatsApp
+      </a>
+      <div style="display:flex;flex-wrap:wrap;gap:18px 28px;margin-top:24px;font:500 12.5px 'JetBrains Mono';color:#7E8DA8">
+        <span>SEM COMPROMISSO</span><span>RESPOSTA IMEDIATA</span><span>GARANTIA 30 DIAS</span>
+      </div>
+    </div>
+    <div style="position:relative;display:flex;justify-content:center">
+      <div style="position:absolute;width:min(360px,80%);aspect-ratio:1;background:radial-gradient(circle,rgba(22,215,218,.26),transparent 66%);filter:blur(8px)"></div>
+      <div style="position:relative;width:100%;max-width:400px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:20px;backdrop-filter:blur(8px);animation:floaty 7s ease-in-out infinite">
+        <div style="display:flex;align-items:center;gap:11px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.09)">
+          <img src="assets/appicon-cyan.png" alt="" style="width:36px;height:36px;border-radius:10px">
+          <div style="flex:1"><div style="font:800 14px 'Montserrat';color:#fff">Agente Tapiti</div><div style="font:500 11px 'JetBrains Mono';color:#2ECC86">● online · 24h</div></div>
+          <div style="font:500 11px 'JetBrains Mono';color:#7E8DA8">0,8s</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;padding:18px 0 4px">
+          <div style="align-self:flex-end;max-width:84%;background:rgba(255,255,255,.08);border-radius:14px 14px 4px 14px;padding:12px 14px;font:400 13.5px/1.5 'Inter';color:#E6EDF7">Oi, vocês fazem site e atendimento automático?</div>
+          <div style="align-self:flex-start;max-width:88%;background:linear-gradient(135deg,rgba(22,215,218,.18),rgba(46,204,134,.14));border:1px solid rgba(22,215,218,.26);border-radius:14px 14px 14px 4px;padding:12px 14px;font:400 13.5px/1.5 'Inter';color:#E6EDF7">Fazemos os dois, integrados. Posso mapear sua operação em 3 perguntas e já reservar sua consultoria gratuita. Começamos?</div>
+          <div style="align-self:flex-start;display:flex;gap:8px;padding:2px 4px">
+            <span style="width:6px;height:6px;border-radius:50%;background:#16D7DA;animation:blink 1.4s ease-in-out infinite"></span>
+            <span style="width:6px;height:6px;border-radius:50%;background:#16D7DA;animation:blink 1.4s ease-in-out .2s infinite"></span>
+            <span style="width:6px;height:6px;border-radius:50%;background:#16D7DA;animation:blink 1.4s ease-in-out .4s infinite"></span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.09)">
+          <div style="background:rgba(0,27,77,.55);border-radius:10px;padding:10px"><div style="font:800 15px 'Montserrat';color:#16D7DA">24h</div><div style="font:500 9.5px 'JetBrains Mono';color:#7E8DA8;margin-top:2px">ATIVO</div></div>
+          <div style="background:rgba(0,27,77,.55);border-radius:10px;padding:10px"><div style="font:800 15px 'Montserrat';color:#2ECC86">+30%</div><div style="font:500 9.5px 'JetBrains Mono';color:#7E8DA8;margin-top:2px">LEADS</div></div>
+          <div style="background:rgba(0,27,77,.55);border-radius:10px;padding:10px"><div style="font:800 15px 'Montserrat';color:#fff">∞</div><div style="font:500 9.5px 'JetBrains Mono';color:#7E8DA8;margin-top:2px">SIMULT.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<sc-if value="{{ showLogos }}" hint-placeholder-val="{{ true }}">
+<section data-screen-label="Logos clientes" style="border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);background:#00061f;padding:clamp(32px,5vw,48px) 0;overflow:hidden">
+  <p style="font:500 12px 'JetBrains Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E8DA8;text-align:center;margin:0 0 26px;padding:0 20px">Operações que já escalam com a Tapiti Digital</p>
+  <div style="position:relative;display:flex;width:100%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)">
+    <div style="display:flex;gap:56px;padding-right:56px;flex:none;animation:marq 34s linear infinite;align-items:center">
+      <div style="flex:none;display:flex;gap:56px;align-items:center">
+        <sc-for list="{{ logos }}" as="logo" hint-placeholder-count="6">
+          <div style="flex:none;width:150px;height:46px;border-radius:8px;background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 6px,transparent 6px 12px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.09)">
+            <span style="font:500 10px 'JetBrains Mono';letter-spacing:.1em;color:#8792A6">{{ logo.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="flex:none;display:flex;gap:56px;align-items:center" aria-hidden="true">
+        <sc-for list="{{ logos }}" as="logo" hint-placeholder-count="6">
+          <div style="flex:none;width:150px;height:46px;border-radius:8px;background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 6px,transparent 6px 12px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.09)">
+            <span style="font:500 10px 'JetBrains Mono';letter-spacing:.1em;color:#8792A6">{{ logo.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<section data-screen-label="Métricas" style="background:#001B4D">
+  <div style="max-width:1160px;margin:0 auto;padding:clamp(44px,7vw,68px) clamp(16px,4vw,40px)">
+    <p style="font:600 12px 'JetBrains Mono';letter-spacing:.12em;text-transform:uppercase;color:#16D7DA;text-align:center;margin:0 0 34px">Tecnologia de ponta, resultados imediatos</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);border-radius:18px;overflow:hidden">
+      <div style="background:#001B4D;padding:28px 24px;text-align:center"><div style="font:900 clamp(30px,5vw,42px)/1 'Montserrat';color:#16D7DA;letter-spacing:-.02em">&lt; 3 segundos</div><div style="font:500 13px 'Inter';color:#9FB0CB;margin-top:10px">Tempo de resposta</div></div>
+      <div style="background:#001B4D;padding:28px 24px;text-align:center"><div style="font:900 clamp(30px,5vw,42px)/1 'Montserrat';color:#2ECC86;letter-spacing:-.02em">+30%</div><div style="font:500 13px 'Inter';color:#9FB0CB;margin-top:10px">Recuperação de leads perdidos</div></div>
+      <div style="background:#001B4D;padding:28px 24px;text-align:center"><div style="font:900 clamp(30px,5vw,42px)/1 'Montserrat';color:#fff;letter-spacing:-.02em">99,9%</div><div style="font:500 13px 'Inter';color:#9FB0CB;margin-top:10px">Uptime de sistemas</div></div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Problema" style="max-width:1160px;margin:0 auto;padding:clamp(64px,10vw,110px) clamp(16px,4vw,40px) clamp(20px,4vw,40px)">
+  <div style="font:600 12px 'JetBrains Mono';letter-spacing:.14em;text-transform:uppercase;color:#0E7C8C;margin-bottom:16px">O custo oculto</div>
+  <h2 style="font:800 clamp(27px,4.6vw,42px)/1.14 'Montserrat';letter-spacing:-.022em;margin:0 0 44px;max-width:22ch;text-wrap:pretty">O Amadorismo Digital Está Custando Seus Clientes.</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px">
+    <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:28px">
+      <div style="width:46px;height:46px;border-radius:13px;border:2px solid rgba(229,72,77,.5);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>
+      <h3 style="font:700 18px 'Montserrat';color:#fff;margin:0 0 10px">A Morte pela Demora</h3>
+      <p style="font:400 14.5px/1.62 'Inter';color:#9FB0CB;margin:0">78% dos clientes fecham com quem responde primeiro. Quantas vendas você perde por depender de atendimento humano sobrecarregado?</p>
+    </div>
+    <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:28px">
+      <div style="width:46px;height:46px;border-radius:13px;border:2px solid rgba(229,72,77,.5);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M7 9l4 5 3-3 5 6"></path></svg></div>
+      <h3 style="font:700 18px 'Montserrat';color:#fff;margin:0 0 10px">Invisibilidade no Google</h3>
+      <p style="font:400 14.5px/1.62 'Inter';color:#9FB0CB;margin:0">Sites lentos perdem 53% dos visitantes. Sem otimização, seu negócio não existe para novos clientes ou sistemas de IA.</p>
+    </div>
+    <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:28px">
+      <div style="width:46px;height:46px;border-radius:13px;border:2px solid rgba(229,72,77,.5);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg></div>
+      <h3 style="font:700 18px 'Montserrat';color:#fff;margin:0 0 10px">Vazamentos de Orçamento</h3>
+      <p style="font:400 14.5px/1.62 'Inter';color:#9FB0CB;margin:0">Tarefas manuais consomem até 40% do tempo da sua equipe, reduzindo o lucro e expondo dados a falhas amadoras.</p>
+    </div>
+  </div>
+</section>
+
+<section id="solucoes" data-screen-label="Solução" style="max-width:1160px;margin:0 auto;padding:clamp(56px,9vw,100px) clamp(16px,4vw,40px) clamp(20px,4vw,40px)">
+  <div style="font:600 12px 'JetBrains Mono';letter-spacing:.14em;text-transform:uppercase;color:#16D7DA;margin-bottom:16px">A solução Tapiti</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,56px);align-items:center;margin-bottom:clamp(40px,7vw,72px)">
+    <div>
+      <h3 style="font:800 clamp(23px,3.6vw,32px)/1.18 'Montserrat';letter-spacing:-.02em;margin:0 0 16px;text-wrap:pretty">Presença de Alta Autoridade</h3>
+      <p style="font:400 16.5px/1.64 'Inter';color:#B9C6DB;margin:0;max-width:52ch">Criação de sites ultrarrápidos e otimizados (SEO) para conversão. Páginas projetadas para ranquear seu negócio no topo do Google e servir como sua principal vitrine.</p>
+    </div>
+    <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:24px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:18px"><span style="width:9px;height:9px;border-radius:50%;background:#2ECC86"></span><span style="font:500 11px 'JetBrains Mono';color:#7E8DA8">CORE WEB VITALS</span></div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div><div style="display:flex;justify-content:space-between;font:500 12.5px 'Inter';color:#9FB0CB;margin-bottom:7px"><span>Performance</span><span style="font-family:'JetBrains Mono';color:#2ECC86">98</span></div><div style="height:7px;border-radius:4px;background:rgba(255,255,255,.08)"><div style="height:7px;width:98%;border-radius:4px;background:linear-gradient(90deg,#16D7DA,#2ECC86)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font:500 12.5px 'Inter';color:#9FB0CB;margin-bottom:7px"><span>SEO</span><span style="font-family:'JetBrains Mono';color:#2ECC86">100</span></div><div style="height:7px;border-radius:4px;background:rgba(255,255,255,.08)"><div style="height:7px;width:100%;border-radius:4px;background:linear-gradient(90deg,#16D7DA,#2ECC86)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font:500 12.5px 'Inter';color:#9FB0CB;margin-bottom:7px"><span>Acessibilidade</span><span style="font-family:'JetBrains Mono';color:#16D7DA">96</span></div><div style="height:7px;border-radius:4px;background:rgba(255,255,255,.08)"><div style="height:7px;width:96%;border-radius:4px;background:linear-gradient(90deg,#0E7C8C,#16D7DA)"></div></div></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.09);font:500 11px 'JetBrains Mono';color:#7E8DA8"><span>LCP 0,9s</span><span>CLS 0,00</span><span>TTFB 120ms</span></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,56px);align-items:center">
+    <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:24px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:18px"><span style="width:9px;height:9px;border-radius:50%;background:#16D7DA"></span><span style="font:500 11px 'JetBrains Mono';color:#7E8DA8">CANAIS ATIVOS</span></div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:12px;background:rgba(0,27,77,.5);border-radius:12px;padding:13px 15px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span style="flex:1;font:500 14px 'Inter';color:#E6EDF7">WhatsApp</span><span style="font:500 11px 'JetBrains Mono';color:#2ECC86">1.240 hoje</span></div>
+        <div style="display:flex;align-items:center;gap:12px;background:rgba(0,27,77,.5);border-radius:12px;padding:13px 15px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16D7DA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="6" cy="6" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="12" cy="18" r="2.5"></circle><path d="M6 8.5v3a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3M12 13.5v2"></path></svg><span style="flex:1;font:500 14px 'Inter';color:#E6EDF7">Redes sociais</span><span style="font:500 11px 'JetBrains Mono';color:#16D7DA">386 hoje</span></div>
+        <div style="display:flex;align-items:center;gap:12px;background:rgba(0,27,77,.5);border-radius:12px;padding:13px 15px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FB0CB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 20v-6M12 8V4M6 12H4M20 12h-2"></path><circle cx="12" cy="11" r="3"></circle></svg><span style="flex:1;font:500 14px 'Inter';color:#E6EDF7">Ligações</span><span style="font:500 11px 'JetBrains Mono';color:#9FB0CB">94 hoje</span></div>
+      </div>
+      <div style="margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.09);display:flex;justify-content:space-between;align-items:baseline"><span style="font:500 12px 'Inter';color:#9FB0CB">Leads qualificados</span><span style="font:800 22px 'Montserrat';color:#fff">1.720</span></div>
+    </div>
+    <div>
+      <h3 style="font:800 clamp(23px,3.6vw,32px)/1.18 'Montserrat';letter-spacing:-.02em;margin:0 0 16px;text-wrap:pretty">Agentes de IA Omnichannel</h3>
+      <p style="font:400 16.5px/1.64 'Inter';color:#B9C6DB;margin:0;max-width:52ch">Automação inteligente que qualifica leads e agenda clientes simultaneamente via WhatsApp, Redes Sociais e ligações. Suporta picos extremos de tráfego sem intervenção humana.</p>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:center;margin-top:clamp(40px,6vw,64px)">
+    <a href="{{ waLink }}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:440px;border:1.5px solid #16D7DA;color:#16D7DA;font:800 15px 'Montserrat';padding:17px 26px;border-radius:14px;min-height:54px;text-align:center" style-hover="background:rgba(22,215,218,.10)">Quero Blindar Meu Atendimento</a>
+  </div>
+</section>
+
+<section id="engenharia" data-screen-label="Pilares" style="max-width:1160px;margin:0 auto;padding:clamp(56px,9vw,100px) clamp(16px,4vw,40px) clamp(20px,4vw,40px)">
+  <div style="font:600 12px 'JetBrains Mono';letter-spacing:.14em;text-transform:uppercase;color:#0E7C8C;margin-bottom:16px">Os 4 pilares de engenharia</div>
+  <h2 style="font:800 clamp(27px,4.6vw,42px)/1.14 'Montserrat';letter-spacing:-.022em;margin:0 0 44px">O Padrão Enterprise</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px">
+    <div style="border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:30px;transition:border-color .25s,box-shadow .25s" style-hover="border-color:rgba(22,215,218,.55);box-shadow:0 0 34px rgba(22,215,218,.14)">
+      <div style="display:flex;align-items:center;gap:13px;margin-bottom:14px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#16D7DA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M13 2L4.5 12.5H11l-1 9.5 8.5-10.5H12z"></path></svg><h3 style="font:700 19px 'Montserrat';color:#fff;margin:0">Confiabilidade</h3></div>
+      <p style="font:400 14.5px/1.62 'Inter';color:#9FB0CB;margin:0">Zero latência. Microsserviços projetados para suportar picos extremos de mensagens sem engasgar ou travar.</p>
+    </div>
+    <div style="border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:30px;transition:border-color .25s,box-shadow .25s" style-hover="border-color:rgba(22,215,218,.55);box-shadow:0 0 34px rgba(22,215,218,.14)">
+      <div style="display:flex;align-items:center;gap:13px;margin-bottom:14px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#16D7DA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 3l7 3v6c0 4-3 7-7 8-4-1-7-4-7-8V6z"></path><path d="M9 12l2 2 4-4"></path></svg><h3 style="font:700 19px 'Montserrat';color:#fff;margin:0">Segurança</h3></div>
+      <p style="font:400 14.5px/1.62 'Inter';color:#9FB0CB;margin:0">Arquitetura blindada. Os dados do seu negócio e dos seus clientes transitam com criptografia de ponta a ponta e padrão de mercado financeiro.</p>
+    </div>
+    <div style="border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:30px;transition:border-color .25s,box-shadow .25s" style-hover="border-color:rgba(46,204,134,.55);box-shadow:0 0 34px rgba(46,204,134,.14)">
+      <div style="display:flex;align-items:center;gap:13px;margin-bottom:14px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 20v-6M12 8V4M6 12H4M20 12h-2"></path><circle cx="12" cy="11" r="3"></circle></svg><h3 style="font:700 19px 'Montserrat';color:#fff;margin:0">Agilidade</h3></div>
+      <p style="font:400 14.5px/1.62 'Inter';color:#9FB0CB;margin:0">Implementação <i>plug-and-play</i>. Seu novo ecossistema no ar em dias, não meses.</p>
+    </div>
+    <div style="border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:30px;transition:border-color .25s,box-shadow .25s" style-hover="border-color:rgba(46,204,134,.55);box-shadow:0 0 34px rgba(46,204,134,.14)">
+      <div style="display:flex;align-items:center;gap:13px;margin-bottom:14px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M3 3v18h18"></path><path d="M7 14l4-4 3 3 5-6"></path></svg><h3 style="font:700 19px 'Montserrat';color:#fff;margin:0">Inteligência</h3></div>
+      <p style="font:400 14.5px/1.62 'Inter';color:#9FB0CB;margin:0">Dashboards gerados por IA com métricas em tempo real sobre taxas de resposta e conversão.</p>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Processo" style="max-width:1160px;margin:0 auto;padding:clamp(56px,9vw,100px) clamp(16px,4vw,40px) clamp(20px,4vw,40px)">
+  <div style="font:600 12px 'JetBrains Mono';letter-spacing:.14em;text-transform:uppercase;color:#16D7DA;margin-bottom:16px">Implementação</div>
+  <h2 style="font:800 clamp(27px,4.6vw,42px)/1.14 'Montserrat';letter-spacing:-.022em;margin:0 0 44px">Como Escalamos Seu Negócio</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px">
+    <div style="border-top:2px solid rgba(22,215,218,.4);padding:24px 0 0">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><span style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#16D7DA,#2ECC86);color:#00082B;font:900 15px 'Montserrat';display:flex;align-items:center;justify-content:center;flex:none">1</span><h3 style="font:700 18px 'Montserrat';color:#fff;margin:0">Diagnóstico</h3></div>
+      <p style="font:400 14.5px/1.62 'Inter';color:#9FB0CB;margin:0">Mapeamento rápido e estruturado direto via WhatsApp.</p>
+    </div>
+    <div style="border-top:2px solid rgba(22,215,218,.4);padding:24px 0 0">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><span style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#16D7DA,#2ECC86);color:#00082B;font:900 15px 'Montserrat';display:flex;align-items:center;justify-content:center;flex:none">2</span><h3 style="font:700 18px 'Montserrat';color:#fff;margin:0">Adaptação Plug-and-Play</h3></div>
+      <p style="font:400 14.5px/1.62 'Inter';color:#9FB0CB;margin:0">Integramos a IA e a nova arquitetura diretamente na sua operação atual.</p>
+    </div>
+    <div style="border-top:2px solid rgba(46,204,134,.5);padding:24px 0 0">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><span style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#16D7DA,#2ECC86);color:#00082B;font:900 15px 'Montserrat';display:flex;align-items:center;justify-content:center;flex:none">3</span><h3 style="font:700 18px 'Montserrat';color:#fff;margin:0">Lançamento Seguro</h3></div>
+      <p style="font:400 14.5px/1.62 'Inter';color:#9FB0CB;margin:0">Testes rigorosos garantem a captação de clientes sem falhas logo no primeiro dia.</p>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Antes x Depois" style="max-width:1160px;margin:0 auto;padding:clamp(56px,9vw,100px) clamp(16px,4vw,40px) clamp(20px,4vw,40px)">
+  <div style="font:600 12px 'JetBrains Mono';letter-spacing:.14em;text-transform:uppercase;color:#0E7C8C;margin-bottom:16px">O impacto</div>
+  <h2 style="font:800 clamp(27px,4.6vw,42px)/1.14 'Montserrat';letter-spacing:-.022em;margin:0 0 44px;max-width:22ch;text-wrap:pretty">A Matemática de uma Operação Inteligente</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;align-items:start">
+    <div style="border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:26px;background:rgba(255,255,255,.025)">
+      <div style="font:700 15px 'Montserrat';color:#8792A6;margin-bottom:22px">Operação Amadora</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;gap:12px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2.4" stroke-linecap="round" style="flex:none;margin-top:3px"><path d="M18 6L6 18M6 6l12 12"></path></svg><div><div style="font:500 11px 'JetBrains Mono';color:#8792A6;margin-bottom:3px">DISPONIBILIDADE</div><div style="font:500 15px 'Inter';color:#8792A6">8h/dia</div></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2.4" stroke-linecap="round" style="flex:none;margin-top:3px"><path d="M18 6L6 18M6 6l12 12"></path></svg><div><div style="font:500 11px 'JetBrains Mono';color:#8792A6;margin-bottom:3px">TEMPO DE RESPOSTA</div><div style="font:500 15px 'Inter';color:#8792A6">45 minutos</div></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2.4" stroke-linecap="round" style="flex:none;margin-top:3px"><path d="M18 6L6 18M6 6l12 12"></path></svg><div><div style="font:500 11px 'JetBrains Mono';color:#8792A6;margin-bottom:3px">CAPACIDADE</div><div style="font:500 15px 'Inter';color:#8792A6">1 cliente por vez</div></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2.4" stroke-linecap="round" style="flex:none;margin-top:3px"><path d="M18 6L6 18M6 6l12 12"></path></svg><div><div style="font:500 11px 'JetBrains Mono';color:#8792A6;margin-bottom:3px">PRESENÇA DIGITAL</div><div style="font:500 15px 'Inter';color:#8792A6">Invisível no Google</div></div></div>
+      </div>
+    </div>
+    <div style="border:1px solid rgba(22,215,218,.45);border-radius:18px;padding:30px;background:linear-gradient(160deg,rgba(22,215,218,.10),rgba(46,204,134,.06));box-shadow:0 26px 60px rgba(0,0,0,.4)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:22px"><img src="assets/appicon-cyan.png" alt="" style="width:24px;height:24px;border-radius:7px"><span style="font:800 15px 'Montserrat';color:#fff">Operação Tapiti Digital</span></div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;gap:12px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><div><div style="font:500 11px 'JetBrains Mono';color:#7E8DA8;margin-bottom:3px">DISPONIBILIDADE</div><div style="font:700 16px 'Montserrat';color:#fff">24h/dia (IA)</div></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><div><div style="font:500 11px 'JetBrains Mono';color:#7E8DA8;margin-bottom:3px">TEMPO DE RESPOSTA</div><div style="font:700 16px 'Montserrat';color:#fff">Instantâneo</div></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><div><div style="font:500 11px 'JetBrains Mono';color:#7E8DA8;margin-bottom:3px">CAPACIDADE</div><div style="font:700 16px 'Montserrat';color:#fff">Simultâneo e Ilimitado</div></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><div><div style="font:500 11px 'JetBrains Mono';color:#7E8DA8;margin-bottom:3px">PRESENÇA DIGITAL</div><div style="font:700 16px 'Montserrat';color:#fff">Ranqueamento de Topo</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quem-somos" data-screen-label="Quem Somos" style="max-width:1160px;margin:0 auto;padding:clamp(56px,9vw,100px) clamp(16px,4vw,40px) clamp(20px,4vw,40px)">
+  <div style="font:600 12px 'JetBrains Mono';letter-spacing:.14em;text-transform:uppercase;color:#16D7DA;margin-bottom:16px">Quem somos</div>
+  <h2 style="font:800 clamp(25px,4.2vw,38px)/1.16 'Montserrat';letter-spacing:-.022em;margin:0 0 40px;max-width:26ch;text-wrap:pretty">A Intersecção entre Estratégia de Negócios e Engenharia de Alta Performance</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:36px">
+    <sc-for list="{{ founders }}" as="f" hint-placeholder-count="3">
+      <div>
+        <div style="aspect-ratio:1/1;border-radius:18px;border:1px solid rgba(255,255,255,.12);background:repeating-linear-gradient(135deg,rgba(255,255,255,.055) 0 8px,transparent 8px 16px);display:flex;align-items:center;justify-content:center;filter:grayscale(1)">
+          <span style="font:500 10.5px 'JetBrains Mono';letter-spacing:.08em;color:#8792A6;text-align:center;padding:0 12px">{{ f.slot }}</span>
+        </div>
+        <div style="font:700 15px 'Montserrat';color:#fff;margin-top:14px">{{ f.name }}</div>
+        <div style="font:500 12px 'JetBrains Mono';color:#7E8DA8;margin-top:3px">{{ f.role }}</div>
+      </div>
+    </sc-for>
+  </div>
+  <p style="font:400 clamp(15px,2vw,17px)/1.7 'Inter';color:#B9C6DB;margin:0;max-width:78ch;text-wrap:pretty">A Tapiti Digital nasce da união de três mentes estratégicas. Nossa liderança de negócios traz uma visão afiada para conversão e escalabilidade no mundo real. Nos bastidores, nossa força de engenharia possui vasta bagagem na construção de sistemas backend complexos, APIs REST, arquitetura de microsserviços em Java e ecossistema Spring Boot. Pegamos o rigor técnico, a segurança e a estabilidade exigidos pelo mercado financeiro corporativo e adaptamos esse poder de fogo exclusivamente para acelerar pequenos e médios negócios.</p>
+</section>
+
+<section data-screen-label="Garantia" style="margin-top:clamp(56px,9vw,100px);background:#001B4D;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)">
+  <div style="max-width:780px;margin:0 auto;padding:clamp(56px,9vw,88px) clamp(16px,4vw,40px);text-align:center">
+    <div style="width:64px;height:64px;margin:0 auto 26px;border-radius:18px;border:2px solid #2ECC86;display:flex;align-items:center;justify-content:center"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 7-7 8-4-1-7-4-7-8V6z"></path><path d="M9 12l2 2 4-4"></path></svg></div>
+    <h2 style="font:800 clamp(26px,4.4vw,40px)/1.14 'Montserrat';letter-spacing:-.022em;margin:0 0 20px">Garantia de Satisfação de 30 Dias</h2>
+    <p style="font:400 clamp(15px,2.1vw,17.5px)/1.68 'Inter';color:#B9C6DB;margin:0 auto 26px;max-width:62ch;text-wrap:pretty">Confiamos no nível enterprise da nossa arquitetura. Implemente a Tapiti na sua operação. Se em 30 dias a nossa tecnologia não transformar a velocidade do seu atendimento e a robustez da sua presença digital, nós devolvemos o seu investimento.</p>
+    <p style="font:400 13px/1.6 'Inter';color:#8792A6;margin:0;max-width:60ch;margin-inline:auto"><i>*Condições de cobertura aplicáveis. <a href="{{ waLink }}" target="_blank" rel="noopener" style="color:#16D7DA;text-decoration:underline">Chame nossa Inteligência Artificial no WhatsApp agora mesmo para consultar os termos exatos de forma transparente.</a></i></p>
+  </div>
+</section>
+
+<section data-screen-label="Conversão final" style="max-width:820px;margin:0 auto;padding:clamp(64px,11vw,120px) clamp(16px,4vw,40px);text-align:center">
+  <h2 style="font:900 clamp(30px,5.6vw,52px)/1.08 'Montserrat';letter-spacing:-.026em;margin:0 0 20px;text-wrap:pretty">Pronto para Escalar Sua Operação?</h2>
+  <p style="font:400 clamp(15px,2.2vw,18px)/1.66 'Inter';color:#B9C6DB;margin:0 auto 40px;max-width:56ch;text-wrap:pretty">Pare de perder vendas para o amadorismo. Clique abaixo e experimente a eficiência da nossa tecnologia agendando sua consultoria gratuita agora.</p>
+  <a href="{{ waLink }}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:12px;width:100%;max-width:540px;margin:0 auto;background:linear-gradient(135deg,#16D7DA,#2ECC86);color:#00082B;font:800 clamp(15px,2.4vw,18px)/1.25 'Montserrat';padding:24px 26px;border-radius:16px;min-height:68px;animation:pulsecta 2.6s ease-out infinite" style-hover="filter:brightness(1.08)">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    Falar com a Inteligência da Tapiti no WhatsApp
+  </a>
+</section>
+
+<footer style="background:#00061f;border-top:1px solid rgba(255,255,255,.08)">
+  <div style="max-width:1160px;margin:0 auto;padding:clamp(44px,7vw,64px) clamp(16px,4vw,40px) 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:36px">
+    <div>
+      <img src="assets/logo-6.png" alt="Tapiti Digital" style="height:28px;width:auto;filter:brightness(0) invert(1);margin-bottom:18px">
+      <div style="font:400 13.5px/1.7 'Inter';color:#8792A6">CNPJ: {{ cnpj }}<br>{{ cidade }}, Brasil.</div>
+    </div>
+    <div>
+      <div style="font:600 11.5px 'JetBrains Mono';letter-spacing:.1em;text-transform:uppercase;color:#8792A6;margin-bottom:16px">Legal</div>
+      <div style="display:flex;flex-direction:column;gap:10px;font:400 13.5px 'Inter'">
+        <a href="#" style="color:#9FB0CB" style-hover="color:#16D7DA">Termos de Uso</a>
+        <a href="#" style="color:#9FB0CB" style-hover="color:#16D7DA">Políticas de Privacidade</a>
+      </div>
+    </div>
+    <div>
+      <div style="font:600 11.5px 'JetBrains Mono';letter-spacing:.1em;text-transform:uppercase;color:#8792A6;margin-bottom:16px">Contato</div>
+      <div style="display:flex;flex-direction:column;gap:10px;font:400 13.5px 'Inter'">
+        <a href="mailto:contato@tapiti.digital" style="color:#9FB0CB" style-hover="color:#16D7DA">contato@tapiti.digital</a>
+        <a href="{{ waLink }}" target="_blank" rel="noopener" style="color:#16D7DA;display:flex;align-items:center;gap:8px" style-hover="color:#2ECC86"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Falar no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1160px;margin:0 auto;padding:22px clamp(16px,4vw,40px) 40px;border-top:1px solid rgba(255,255,255,.07)">
+    <div style="font:500 11.5px 'JetBrains Mono';color:#8792A6">© 2026 Tapiti Digital. Todos os direitos reservados.</div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;whatsappPhone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5511999999999&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Conversão&quot;},&quot;whatsappMessage&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Olá! Quero agendar a consultoria gratuita da Tapiti Digital.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Conversão&quot;},&quot;showLogos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Seções&quot;},&quot;cnpj&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;XX.XXX.XXX/0001-XX&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Rodapé&quot;},&quot;cidade&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;[Cidade/Sede]&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Rodapé&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const phone = (this.props.whatsappPhone ?? '5511999999999').replace(/\D/g, '');
+    const msg = this.props.whatsappMessage ?? 'Olá! Quero agendar a consultoria gratuita da Tapiti Digital.';
+    return {
+      waLink: 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg),
+      showLogos: this.props.showLogos ?? true,
+      cnpj: this.props.cnpj ?? 'XX.XXX.XXX/0001-XX',
+      cidade: this.props.cidade ?? '[Cidade/Sede]',
+      logos: [1, 2, 3, 4, 5, 6].map(n => ({ label: 'LOGO CLIENTE ' + n })),
+      founders: [
+        { slot: 'FOTO · FUNDADOR 1', name: 'Nome do Fundador', role: 'Estratégia de Negócios' },
+        { slot: 'FOTO · FUNDADOR 2', name: 'Nome do Fundador', role: 'Engenharia de Plataforma' },
+        { slot: 'FOTO · FUNDADOR 3', name: 'Nome do Fundador', role: 'Arquitetura & IA' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
