@@ -6,7 +6,7 @@ All notable changes to the Tapiti Digital landing page are documented here.
 
 ### Changed
 - Extracted inline `<style>` and `<script>` blocks from `index.html` into `assets/css/styles.css` and `assets/js/main.js`.
-- Moved images into `assets/images/` and updated all paths (including `Tapiti Landing Page.dc.html`).
+- Moved all images (including currently unused ones, kept for future use) into `assets/images/` and updated all paths (including `Tapiti Landing Page.dc.html`).
 - Footer headings "Legal" and "Contato" changed from `<h3>` to `<h2>` to fix the heading hierarchy (one `<h1>`, then `<h2>`, then `<h3>`); the CSS selector was renamed to match, so the look is unchanged.
 - `<title>` shortened to 56 characters and `<meta name="description">` set to 153 characters; `og:title` now matches the title.
 - Clearer HTML comment dividers between major sections.
@@ -14,9 +14,6 @@ All notable changes to the Tapiti Digital landing page are documented here.
 ### Performance
 - Added `loading="lazy"` to below-the-fold images (comparison icon, footer logo).
 - Script is loaded from `<head>` with `defer`.
-
-### Removed
-- Unused images: `appicon-paper`, `icon-navy`, `logo-2`, `logo-3`, `logo-4`, `logo-5`, `logo-7`.
 
 ### Notes
 - No visual, copy or functional changes to the page.
