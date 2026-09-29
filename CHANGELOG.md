@@ -3,6 +3,12 @@
 All notable changes to the Tapiti Digital landing page are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
+## [1.0.3] - 2026-09-28
+
+### Changed
+- Replaced the "Quem somos" placeholder photos with real portraits for two of the three founders (Estratégia de Negócios and Engenharia de Plataforma); the Arquitetura & IA slot keeps its placeholder for now.
+- `.founder__photo` now also styles an `<img>` (added `assets/founder-1.jpg`, `assets/founder-2.jpg`), filling the same square frame via `object-fit:cover` so the layout is unchanged.
+
 ## [1.0.2] - 2026-09-28
 
 ### Changed
