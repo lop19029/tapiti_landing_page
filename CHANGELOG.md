@@ -3,6 +3,18 @@
 All notable changes to the Tapiti Digital landing page are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
+## [1.0.4] - 2026-11-09
+
+### Changed
+- "A solução Tapiti" (`#solucoes`) redesigned per `design_handoff_showroom_produtos` into a showroom of five products under the heading "Nosso Ecossistema de Soluções":
+  - Desktop (≥861px): 6-column bento grid (Websites Otimizados, Atendimento com IA as the tall hero tile, Chat Bot Humanizado, Dashboard Administrativo Inteligente, ARM/CRM "Em breve" full width) with a cursor-following spotlight on each tile's fill and border.
+  - Mobile (≤860px): single-column stack; tiles enter in a staggered cascade and their icons draw themselves when the stack scrolls into view; the AI tile is a solid cyan→green block and the CRM tile a dashed "Em breve" card.
+- One tile tree serves both layouts (restyled by media queries), sharing the section's single `<h2>` and the `.section` / `.shell` / `.eyebrow` / `.h2` primitives.
+- The cascade is triggered by the page's existing scroll sweep instead of an `IntersectionObserver`, so jump-scrolls can't leave tiles hidden; it is skipped entirely under `prefers-reduced-motion`.
+
+### Removed
+- Old two-row zig-zag layout ("Presença de Alta Autoridade" / "Agentes de IA Omnichannel") with its Core Web Vitals and channels mock panels, and their `.zig`, `.panel`, `.bar-row`, `.bar` and `.chan` styles.
+
 ## [1.0.3] - 2026-09-28
 
 ### Changed
