@@ -31,6 +31,10 @@
   --teal-text:#1fa5b8;      /* accessible teal for small copy — 5.8:1 on navy */
   --green:#2ecc86;
   --red:#e5484d;
+  --red-accent:#ff6b6f;       /* fills + large display numbers, >7:1 on navy */
+  --red-loss:#ff3b41;         /* big loss numbers: pure alert red, ~5.6:1 on navy */
+  --red-text:#ff8a8d;         /* small red text, lighter tone for AA on navy */
+  --grey-bar:#5b6b88;
 
   --text-0:#ffffff;
   --text-1:#e4ebf3;
@@ -284,11 +288,17 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 .bubble--user{
   align-self:flex-end;background:var(--surface-2);
   border-radius:14px 14px 4px 14px;
+  opacity:0;transition:opacity .4s ease;
 }
+.bubble--user.is-in{opacity:1}
 .bubble--ai{
   align-self:flex-start;background:var(--grad-soft);
   border:1px solid rgba(22,215,218,.26);
   border-radius:14px 14px 14px 4px;
+}
+.bubble--ai.is-typing::after{
+  content:"";display:inline-block;width:2px;height:1em;margin-left:2px;
+  vertical-align:-2px;background:var(--cyan);animation:blink 1s steps(2) infinite;
 }
 .typing{display:flex;gap:7px;padding:4px 6px;align-self:flex-start}
 .typing span{
@@ -391,6 +401,68 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 .grid-1{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
 @media (min-width:640px){.grid-1.sm-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:960px){.grid-1.lg-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* ============ CUSTO OCULTO ============ */
+.custo__eyebrow{color:var(--red-text)}
+.custo__desk{display:none}
+.custo__link{display:inline-flex;align-items:center;min-height:44px;font:600 12.5px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);transition:color .2s var(--ease)}
+.custo__link:hover{color:var(--green)}
+
+/* mobile: stat-led list */
+.custo__intro{font-size:15px;line-height:1.6;color:var(--text-3);max-width:44ch;margin-bottom:clamp(36px,8vw,64px)}
+.custo .h2{margin-bottom:14px}
+.custo__stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:48px 40px}
+.custo__item{position:relative;border-top:1px solid rgba(255,255,255,.14);padding-top:28px}
+.custo__item::before{content:"";position:absolute;top:-2px;left:0;width:48px;height:3px;background:var(--red-accent)}
+.custo__lab{font:500 11px/1 var(--font-mono);letter-spacing:.12em;color:var(--text-4);margin-bottom:14px}
+.custo__num{display:flex;align-items:flex-start;margin-bottom:22px;font:900 clamp(64px,18vw,88px)/1 var(--font-display);letter-spacing:-.045em;color:var(--red-loss);text-shadow:0 0 44px rgba(255,59,65,.35)}
+.custo__num em{font-style:normal;font-size:.5em;margin-top:6px}
+.custo__item h3{font-weight:700;font-size:19px;line-height:1.3;margin-bottom:10px}
+.custo__item p:last-child{font-size:15px;line-height:1.62;color:var(--text-3)}
+
+/* desktop: interactive diagnostic */
+@media (min-width:861px){
+  .custo__intro{display:none}
+  .custo .h2{margin-bottom:clamp(28px,5vw,44px)}
+  .custo__mob{display:none}
+  .custo__desk{display:block}
+}
+.custo__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;align-items:stretch}
+.custo__tabs{display:flex;flex-direction:column;gap:8px}
+.custo__tab{
+  width:100%;min-height:64px;padding:18px 20px;
+  display:flex;align-items:center;gap:16px;text-align:left;cursor:pointer;
+  border:1px solid var(--line);border-radius:var(--r-md);background:transparent;
+  transition:background-color .2s var(--ease),border-color .2s var(--ease);
+}
+.custo__tab:hover{border-color:rgba(255,255,255,.28)}
+.custo__tnum{font:600 12px var(--font-mono);color:var(--text-4)}
+.custo__ttl{flex:1;font:700 16px/1.3 var(--font-display);color:var(--text-0)}
+.custo__tstat{font:800 18px var(--font-display);color:var(--text-4)}
+.custo__tab.is-active,.custo__tab.is-active:hover{background:rgba(255,107,111,.08);border-color:rgba(255,107,111,.45)}
+.custo__tab.is-active .custo__tnum{color:var(--red-accent)}
+.custo__tab.is-active .custo__tstat{color:var(--red-text)}
+.custo__panel{
+  display:flex;flex-direction:column;gap:24px;padding:28px;
+  border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.035);
+}
+.custo__ptop{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.custo__tag{font:500 11px var(--font-mono);letter-spacing:.12em;color:var(--text-4)}
+.custo__risk{display:flex;align-items:center;gap:8px;font:500 11px var(--font-mono);letter-spacing:.08em;color:var(--red-text)}
+.custo__risk i{width:7px;height:7px;border-radius:50%;background:var(--red-accent)}
+.custo__pstat{font:900 72px/1 var(--font-display);letter-spacing:-.04em;color:var(--red-loss);text-shadow:0 0 44px rgba(255,59,65,.35);margin-bottom:-10px}
+.custo__pcopy{font-size:15.5px;line-height:1.62;color:var(--text-2)}
+.custo__bars{margin-top:auto;display:flex;flex-direction:column;gap:14px}
+.custo__blab{display:flex;justify-content:space-between;gap:12px;margin-bottom:7px}
+.custo__blab span{font-size:12.5px;font-weight:500;color:var(--text-3)}
+.custo__blab b{font:500 12.5px var(--font-mono)}
+.custo__track{height:8px;border-radius:4px;background:rgba(255,255,255,.07);overflow:hidden}
+.custo__track i{display:block;height:100%;border-radius:4px;transition:width .5s ease}
+.custo__bars .is-red{color:var(--red-accent)}   .custo__track .is-red{background:var(--red-accent)}
+.custo__bars .is-green{color:var(--green)}      .custo__track .is-green{background:var(--green)}
+.custo__bars .is-grey{color:var(--text-4)}      .custo__track .is-grey{background:var(--grey-bar)}
+.custo__foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 24px;margin-top:28px}
+.custo__foot p{font-size:14px;font-weight:500;color:var(--text-3)}
 
 /* ============ SOLUTION (zig-zag) ============ */
 .zig{
@@ -539,6 +611,7 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
   font:500 10px var(--font-mono);letter-spacing:.08em;color:var(--text-4);
   text-align:center;padding:10px;
 }
+img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
 .founder__name{font:700 15px var(--font-display);margin-top:13px}
 .founder__role{font:500 11.5px var(--font-mono);color:var(--text-4);margin-top:3px}
 
@@ -703,11 +776,7 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
           </div>
           <div class="chat__ms">0,8s</div>
         </div>
-        <div class="chat__log">
-          <p class="bubble bubble--user">Oi, vocês fazem site e atendimento automático?</p>
-          <p class="bubble bubble--ai">Fazemos os dois, integrados. Posso mapear sua operação em 3 perguntas e já reservar sua consultoria gratuita. Começamos?</p>
-          <div class="typing" aria-hidden="true"><span></span><span></span><span></span></div>
-        </div>
+        <div class="chat__log" id="chatLog"></div>
         <div class="chat__stats">
           <div class="chat__stat"><b style="color:var(--cyan)">24h</b><small>ATIVO</small></div>
           <div class="chat__stat"><b style="color:var(--green)">+30%</b><small>LEADS</small></div>
@@ -765,26 +834,63 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 </section>
 
 <!-- PROBLEMA -->
-<section class="section" aria-labelledby="problema-h">
+<section class="section custo" aria-labelledby="problema-h">
   <div class="shell">
-    <p class="eyebrow is-muted">O custo oculto</p>
+    <!-- Header compartilhado: um único h2 para os dois layouts -->
+    <p class="eyebrow custo__eyebrow">O custo oculto</p>
     <h2 class="h2" id="problema-h" style="max-width:22ch">O Amadorismo Digital Está Custando Seus Clientes.</h2>
-    <div class="grid-1 sm-2 lg-3">
-      <article class="card reveal">
-        <div class="card__icon card__icon--warn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-        <h3>A Morte pela Demora</h3>
-        <p>78% dos clientes fecham com quem responde primeiro. Quantas vendas você perde por depender de atendimento humano sobrecarregado?</p>
-      </article>
-      <article class="card reveal">
-        <div class="card__icon card__icon--warn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 9l4 5 3-3 5 6"/></svg></div>
-        <h3>Invisibilidade no Google</h3>
-        <p>Sites lentos perdem 53% dos visitantes. Sem otimização, seu negócio não existe para novos clientes ou sistemas de IA.</p>
-      </article>
-      <article class="card reveal">
-        <div class="card__icon card__icon--warn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
-        <h3>Vazamentos de Orçamento</h3>
-        <p>Tarefas manuais consomem até 40% do tempo da sua equipe, reduzindo o lucro e expondo dados a falhas amadoras.</p>
-      </article>
+    <p class="custo__intro">Três perdas que não aparecem no extrato, mas pesam em cada mês de faturamento.</p>
+
+    <!-- Desktop: diagnóstico interativo -->
+    <div class="custo__desk">
+      <div class="custo__grid reveal">
+        <div class="custo__tabs" role="tablist" aria-label="Problemas" id="custoTabs">
+          <button type="button" class="custo__tab is-active" role="tab" aria-selected="true" aria-controls="custoPanel"><span class="custo__tnum">01</span><span class="custo__ttl">A Morte pela Demora</span><span class="custo__tstat">78%</span></button>
+          <button type="button" class="custo__tab" role="tab" aria-selected="false" aria-controls="custoPanel"><span class="custo__tnum">02</span><span class="custo__ttl">Invisibilidade no Google</span><span class="custo__tstat">53%</span></button>
+          <button type="button" class="custo__tab" role="tab" aria-selected="false" aria-controls="custoPanel"><span class="custo__tnum">03</span><span class="custo__ttl">Vazamentos de Orçamento</span><span class="custo__tstat">40%</span></button>
+        </div>
+        <div class="custo__panel" id="custoPanel" role="tabpanel" aria-live="polite">
+          <div class="custo__ptop">
+            <span class="custo__tag" id="custoTag">ATENDIMENTO</span>
+            <span class="custo__risk"><i></i>RISCO ALTO</span>
+          </div>
+          <div class="custo__pstat" id="custoStat">78%</div>
+          <p class="custo__pcopy" id="custoCopy">dos clientes fecham com quem responde primeiro. Atendimento humano sobrecarregado entrega essas vendas ao concorrente.</p>
+          <div class="custo__bars">
+            <div><div class="custo__blab"><span id="custoL1"></span><b id="custoV1"></b></div><div class="custo__track"><i id="custoF1"></i></div></div>
+            <div><div class="custo__blab"><span id="custoL2"></span><b id="custoV2"></b></div><div class="custo__track"><i id="custoF2"></i></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="custo__foot reveal">
+        <p>Os três têm a mesma causa: operação sem engenharia.</p>
+        <a href="#solucoes" class="custo__link">VER A SOLUÇÃO →</a>
+      </div>
+    </div>
+
+    <!-- Mobile: números em destaque -->
+    <div class="custo__mob">
+      <div class="custo__stats">
+        <article class="custo__item reveal">
+          <p class="custo__lab">01 · ATENDIMENTO</p>
+          <div class="custo__num">78<em>%</em></div>
+          <h3>A Morte pela Demora</h3>
+          <p>dos clientes fecham com quem responde primeiro. Atendimento humano sobrecarregado entrega essas vendas ao concorrente.</p>
+        </article>
+        <article class="custo__item reveal">
+          <p class="custo__lab">02 · PRESENÇA</p>
+          <div class="custo__num">53<em>%</em></div>
+          <h3>Invisibilidade no Google</h3>
+          <p>dos visitantes abandonam sites lentos. Sem otimização, seu negócio não aparece para novos clientes nem para sistemas de IA.</p>
+        </article>
+        <article class="custo__item reveal">
+          <p class="custo__lab">03 · OPERAÇÃO</p>
+          <div class="custo__num">40<em>%</em></div>
+          <h3>Vazamentos de Orçamento</h3>
+          <p>do tempo da equipe vai para tarefas manuais, reduzindo o lucro e expondo dados a falhas.</p>
+        </article>
+      </div>
+
     </div>
   </div>
 </section>
@@ -948,12 +1054,12 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
     <h2 class="h2" id="quem-h" style="max-width:26ch">A Intersecção entre Estratégia de Negócios e Engenharia de Alta Performance</h2>
     <div class="founders">
       <div class="founder reveal">
-        <div class="founder__photo">FOTO · FUNDADOR 1</div>
+        <img class="founder__photo" src="assets/founder-1.jpg" alt="Foto do fundador responsável por Estratégia de Negócios">
         <div class="founder__name">Nome do Fundador</div>
         <div class="founder__role">Estratégia de Negócios</div>
       </div>
       <div class="founder reveal">
-        <div class="founder__photo">FOTO · FUNDADOR 2</div>
+        <img class="founder__photo" src="assets/founder-2.jpg" alt="Foto do fundador responsável por Engenharia de Plataforma">
         <div class="founder__name">Nome do Fundador</div>
         <div class="founder__role">Engenharia de Plataforma</div>
       </div>
@@ -1027,6 +1133,138 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 <script>
 (function(){
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Custo oculto: diagnóstico interativo (desktop). Cores das barras vêm de classes CSS.
+  var problems = [
+    {tag:'ATENDIMENTO', stat:'78%', copy:'dos clientes fecham com quem responde primeiro. Atendimento humano sobrecarregado entrega essas vendas ao concorrente.',
+     bars:[{l:'Resposta · operação amadora',v:'45 min',w:100,c:'is-red'},{l:'Resposta · agente de IA',v:'< 3 s',w:3,c:'is-green'}]},
+    {tag:'PRESENÇA DIGITAL', stat:'53%', copy:'dos visitantes abandonam sites lentos. Sem otimização, seu negócio não aparece para novos clientes nem para sistemas de IA.',
+     bars:[{l:'Abandonam o site lento',v:'53%',w:53,c:'is-red'},{l:'Permanecem',v:'47%',w:47,c:'is-grey'}]},
+    {tag:'OPERAÇÃO', stat:'40%', copy:'do tempo da equipe vai para tarefas manuais, reduzindo o lucro e expondo dados a falhas amadoras.',
+     bars:[{l:'Tarefas manuais',v:'até 40%',w:40,c:'is-red'},{l:'Trabalho estratégico',v:'60%',w:60,c:'is-grey'}]}
+  ];
+  var problemTabs = [].slice.call(document.querySelectorAll('.custo__tab'));
+  function byId(id){ return document.getElementById(id); }
+  function selectProblem(i){
+    var it = problems[i];
+    problemTabs.forEach(function(t, k){
+      t.classList.toggle('is-active', k === i);
+      t.setAttribute('aria-selected', k === i ? 'true' : 'false');
+    });
+    byId('custoTag').textContent = it.tag;
+    byId('custoStat').textContent = it.stat;
+    byId('custoCopy').textContent = it.copy;
+    it.bars.forEach(function(b, k){
+      var n = k + 1, v = byId('custoV' + n), f = byId('custoF' + n);
+      byId('custoL' + n).textContent = b.l;
+      v.textContent = b.v; v.className = b.c;
+      f.className = b.c; f.style.width = b.w + '%';
+    });
+  }
+  if (problemTabs.length) {
+    problemTabs.forEach(function(t, k){ t.addEventListener('click', function(){ selectProblem(k); }); });
+    selectProblem(0);
+  }
+
+  // Hero chat: animated demo of a real Tapiti agent exchange
+  var chatLog = byId('chatLog');
+  if (chatLog) {
+    var chatScenarios = [
+      [
+        {sender:'user', text:'Olá! Sei que é tarde, mas preciso muito de uma consulta de urgência para meu filho amanhã.'},
+        {sender:'ai', text:'Boa noite! A equipe humana já foi dormir, mas fique tranquila que estou aqui 24h. Vamos cuidar do seu pequeno. Qual o nome dele e o que ele está sentindo?'}
+      ],
+      [
+        {sender:'ai', text:'Bom dia, apenas passando para lembrar do seu exame marcado para amanhã às 6h. Gostaria de revisar as recomendações de preparação para o exame?'},
+        {sender:'user', text:'Eita! Ja estava esquecendo. Pode confirmar. Muito obrigado.'}
+      ],
+      [
+        {sender:'user', text:'Fala, boa tarde! Consigo um horário pro corte e barba hoje no final da tarde?'},
+        {sender:'ai', text:'Boa tarde! Tenho um último encaixe hoje às 18h30. Já deixo reservado no seu nome ou prefere ver para amanhã?'}
+      ],
+      [
+        {sender:'user', text:'Bom dia. Recebi uma notificação do processo agora de manhã, o que eu faço? Estou muito preocupado.'},
+        {sender:'ai', text:'Bom dia. Fique calmo, já acessei o documento no sistema e nosso prazo está totalmente seguro. Quer que eu agende uma call rápida com o doutor hoje às 14h para te tranquilizar?'}
+      ],
+      [
+        {sender:'user', text:'Oi, quebrei um pedaço do dente almoçando agora. Tem como me atenderem de emergência hoje?'},
+        {sender:'ai', text:'Poxa, sinto muito! Fique tranquilo, a doutora tem uma janela para urgências às 15h. Pode vir direto para cá que cuidamos disso. Confirmo sua vinda?'}
+      ],
+      [
+        {sender:'user', text:'Boa noite! Queria fazer uma reserva para 8 pessoas no sábado, para comemorar um aniversário. Ainda tem mesa?'},
+        {sender:'ai', text:'Boa noite e parabéns adiantado para o aniversariante! Temos sim. Já bloqueei uma mesa excelente na varanda para sábado às 20h. Gostaria que eu enviasse nosso menu de grupos?'}
+      ],
+      [
+        {sender:'ai', text:'Boa tarde! A revisão do seu carro foi concluída e ele já está liberado. A lavagem externa é cortesia nossa. Que horas você prefere vir retirar?'},
+        {sender:'user', text:'Nossa, que maravilha! Muito obrigado. Passo aí por volta das 17h para buscar.'}
+      ]
+    ];
+
+    function addBubble(sender){
+      var bubble = document.createElement('p');
+      bubble.className = 'bubble bubble--' + sender;
+      chatLog.appendChild(bubble);
+      return bubble;
+    }
+
+    var chatScenario = chatScenarios[Math.floor(Math.random() * chatScenarios.length)];
+
+    if (reduced) {
+      chatScenario.forEach(function(msg){
+        var bubble = addBubble(msg.sender);
+        bubble.textContent = msg.text;
+        bubble.classList.add('is-in');
+      });
+    } else {
+      function chatAfter(fn, delay){ setTimeout(fn, delay); }
+
+      function typeChar(el, text, i, onDone){
+        el.textContent = text.slice(0, i);
+        if (i < text.length) {
+          chatAfter(function(){ typeChar(el, text, i + 1, onDone); }, 16 + Math.random() * 26);
+        } else if (onDone) {
+          onDone();
+        }
+      }
+
+      function showTyping(onDone){
+        var typing = document.createElement('div');
+        typing.className = 'typing';
+        typing.setAttribute('aria-hidden', 'true');
+        typing.innerHTML = '<span></span><span></span><span></span>';
+        chatLog.appendChild(typing);
+        chatAfter(function(){
+          typing.remove();
+          onDone();
+        }, 1700);
+      }
+
+      // AI messages always type themselves out; client messages always pop in statically.
+      function playMessage(i){
+        if (i >= chatScenario.length) return;
+        var msg = chatScenario[i];
+        chatAfter(function(){
+          if (msg.sender === 'ai') {
+            showTyping(function(){
+              var bubble = addBubble('ai');
+              bubble.classList.add('is-typing');
+              typeChar(bubble, msg.text, 0, function(){
+                bubble.classList.remove('is-typing');
+                playMessage(i + 1);
+              });
+            });
+          } else {
+            var bubble = addBubble('user');
+            bubble.textContent = msg.text;
+            requestAnimationFrame(function(){ bubble.classList.add('is-in'); });
+            chatAfter(function(){ playMessage(i + 1); }, 600);
+          }
+        }, i === 0 ? 500 : 600);
+      }
+
+      playMessage(0);
+    }
+  }
 
   // Header scrolled state + sticky mobile CTA
   var header = document.getElementById('header');
