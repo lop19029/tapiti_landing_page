@@ -339,18 +339,14 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
   mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
 }
 .marquee__track{
-  display:flex;gap:clamp(30px,6vw,56px);padding-right:clamp(30px,6vw,56px);
+  display:flex;gap:clamp(16px,3vw,36px);padding-right:clamp(16px,3vw,36px);
   flex:none;align-items:center;
   animation:marq 34s linear infinite;
 }
-@media (hover:hover){.marquee:hover .marquee__track{animation-play-state:paused}}
-.marquee__group{display:flex;gap:clamp(30px,6vw,56px);align-items:center;flex:none}
-.logo-slot{
-  flex:none;width:136px;height:44px;border-radius:8px;
-  border:1px solid rgba(255,255,255,.09);
-  background:repeating-linear-gradient(135deg,rgba(255,255,255,.06) 0 6px,transparent 6px 12px);
-  display:flex;align-items:center;justify-content:center;
-  font:500 9.5px var(--font-mono);letter-spacing:.1em;color:var(--text-4);
+.marquee__group{display:flex;gap:clamp(16px,3vw,36px);align-items:center;flex:none}
+.client-logo{
+  flex:none;width:auto;height:clamp(84px,10vw,108px);
+  opacity:.78;pointer-events:none;user-select:none;
 }
 /* ============ METRICS ============ */
 .metrics{background:var(--navy-700);position:relative;overflow:hidden}
@@ -464,54 +460,116 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 .custo__foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 24px;margin-top:28px}
 .custo__foot p{font-size:14px;font-weight:500;color:var(--text-3)}
 
-/* ============ SOLUTION (zig-zag) ============ */
-.zig{
-  display:grid;grid-template-columns:minmax(0,1fr);
-  gap:clamp(26px,5vw,52px);align-items:center;
+/* ============ SHOWROOM (soluções) ============ */
+.solucoes{background:var(--navy-900)}
+.solucoes .h2{max-width:20ch}
+
+/* mobile: stacked tiles with a staggered entrance */
+.showroom{display:flex;flex-direction:column;gap:12px}
+.tile{
+  transition:opacity .6s ease,transform .8s cubic-bezier(.2,.7,.2,1);
+  transition-delay:calc(var(--i,0) * 110ms);
 }
-.zig + .zig{margin-top:clamp(40px,7vw,72px)}
-.zig h3{
-  font-weight:800;font-size:clamp(22px,4.4vw,31px);
-  line-height:1.18;letter-spacing:-.022em;margin-bottom:14px;
+.tile__in{
+  position:relative;overflow:hidden;height:100%;
+  display:flex;flex-direction:column;gap:14px;
+  border-radius:var(--r-lg);padding:24px;
+  background:var(--navy-700);border:1.5px solid transparent;
 }
-.zig p{max-width:52ch}
-@media (min-width:900px){
-  .zig{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .zig--flip .zig__text{order:2}
-  .zig--flip .zig__panel{order:1}
+.tile__ghost{
+  position:absolute;right:12px;bottom:-24px;pointer-events:none;
+  font:900 110px/1 var(--font-display);letter-spacing:-.05em;color:rgba(255,255,255,.045);
+}
+.tile__head{position:relative;display:flex;align-items:center;gap:12px}
+.tile__icon{
+  width:44px;height:44px;border-radius:13px;flex:none;
+  display:flex;align-items:center;justify-content:center;
+  border:1.5px solid rgba(22,215,218,.5);color:var(--cyan);
+}
+.tile__icon svg{width:22px;height:22px}
+.tile__icon path{stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset 1.3s ease;transition-delay:calc(var(--i,0) * 110ms + 350ms)}
+.tile__num{display:none}
+.tile__main{position:relative;display:flex;flex-direction:column;gap:14px;flex:1;min-width:0}
+.tile__titlerow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tile h3{font-weight:800;font-size:19px;line-height:1.24;letter-spacing:-.02em;text-wrap:pretty}
+.tile__tag{font:600 11px var(--font-mono);letter-spacing:.08em;color:var(--green);margin-top:-6px}
+.tile__lead{font:700 16px/1.4 var(--font-display);color:var(--text-0)}
+.tile__sub{font:500 13.5px/1.45 var(--font-body);color:var(--text-3)}
+.tile__text{font-size:15px;line-height:1.62;color:var(--text-2);max-width:62ch;text-wrap:pretty}
+.tile__chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.tile__chips li{font:600 10.5px var(--font-mono);color:var(--navy-900);border:1.5px solid rgba(0,8,43,.28);border-radius:999px;padding:6px 10px}
+.tile__badge{font:600 10px var(--font-mono);letter-spacing:.1em;color:var(--navy-900);background:var(--text-3);border-radius:999px;padding:4px 8px}
+.tile__titlerow .tile__badge{display:none}
+
+.tile--web h3{font-size:22px}
+.tile--green .tile__icon{border-color:rgba(46,204,134,.5);color:var(--green)}
+.tile--hero .tile__in{background:linear-gradient(140deg,#16d7da,#2ecc86)}
+.tile--hero .tile__ghost{color:rgba(0,8,43,.12)}
+.tile--hero .tile__icon{background:var(--navy-900);border-color:transparent;color:var(--cyan)}
+.tile--hero h3{font-size:21px;color:var(--navy-900)}
+.tile--hero .tile__lead{color:var(--navy-900)}
+.tile--hero .tile__text{color:#04264a}
+.tile--soon .tile__in{background:transparent;border:1.5px dashed rgba(255,255,255,.18)}
+.tile--soon .tile__icon{border-color:rgba(255,255,255,.2);color:#7e8da8}
+.tile--soon h3{color:#c9d3e3}
+.tile--soon .tile__text{color:var(--text-4)}
+
+.showroom__cta{margin-top:32px}
+.showroom__cta .btn{border-color:var(--cyan);min-height:54px;padding:16px 20px}
+
+/* hidden until the stack scrolls into view (class added by JS, never without it) */
+@media (max-width:860px){
+  .showroom.is-armed:not(.is-shown) .tile{opacity:0;transform:translateY(28px) scale(.98)}
+  .showroom.is-armed:not(.is-shown) .tile__icon path{stroke-dashoffset:1}
 }
 
-.panel{
-  background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--r-lg);padding:22px;min-width:0;
-}
-.panel__head{display:flex;align-items:center;gap:8px;margin-bottom:16px}
-.panel__head span:last-child{font:500 10.5px var(--font-mono);letter-spacing:.09em;color:var(--text-4)}
-.pip{width:9px;height:9px;border-radius:50%;flex:none}
+/* desktop: bento grid with a cursor-following spotlight */
+@media (min-width:861px){
+  .showroom{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
+  .tile{
+    --glow:rgba(22,215,218,.8);--tint:rgba(22,215,218,.11);
+    grid-column:span 2;border-radius:var(--r-lg);padding:1px;transition:none;
+    background:radial-gradient(340px circle at var(--mx,50%) var(--my,-60%),var(--glow),rgba(255,255,255,.09) 72%);
+  }
+  .tile__in{
+    overflow:visible;border:0;border-radius:19px;gap:20px;
+    padding:clamp(24px,3vw,34px);
+    background:radial-gradient(520px circle at var(--mx,50%) var(--my,-60%),var(--tint),transparent 55%),#040e36;
+  }
+  .tile__ghost,.tile__head .tile__badge{display:none}
+  .tile__titlerow .tile__badge{display:inline-block;font-size:10.5px;padding:4px 9px}
+  .tile__head{justify-content:space-between;gap:14px}
+  .tile__icon{width:48px;height:48px;border-radius:14px;border-color:rgba(22,215,218,.45)}
+  .tile__icon svg{width:24px;height:24px}
+  .tile__icon path{transition:none}
+  .tile__num{display:block;font:500 11px var(--font-mono);letter-spacing:.1em;color:#7e8da8}
+  .tile h3{font-size:20px;line-height:1.22}
+  .tile__tag{font-size:12px}
+  .tile__lead{font-weight:600;font-size:17px;line-height:1.45}
+  .tile__sub{line-height:1.4;margin-top:-6px}
+  .tile__text{font-size:15.5px;line-height:1.64;color:var(--text-3)}
+  .tile__chips{margin-top:auto;gap:8px}
+  .tile__chips li{font-weight:500;font-size:11px;color:#e6edf7;border-width:1px;border-color:rgba(255,255,255,.16);padding:6px 11px}
 
-.bar-row{margin-bottom:13px}
-.bar-row:last-child{margin-bottom:0}
-.bar-row__top{
-  display:flex;justify-content:space-between;gap:12px;
-  font-size:12.5px;color:var(--text-3);margin-bottom:6px;
-}
-.bar-row__top b{font:500 12.5px var(--font-mono);font-variant-numeric:tabular-nums}
-.bar{height:7px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
-.bar i{display:block;height:100%;border-radius:4px;background:var(--grad)}
-.panel__foot{
-  display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:space-between;
-  margin-top:18px;padding-top:15px;border-top:1px solid var(--line);
-  font:500 10.5px var(--font-mono);color:var(--text-4);
-}
+  .tile--web{grid-column:1 / span 4}
+  .tile--web h3{font-size:28px}
+  .tile--web .tile__text{color:var(--text-2)}
+  .tile--bot{grid-column:1 / span 2}
+  .tile--dash{grid-column:3 / span 2}
+  .tile--green{--glow:rgba(46,204,134,.8);--tint:rgba(46,204,134,.10)}
+  .tile--green .tile__icon{border-color:rgba(46,204,134,.45)}
+  .tile--hero{grid-column:5 / span 2;grid-row:1 / span 2}
+  .tile--hero .tile__in{background:radial-gradient(520px circle at var(--mx,50%) var(--my,-60%),rgba(22,215,218,.16),transparent 60%),linear-gradient(165deg,#062a52,#04173f 60%,#040e36)}
+  .tile--hero .tile__icon{background:var(--grad);color:var(--navy-900)}
+  .tile--hero h3{font-size:24px;color:var(--text-0)}
+  .tile--hero .tile__lead{color:var(--text-0)}
+  .tile--hero .tile__text{color:var(--text-2)}
+  .tile--soon{grid-column:1 / span 6;opacity:.8;--glow:rgba(159,176,203,.45);--tint:rgba(159,176,203,.06)}
+  .tile--soon .tile__in{flex-direction:row;align-items:center;border:0;background:radial-gradient(520px circle at var(--mx,50%) var(--my,-60%),var(--tint),transparent 55%),#040e36}
 
-.chan{
-  display:flex;align-items:center;gap:11px;
-  background:rgba(0,27,77,.5);border-radius:12px;padding:12px 14px;
-  margin-bottom:9px;
+  .showroom__cta{display:flex;justify-content:center;margin-top:56px}
+  .showroom__cta .btn{max-width:440px;padding:17px 26px}
 }
-.chan:last-of-type{margin-bottom:0}
-.chan span:nth-child(2){flex:1;min-width:0;font-size:14px;color:var(--text-1)}
-.chan b{font:500 10.5px var(--font-mono);font-variant-numeric:tabular-nums;flex:none}
 
 /* ============ PILLARS (bento) ============ */
 .pillars{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
@@ -559,15 +617,36 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 .step h3{font-weight:700;font-size:17.5px;margin-bottom:8px;padding-top:7px}
 .step p{font-size:15px;line-height:1.64;color:var(--text-3)}
 
+/* entrance: each circle pops in with a pulse ring, its copy rises, then the connector draws to the next step */
+.step__num::after{
+  content:"";position:absolute;inset:-6px;border-radius:50%;
+  border:2px solid var(--cyan);opacity:0;pointer-events:none;
+}
+.step::before{transform-origin:top center}
+.step__num,.step::before,.step h3,.step p{
+  transition:opacity .45s var(--ease),transform .55s cubic-bezier(.34,1.56,.64,1);
+  transition-delay:calc(var(--i,0) * 650ms);
+}
+.step h3{transition-delay:calc(var(--i,0) * 650ms + 120ms)}
+.step p{transition-delay:calc(var(--i,0) * 650ms + 200ms)}
+.step::before{transition:transform .5s var(--ease);transition-delay:calc(var(--i,0) * 650ms + 300ms)}
+.steps.is-armed:not(.is-shown) .step__num{opacity:0;transform:scale(.4)}
+.steps.is-armed:not(.is-shown) .step h3,
+.steps.is-armed:not(.is-shown) .step p{opacity:0;transform:translateY(12px)}
+.steps.is-armed:not(.is-shown) .step::before{transform:scaleY(0)}
+.steps.is-shown .step__num::after{animation:stepring .9s ease-out both;animation-delay:calc(var(--i,0) * 650ms + 150ms)}
+
 @media (min-width:860px){
   .steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
   .step{padding:0}
   /* circle returns to normal flow so the heading can never sit under it */
-  .step__num{position:static;margin-bottom:20px}
+  .step__num{position:relative;margin-bottom:20px}
   .step::before{
     left:50px;right:-28px;top:18px;bottom:auto;width:auto;height:2px;
     background:linear-gradient(90deg,rgba(22,215,218,.5),rgba(46,204,134,.12));
+    transform-origin:left center;
   }
+  .steps.is-armed:not(.is-shown) .step::before{transform:scaleX(0)}
   .step h3{padding-top:0}
 }
 
@@ -697,6 +776,7 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes trailpulse{0%,100%{opacity:.42}50%{opacity:.72}}
 @keyframes pulsecta{0%,100%{box-shadow:0 0 0 0 rgba(46,204,134,.42)}50%{box-shadow:0 0 0 18px rgba(46,204,134,0)}}
+@keyframes stepring{0%{opacity:.85;transform:scale(.85)}100%{opacity:0;transform:scale(1.55)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.22}}
 
 @media (prefers-reduced-motion:reduce){
@@ -793,20 +873,28 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
   <div class="marquee" id="marquee">
     <div class="marquee__track">
       <div class="marquee__group">
-        <div class="logo-slot">LOGO CLIENTE 1</div>
-        <div class="logo-slot">LOGO CLIENTE 2</div>
-        <div class="logo-slot">LOGO CLIENTE 3</div>
-        <div class="logo-slot">LOGO CLIENTE 4</div>
-        <div class="logo-slot">LOGO CLIENTE 5</div>
-        <div class="logo-slot">LOGO CLIENTE 6</div>
+        <img class="client-logo" src="assets/company-logos/logo-1.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-2.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-3.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-4.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-5.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-6.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-7.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-8.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-9.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-10.png" alt="Logo de cliente" width="500" height="500" decoding="async">
       </div>
       <div class="marquee__group" aria-hidden="true">
-        <div class="logo-slot">LOGO CLIENTE 1</div>
-        <div class="logo-slot">LOGO CLIENTE 2</div>
-        <div class="logo-slot">LOGO CLIENTE 3</div>
-        <div class="logo-slot">LOGO CLIENTE 4</div>
-        <div class="logo-slot">LOGO CLIENTE 5</div>
-        <div class="logo-slot">LOGO CLIENTE 6</div>
+        <img class="client-logo" src="assets/company-logos/logo-1.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-2.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-3.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-4.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-5.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-6.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-7.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-8.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-9.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-10.png" alt="" width="500" height="500" decoding="async">
       </div>
     </div>
   </div>
@@ -896,62 +984,95 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
 </section>
 
 <!-- SOLUÇÃO -->
-<section id="solucoes" class="section" aria-labelledby="soluc-h">
+<section id="solucoes" class="section solucoes" aria-labelledby="soluc-h">
   <div class="shell">
     <p class="eyebrow">A solução Tapiti</p>
-    <h2 class="h2" id="soluc-h" style="max-width:20ch">Dois Motores, Uma Operação Blindada.</h2>
+    <h2 class="h2" id="soluc-h">Nosso Ecossistema de Soluções</h2>
 
-    <div class="zig reveal">
-      <div class="zig__text">
-        <h3>Presença de Alta Autoridade</h3>
-        <p class="lead">Criação de sites ultrarrápidos e otimizados (SEO) para conversão. Páginas projetadas para ranquear seu negócio no topo do Google e servir como sua principal vitrine.</p>
-      </div>
-      <div class="zig__panel panel">
-        <div class="panel__head"><span class="pip" style="background:var(--green)"></span><span>CORE WEB VITALS</span></div>
-        <div class="bar-row">
-          <div class="bar-row__top"><span>Performance</span><b style="color:var(--green)">98</b></div>
-          <div class="bar"><i style="width:98%"></i></div>
+    <!-- Showroom: bento com spotlight (desktop) / pilha em cascata (mobile) -->
+    <div class="showroom" id="showroom">
+      <article class="tile tile--web" style="--i:0">
+        <div class="tile__in">
+          <span class="tile__ghost" aria-hidden="true">01</span>
+          <div class="tile__head">
+            <span class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg></span>
+            <span class="tile__num" aria-hidden="true">01</span>
+          </div>
+          <div class="tile__main">
+            <div class="tile__titlerow"><h3>Websites Otimizados</h3></div>
+            <p class="tile__tag">SEO &amp; CONVERSÃO</p>
+            <p class="tile__text">Transforme seu negócio na principal autoridade local do Google. Desenvolvemos páginas ultrarrápidas, à prova de quedas e desenhadas com um único objetivo estrutural: converter visitantes em clientes pagantes.</p>
+          </div>
         </div>
-        <div class="bar-row">
-          <div class="bar-row__top"><span>SEO</span><b style="color:var(--green)">100</b></div>
-          <div class="bar"><i style="width:100%"></i></div>
+      </article>
+
+      <article class="tile tile--hero" style="--i:1">
+        <div class="tile__in">
+          <span class="tile__ghost" aria-hidden="true">02</span>
+          <div class="tile__head">
+            <span class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span>
+            <span class="tile__num" aria-hidden="true">02</span>
+          </div>
+          <div class="tile__main">
+            <div class="tile__titlerow"><h3>Atendimento de Chat e Ligação Automatizado com IA</h3></div>
+            <p class="tile__lead">O motor da sua escalabilidade.</p>
+            <p class="tile__text">Agentes de Inteligência Artificial Omnichannel que atendem, qualificam e agendam clientes simultaneamente via WhatsApp, Redes Sociais e ligações telefônicas. Respostas instantâneas e suporte a picos extremos sem necessidade de intervenção humana.</p>
+            <ul class="tile__chips" aria-label="Canais">
+              <li>WHATSAPP</li>
+              <li>REDES SOCIAIS</li>
+              <li>TELEFONE</li>
+            </ul>
+          </div>
         </div>
-        <div class="bar-row">
-          <div class="bar-row__top"><span>Acessibilidade</span><b style="color:var(--cyan)">96</b></div>
-          <div class="bar"><i style="width:96%;background:linear-gradient(90deg,#0E7C8C,#16D7DA)"></i></div>
+      </article>
+
+      <article class="tile tile--bot" style="--i:2">
+        <div class="tile__in">
+          <span class="tile__ghost" aria-hidden="true">03</span>
+          <div class="tile__head">
+            <span class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2zM8 10h.01M12 10h.01M16 10h.01"/></svg></span>
+            <span class="tile__num" aria-hidden="true">03</span>
+          </div>
+          <div class="tile__main">
+            <div class="tile__titlerow"><h3>Chat Bot Humanizado</h3></div>
+            <p class="tile__text">Esqueça os menus robóticos frustrantes. Nossos fluxos de conversação são treinados para interpretar intenções, mantendo um diálogo fluido, natural e empático que retém o cliente até o fechamento da venda.</p>
+          </div>
         </div>
-        <div class="panel__foot"><span>LCP 0,9s</span><span>CLS 0,00</span><span>TTFB 120ms</span></div>
-      </div>
+      </article>
+
+      <article class="tile tile--dash tile--green" style="--i:3">
+        <div class="tile__in">
+          <span class="tile__ghost" aria-hidden="true">04</span>
+          <div class="tile__head">
+            <span class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M3 3v18h18M7 16v-4M12 16V8M17 16v-7"/></svg></span>
+            <span class="tile__num" aria-hidden="true">04</span>
+          </div>
+          <div class="tile__main">
+            <div class="tile__titlerow"><h3>Dashboard Administrativo Inteligente</h3></div>
+            <p class="tile__text">O centro de comando da sua operação. Acompanhe métricas de conversão em tempo real, volume de chamados por IA e horários de pico. Dados acionáveis para você tomar decisões de mercado baseadas em matemática, não em achismos.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="tile tile--soon" style="--i:4">
+        <div class="tile__in">
+          <span class="tile__ghost" aria-hidden="true">05</span>
+          <div class="tile__head">
+            <span class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>
+            <span class="tile__num" aria-hidden="true">05</span>
+            <span class="tile__badge" aria-hidden="true">EM BREVE</span>
+          </div>
+          <div class="tile__main">
+            <div class="tile__titlerow"><h3>ARM/CRM</h3><span class="tile__badge">EM BREVE</span></div>
+            <p class="tile__sub">Automação de Relacionamento e Gestão de Clientes.</p>
+            <p class="tile__text">O próximo passo evolutivo da Tapiti. Um CRM integrado nativamente aos seus agentes de IA, mapeando toda a jornada do seu cliente desde o primeiro clique até a recompra.</p>
+          </div>
+        </div>
+      </article>
     </div>
 
-    <div class="zig zig--flip reveal">
-      <div class="zig__text">
-        <h3>Agentes de IA Omnichannel</h3>
-        <p class="lead">Automação inteligente que qualifica leads e agenda clientes simultaneamente via WhatsApp, Redes Sociais e ligações. Suporta picos extremos de tráfego sem intervenção humana.</p>
-      </div>
-      <div class="zig__panel panel">
-        <div class="panel__head"><span class="pip" style="background:var(--cyan)"></span><span>CANAIS ATIVOS</span></div>
-        <div class="chan">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          <span>WhatsApp</span><b style="color:var(--green)">1.240 hoje</b>
-        </div>
-        <div class="chan">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16D7DA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M6 8.5v3a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3M12 13.5v2"/></svg>
-          <span>Redes sociais</span><b style="color:var(--cyan)">386 hoje</b>
-        </div>
-        <div class="chan">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FB0CB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-6M12 8V4M6 12H4M20 12h-2"/><circle cx="12" cy="11" r="3"/></svg>
-          <span>Ligações</span><b style="color:var(--text-3)">94 hoje</b>
-        </div>
-        <div class="panel__foot" style="align-items:baseline">
-          <span style="font-family:var(--font-body);font-size:12px;color:var(--text-3)">Leads qualificados</span>
-          <span style="font:800 21px var(--font-display);color:var(--text-0)">1.720</span>
-        </div>
-      </div>
-    </div>
-
-    <div style="display:flex;justify-content:center;margin-top:clamp(40px,6vw,64px)">
-      <a class="btn btn--ghost btn--block" style="max-width:440px" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">Quero Blindar Meu Atendimento</a>
+    <div class="showroom__cta">
+      <a class="btn btn--ghost btn--block" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">Quero Blindar Meu Atendimento</a>
     </div>
   </div>
 </section>
@@ -999,18 +1120,18 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
   <div class="shell">
     <p class="eyebrow">Implementação</p>
     <h2 class="h2" id="processo-h">Como Escalamos Seu Negócio</h2>
-    <div class="steps">
-      <article class="step reveal">
+    <div class="steps" id="steps">
+      <article class="step" style="--i:0">
         <div class="step__num">1</div>
         <h3>Diagnóstico</h3>
         <p>Mapeamento rápido e estruturado direto via WhatsApp.</p>
       </article>
-      <article class="step reveal">
+      <article class="step" style="--i:1">
         <div class="step__num">2</div>
         <h3>Adaptação Plug-and-Play</h3>
         <p>Integramos a IA e a nova arquitetura diretamente na sua operação atual.</p>
       </article>
-      <article class="step reveal">
+      <article class="step" style="--i:2">
         <div class="step__num">3</div>
         <h3>Lançamento Seguro</h3>
         <p>Testes rigorosos garantem a captação de clientes sem falhas logo no primeiro dia.</p>
@@ -1166,6 +1287,28 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
     selectProblem(0);
   }
 
+  // Showroom: spotlight follows the cursor on each tile (desktop). Dividing by the
+  // rendered/layout width ratio keeps it aligned under CSS transforms or zoom.
+  var showroom = byId('showroom');
+  if (showroom) {
+    [].slice.call(showroom.querySelectorAll('.tile')).forEach(function(tile){
+      tile.addEventListener('mousemove', function(e){
+        var r = tile.getBoundingClientRect(), s = r.width / tile.offsetWidth || 1;
+        tile.style.setProperty('--mx', ((e.clientX - r.left) / s) + 'px');
+        tile.style.setProperty('--my', ((e.clientY - r.top) / s) + 'px');
+      });
+      tile.addEventListener('mouseleave', function(){
+        tile.style.setProperty('--mx', '50%');
+        tile.style.setProperty('--my', '-60%');
+      });
+    });
+  }
+
+  // Entrance sequences (showroom cascade on mobile, implementation steps): content stays
+  // hidden only while armed, and the scroll sweep below plays each one once.
+  var sequences = reduced ? [] : [showroom, byId('steps')].filter(Boolean);
+  sequences.forEach(function(el){ el.classList.add('is-armed'); });
+
   // Hero chat: animated demo of a real Tapiti agent exchange
   var chatLog = byId('chatLog');
   if (chatLog) {
@@ -1315,6 +1458,11 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
       runCounter(el);
       return false;
     });
+    sequences = sequences.filter(function(el){
+      if (el.getBoundingClientRect().top >= vh * 0.85) return true;
+      el.classList.add('is-shown');
+      return false;
+    });
   }
 
   var ticking = false;
@@ -1326,7 +1474,7 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
       var atEnd = window.innerHeight + window.scrollY > document.body.offsetHeight - 240;
       sticky.classList.toggle('is-visible', past && !atEnd);
     }
-    if (revealEls.length || counters.length) sweep();
+    if (revealEls.length || counters.length || sequences.length) sweep();
   }
   function schedule(){
     if (!ticking) { ticking = true; requestAnimationFrame(onFrame); }
