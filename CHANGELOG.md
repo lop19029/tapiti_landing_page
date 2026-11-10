@@ -14,6 +14,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versio
 
 - Client marquee now shows the ten real client logos (`assets/company-logos/logo-1.png` … `logo-10.png`) instead of the "LOGO CLIENTE" placeholders, with tighter spacing to compensate for the padding built into the square PNGs.
 - The marquee no longer pauses on hover.
+- "Implementação" steps now play an entrance sequence when scrolled into view: each numbered circle pops in with a pulse ring, its title and copy rise in, then the connector draws toward the next step (vertical on mobile, horizontal on desktop). Replaces the generic `.reveal` fade on those steps; skipped under `prefers-reduced-motion`.
+- The scroll sweep now plays a list of armed entrance sequences (showroom cascade and steps) instead of a single hard-coded element.
 
 ### Removed
 - `.logo-slot` placeholder styles.

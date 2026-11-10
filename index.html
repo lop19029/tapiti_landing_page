@@ -617,15 +617,36 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 .step h3{font-weight:700;font-size:17.5px;margin-bottom:8px;padding-top:7px}
 .step p{font-size:15px;line-height:1.64;color:var(--text-3)}
 
+/* entrance: each circle pops in with a pulse ring, its copy rises, then the connector draws to the next step */
+.step__num::after{
+  content:"";position:absolute;inset:-6px;border-radius:50%;
+  border:2px solid var(--cyan);opacity:0;pointer-events:none;
+}
+.step::before{transform-origin:top center}
+.step__num,.step::before,.step h3,.step p{
+  transition:opacity .45s var(--ease),transform .55s cubic-bezier(.34,1.56,.64,1);
+  transition-delay:calc(var(--i,0) * 650ms);
+}
+.step h3{transition-delay:calc(var(--i,0) * 650ms + 120ms)}
+.step p{transition-delay:calc(var(--i,0) * 650ms + 200ms)}
+.step::before{transition:transform .5s var(--ease);transition-delay:calc(var(--i,0) * 650ms + 300ms)}
+.steps.is-armed:not(.is-shown) .step__num{opacity:0;transform:scale(.4)}
+.steps.is-armed:not(.is-shown) .step h3,
+.steps.is-armed:not(.is-shown) .step p{opacity:0;transform:translateY(12px)}
+.steps.is-armed:not(.is-shown) .step::before{transform:scaleY(0)}
+.steps.is-shown .step__num::after{animation:stepring .9s ease-out both;animation-delay:calc(var(--i,0) * 650ms + 150ms)}
+
 @media (min-width:860px){
   .steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
   .step{padding:0}
   /* circle returns to normal flow so the heading can never sit under it */
-  .step__num{position:static;margin-bottom:20px}
+  .step__num{position:relative;margin-bottom:20px}
   .step::before{
     left:50px;right:-28px;top:18px;bottom:auto;width:auto;height:2px;
     background:linear-gradient(90deg,rgba(22,215,218,.5),rgba(46,204,134,.12));
+    transform-origin:left center;
   }
+  .steps.is-armed:not(.is-shown) .step::before{transform:scaleX(0)}
   .step h3{padding-top:0}
 }
 
@@ -755,6 +776,7 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes trailpulse{0%,100%{opacity:.42}50%{opacity:.72}}
 @keyframes pulsecta{0%,100%{box-shadow:0 0 0 0 rgba(46,204,134,.42)}50%{box-shadow:0 0 0 18px rgba(46,204,134,0)}}
+@keyframes stepring{0%{opacity:.85;transform:scale(.85)}100%{opacity:0;transform:scale(1.55)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.22}}
 
 @media (prefers-reduced-motion:reduce){
@@ -1098,18 +1120,18 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
   <div class="shell">
     <p class="eyebrow">Implementação</p>
     <h2 class="h2" id="processo-h">Como Escalamos Seu Negócio</h2>
-    <div class="steps">
-      <article class="step reveal">
+    <div class="steps" id="steps">
+      <article class="step" style="--i:0">
         <div class="step__num">1</div>
         <h3>Diagnóstico</h3>
         <p>Mapeamento rápido e estruturado direto via WhatsApp.</p>
       </article>
-      <article class="step reveal">
+      <article class="step" style="--i:1">
         <div class="step__num">2</div>
         <h3>Adaptação Plug-and-Play</h3>
         <p>Integramos a IA e a nova arquitetura diretamente na sua operação atual.</p>
       </article>
-      <article class="step reveal">
+      <article class="step" style="--i:2">
         <div class="step__num">3</div>
         <h3>Lançamento Seguro</h3>
         <p>Testes rigorosos garantem a captação de clientes sem falhas logo no primeiro dia.</p>
@@ -1280,9 +1302,12 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
         tile.style.setProperty('--my', '-60%');
       });
     });
-    // Mobile cascade: tiles stay hidden only while armed; the scroll sweep below shows them.
-    if (!reduced) showroom.classList.add('is-armed');
   }
+
+  // Entrance sequences (showroom cascade on mobile, implementation steps): content stays
+  // hidden only while armed, and the scroll sweep below plays each one once.
+  var sequences = reduced ? [] : [showroom, byId('steps')].filter(Boolean);
+  sequences.forEach(function(el){ el.classList.add('is-armed'); });
 
   // Hero chat: animated demo of a real Tapiti agent exchange
   var chatLog = byId('chatLog');
@@ -1412,7 +1437,6 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
   // a skipped-over element stuck at opacity 0.
   var revealEls = [].slice.call(document.querySelectorAll('.reveal'));
   var counters = [].slice.call(document.querySelectorAll('[data-count]'));
-  var cascade = showroom && showroom.classList.contains('is-armed') ? showroom : null;
 
   if (reduced) {
     revealEls.forEach(function(el){ el.classList.add('is-in'); });
@@ -1434,10 +1458,11 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
       runCounter(el);
       return false;
     });
-    if (cascade && cascade.getBoundingClientRect().top < vh * 0.92) {
-      cascade.classList.add('is-shown');
-      cascade = null;
-    }
+    sequences = sequences.filter(function(el){
+      if (el.getBoundingClientRect().top >= vh * 0.85) return true;
+      el.classList.add('is-shown');
+      return false;
+    });
   }
 
   var ticking = false;
@@ -1449,7 +1474,7 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
       var atEnd = window.innerHeight + window.scrollY > document.body.offsetHeight - 240;
       sticky.classList.toggle('is-visible', past && !atEnd);
     }
-    if (revealEls.length || counters.length || cascade) sweep();
+    if (revealEls.length || counters.length || sequences.length) sweep();
   }
   function schedule(){
     if (!ticking) { ticking = true; requestAnimationFrame(onFrame); }
