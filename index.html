@@ -339,18 +339,14 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
   mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
 }
 .marquee__track{
-  display:flex;gap:clamp(30px,6vw,56px);padding-right:clamp(30px,6vw,56px);
+  display:flex;gap:clamp(16px,3vw,36px);padding-right:clamp(16px,3vw,36px);
   flex:none;align-items:center;
   animation:marq 34s linear infinite;
 }
-@media (hover:hover){.marquee:hover .marquee__track{animation-play-state:paused}}
-.marquee__group{display:flex;gap:clamp(30px,6vw,56px);align-items:center;flex:none}
-.logo-slot{
-  flex:none;width:136px;height:44px;border-radius:8px;
-  border:1px solid rgba(255,255,255,.09);
-  background:repeating-linear-gradient(135deg,rgba(255,255,255,.06) 0 6px,transparent 6px 12px);
-  display:flex;align-items:center;justify-content:center;
-  font:500 9.5px var(--font-mono);letter-spacing:.1em;color:var(--text-4);
+.marquee__group{display:flex;gap:clamp(16px,3vw,36px);align-items:center;flex:none}
+.client-logo{
+  flex:none;width:auto;height:clamp(84px,10vw,108px);
+  opacity:.78;pointer-events:none;user-select:none;
 }
 /* ============ METRICS ============ */
 .metrics{background:var(--navy-700);position:relative;overflow:hidden}
@@ -855,20 +851,28 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
   <div class="marquee" id="marquee">
     <div class="marquee__track">
       <div class="marquee__group">
-        <div class="logo-slot">LOGO CLIENTE 1</div>
-        <div class="logo-slot">LOGO CLIENTE 2</div>
-        <div class="logo-slot">LOGO CLIENTE 3</div>
-        <div class="logo-slot">LOGO CLIENTE 4</div>
-        <div class="logo-slot">LOGO CLIENTE 5</div>
-        <div class="logo-slot">LOGO CLIENTE 6</div>
+        <img class="client-logo" src="assets/company-logos/logo-1.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-2.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-3.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-4.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-5.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-6.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-7.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-8.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-9.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-10.png" alt="Logo de cliente" width="500" height="500" decoding="async">
       </div>
       <div class="marquee__group" aria-hidden="true">
-        <div class="logo-slot">LOGO CLIENTE 1</div>
-        <div class="logo-slot">LOGO CLIENTE 2</div>
-        <div class="logo-slot">LOGO CLIENTE 3</div>
-        <div class="logo-slot">LOGO CLIENTE 4</div>
-        <div class="logo-slot">LOGO CLIENTE 5</div>
-        <div class="logo-slot">LOGO CLIENTE 6</div>
+        <img class="client-logo" src="assets/company-logos/logo-1.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-2.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-3.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-4.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-5.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-6.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-7.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-8.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-9.png" alt="" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-10.png" alt="" width="500" height="500" decoding="async">
       </div>
     </div>
   </div>

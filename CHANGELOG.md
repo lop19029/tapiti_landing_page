@@ -12,7 +12,11 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versio
 - One tile tree serves both layouts (restyled by media queries), sharing the section's single `<h2>` and the `.section` / `.shell` / `.eyebrow` / `.h2` primitives.
 - The cascade is triggered by the page's existing scroll sweep instead of an `IntersectionObserver`, so jump-scrolls can't leave tiles hidden; it is skipped entirely under `prefers-reduced-motion`.
 
+- Client marquee now shows the ten real client logos (`assets/company-logos/logo-1.png` … `logo-10.png`) instead of the "LOGO CLIENTE" placeholders, with tighter spacing to compensate for the padding built into the square PNGs.
+- The marquee no longer pauses on hover.
+
 ### Removed
+- `.logo-slot` placeholder styles.
 - Old two-row zig-zag layout ("Presença de Alta Autoridade" / "Agentes de IA Omnichannel") with its Core Web Vitals and channels mock panels, and their `.zig`, `.panel`, `.bar-row`, `.bar` and `.chan` styles.
 
 ## [1.0.3] - 2026-09-28
