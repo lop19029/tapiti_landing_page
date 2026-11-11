@@ -3,6 +3,18 @@
 All notable changes to the Tapiti Digital landing page are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
+## [1.0.6] - 2026-11-11
+
+### Changed
+- "Implementação" (`#processo`) redesigned per `design_handoff_processo_section` (option 2b): one panel whose header is a 1 → 2 → 3 pipeline of numbered nodes.
+  - On first scroll into view (≥35% visible) a glowing signal travels Diagnóstico → Adaptação → Lançamento at 0.75 s per step and each column lights up; afterwards everything stays lit and the three nodes keep a soft, staggered pulse. Clicking a node jumps to that step and continues from there.
+  - Each step has a mini visual (chat, integration diagram, launch checklist) and the panel footer carries the trust row and the WhatsApp consultation CTA.
+  - Mobile (≤860px) uses a vertical pipeline with a growing connector line. Steps light up one by one as each row scrolls into view (driven by the page's scroll loop); reaching step 3 lets the sequence run to its normal end, then the pulse stays.
+  - Under `prefers-reduced-motion` the sequence is skipped (rendered fully lit) and the pulse rings are off.
+
+### Removed
+- Old three-step `.steps` timeline, its entrance sequence and the `stepring` keyframes.
+
 ## [1.0.5] - 2026-11-10
 
 ### Changed

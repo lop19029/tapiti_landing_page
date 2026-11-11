@@ -694,56 +694,117 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 .pm__text{font:400 clamp(14px,2.2vh,15px)/1.5 var(--font-body);color:var(--text-2);text-wrap:pretty}
 .pm__open .pilares__chips>*{font-size:11.5px;padding:7px 12px}
 
-/* ============ PROCESS TIMELINE ============ */
-.steps{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:0}
-.step{position:relative;padding:0 0 30px 52px}
-.step:last-child{padding-bottom:0}
-.step::before{
-  content:"";position:absolute;left:18px;top:40px;bottom:0;width:2px;
-  background:linear-gradient(180deg,rgba(22,215,218,.5),rgba(46,204,134,.12));
-}
-.step:last-child::before{display:none}
-.step__num{
-  position:absolute;left:0;top:0;
-  width:38px;height:38px;border-radius:50%;
-  background:var(--grad);color:var(--navy-900);
-  font:900 15px var(--font-display);
-  display:flex;align-items:center;justify-content:center;
-}
-.step h3{font-weight:700;font-size:17.5px;margin-bottom:8px;padding-top:7px}
-.step p{font-size:15px;line-height:1.64;color:var(--text-3)}
+/* ============ PROCESS PIPELINE ============ */
+.proc{background:radial-gradient(90% 70% at 85% 0%,#04245a 0%,#00133b 45%,#00082b 100%);--f:0}
+.proc[data-step="2"]{--f:.5}
+.proc[data-step="3"]{--f:1}
+.proc .h2{margin-bottom:clamp(28px,4.4vw,48px)}
+.proc__panel{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.12);border-radius:22px;background:rgba(255,255,255,.03);box-shadow:0 30px 70px rgba(0,0,0,.35)}
+.proc__d{display:none}
+.proc__m{display:block;border-radius:20px;background:#00113a}
 
-/* entrance: each circle pops in with a pulse ring, its copy rises, then the connector draws to the next step */
-.step__num::after{
-  content:"";position:absolute;inset:-6px;border-radius:50%;
-  border:2px solid var(--cyan);opacity:0;pointer-events:none;
-}
-.step::before{transform-origin:top center}
-.step__num,.step::before,.step h3,.step p{
-  transition:opacity .45s var(--ease),transform .55s cubic-bezier(.34,1.56,.64,1);
-  transition-delay:calc(var(--i,0) * 650ms);
-}
-.step h3{transition-delay:calc(var(--i,0) * 650ms + 120ms)}
-.step p{transition-delay:calc(var(--i,0) * 650ms + 200ms)}
-.step::before{transition:transform .5s var(--ease);transition-delay:calc(var(--i,0) * 650ms + 300ms)}
-.steps.is-armed:not(.is-shown) .step__num{opacity:0;transform:scale(.4)}
-.steps.is-armed:not(.is-shown) .step h3,
-.steps.is-armed:not(.is-shown) .step p{opacity:0;transform:translateY(12px)}
-.steps.is-armed:not(.is-shown) .step::before{transform:scaleY(0)}
-.steps.is-shown .step__num::after{animation:stepring .9s ease-out both;animation-delay:calc(var(--i,0) * 650ms + 150ms)}
+/* node: numbered circle with pulse ring */
+.pnode{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;background:none;border:0;padding:0;cursor:pointer;color:inherit}
+.pnode__c{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;
+  font:900 28px/1 var(--font-display);color:#7e8da8;background:#00113a;border:1.5px solid rgba(255,255,255,.18);
+  transition:background .25s,color .25s,border-color .25s,box-shadow .25s}
+.pnode__l{font:600 11px/1 var(--font-mono);letter-spacing:.12em;color:#7e8da8;transition:color .25s}
+.pnode__ring{display:none}
+.pnode__c::after{content:"";position:absolute;inset:-5.5px;border-radius:50%;border:2px solid var(--c);opacity:0;pointer-events:none}
+.pnode.is-reached .pnode__c{background:var(--grad);color:var(--navy-900);border-color:transparent}
+.pnode.is-reached .pnode__l{color:var(--c)}
+.pnode.is-active .pnode__c,.proc.is-done .pnode .pnode__c{box-shadow:0 0 28px var(--c)}
+.pnode.is-active .pnode__c::after{opacity:1;animation:ring 1.6s ease-out infinite}
+.proc.is-done .pnode__c::after{opacity:.4;animation:ring 3.6s ease-out infinite}
+.proc.is-done .pnode[data-k="2"] .pnode__c::after{animation-delay:.6s}
+.proc.is-done .pnode[data-k="3"] .pnode__c::after{animation-delay:1.2s}
+@keyframes ring{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.55);opacity:0}}
 
-@media (min-width:860px){
-  .steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
-  .step{padding:0}
-  /* circle returns to normal flow so the heading can never sit under it */
-  .step__num{position:relative;margin-bottom:20px}
-  .step::before{
-    left:50px;right:-28px;top:18px;bottom:auto;width:auto;height:2px;
-    background:linear-gradient(90deg,rgba(22,215,218,.5),rgba(46,204,134,.12));
-    transform-origin:left center;
-  }
-  .steps.is-armed:not(.is-shown) .step::before{transform:scaleX(0)}
-  .step h3{padding-top:0}
+/* step visuals */
+.pv{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px;color:#fff;text-align:left}
+.pv__chat{display:flex;flex-direction:column;gap:10px}
+.pv__hd{display:flex;align-items:center;gap:9px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.pv__hd img{width:24px;height:24px;border-radius:7px}
+.pv__hd b{flex:1;font:700 12.5px var(--font-display)}
+.pv__hd i{font:500 10px var(--font-mono);font-style:normal;color:#2ecc86}
+.pv__b{padding:9px 12px;font:400 12.5px/1.45 var(--font-body);color:#e6edf7}
+.pv__b--u{align-self:flex-end;max-width:84%;background:rgba(255,255,255,.08);border-radius:12px 12px 4px 12px}
+.pv__b--a{align-self:flex-start;max-width:90%;background:linear-gradient(135deg,rgba(22,215,218,.18),rgba(46,204,134,.12));border:1px solid rgba(22,215,218,.26);border-radius:12px 12px 12px 4px}
+.pv__chips{display:flex;flex-wrap:wrap;gap:6px}
+.pv__chips span{font:500 10.5px var(--font-mono);color:#9fb0cb;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:5px 10px}
+.pv__chips span.is-on{color:#16d7da;border-color:rgba(22,215,218,.4)}
+.pv__cap{font:500 10px var(--font-mono);letter-spacing:.08em;color:#7e8da8;margin-bottom:12px}
+.pv__int{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1.1fr);align-items:center}
+.pv__ch{display:flex;flex-direction:column;gap:6px}
+.pv__ch span{font:500 11px var(--font-body);color:#e6edf7;background:rgba(0,27,77,.6);border-radius:8px;padding:7px 10px}
+.pv__br{align-self:stretch;display:flex;align-items:center;margin:14px 0}
+.pv__br i{width:50%;align-self:stretch;border:1.5px solid rgba(22,215,218,.45);border-left:none;border-radius:0 8px 8px 0}
+.pv__br u{width:50%;height:1.5px;background:#16d7da}
+.pv__ag{border:1px solid rgba(22,215,218,.45);background:linear-gradient(160deg,rgba(22,215,218,.14),rgba(46,204,134,.08));border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.pv__agh{display:flex;align-items:center;gap:8px}
+.pv__agh img{width:22px;height:22px;border-radius:6px}
+.pv__agh b{font:700 12px var(--font-display)}
+.pv__ag hr{width:100%;height:1px;border:0;margin:0;background:rgba(255,255,255,.1)}
+.pv__ls{font:500 10px/1.6 var(--font-mono);color:#9fb0cb}
+.pv--list{display:flex;flex-direction:column;gap:9px}
+.pv__ck{display:flex;align-items:center;gap:10px}
+.pv__ck svg{flex:none}
+.pv__ck span{flex:1;font:500 12.5px var(--font-body);color:#e6edf7}
+.pv__ck em,.pv__live em{font:500 10px var(--font-mono);font-style:normal;color:#2ecc86}
+.pv__live{display:flex;align-items:center;gap:10px;margin-top:4px;padding:10px 12px;border-radius:10px;background:rgba(46,204,134,.10);border:1px solid rgba(46,204,134,.35)}
+.pv__live s{width:8px;height:8px;border-radius:50%;background:#2ecc86;flex:none;animation:blink 2.4s ease-in-out infinite}
+.pv__live b{flex:1;font:700 12.5px var(--font-display)}
+.pv__live em{font-weight:600}
+
+/* footer + cta */
+.pfoot{display:flex;flex-direction:column;gap:16px;padding:20px;background:rgba(0,8,43,.95);border-top:1px solid rgba(255,255,255,.10)}
+.pfoot__trust{display:flex;justify-content:center;gap:18px;list-style:none;margin:0;padding:0;font:500 10.5px/1.2 var(--font-mono);color:#7e8da8}
+.pfoot__trust li:nth-child(2){display:none}
+.proc__cta{border-radius:13px;font-size:14px;min-height:54px}
+@media (hover:hover){.proc__cta:hover{filter:brightness(1.08)}}
+
+/* mobile rows (vertical pipeline) */
+.pm__rows{padding:24px 18px 8px}
+.prow{position:relative;display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px;padding-bottom:28px}
+.prow:last-child{padding-bottom:20px}
+.prow .pnode__c{width:52px;height:52px;font-size:20px}
+.prow::before,.prow::after{content:"";position:absolute;left:25px;top:52px;bottom:0;width:2px}
+.prow::before{background:rgba(255,255,255,.10)}
+.prow::after{background:linear-gradient(180deg,#16d7da,#2ecc86);box-shadow:0 0 12px rgba(22,215,218,.8);transform:scaleY(0);transform-origin:top;transition:transform .35s cubic-bezier(.5,0,.2,1)}
+.prow:last-child::before,.prow:last-child::after{display:none}
+.prow.is-linked::after{transform:scaleY(1)}
+.prow .pcol__in{opacity:.4;transition:opacity .6s}
+.prow.is-active .pcol__in,.proc.is-done .prow .pcol__in{opacity:1}
+.prow.is-passed .pcol__in{opacity:.6}
+.prow h3{font:700 18px/1.3 var(--font-display);margin:14px 0 8px;color:#fff}
+.prow p{font:400 14.5px/1.6 var(--font-body);color:#9fb0cb}
+.prow .pvis{margin-top:16px}
+
+@media (min-width:861px){
+  .proc__d{display:block}
+  .proc__m{display:none}
+  .pd__head{position:relative;display:grid;grid-template-columns:repeat(3,1fr);padding:34px 0 26px;background:#000d30;border-bottom:1px solid rgba(255,255,255,.10)}
+  .pd__track,.pd__fill{position:absolute;left:16.667%;top:69px;height:2px}
+  .pd__track{right:16.667%;background:rgba(255,255,255,.10)}
+  .pd__fill{width:calc(var(--f) * 66.667%);background:linear-gradient(90deg,#16d7da,#2ecc86);box-shadow:0 0 12px rgba(22,215,218,.8);transition:width .35s cubic-bezier(.5,0,.2,1)}
+  .pd__head .pnode{justify-self:center}
+  .pd__cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.10)}
+  .pcol{position:relative;background:#00113a;padding:28px 28px 32px;transition:transform .6s}
+  .pcol__hl{position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 14%,transparent),transparent 60%);opacity:0;transition:opacity .6s;pointer-events:none}
+  .pcol__in{position:relative;opacity:.4;transition:opacity .6s}
+  .pcol.is-active{transform:translateY(-4px)}
+  .pcol.is-active .pcol__hl{opacity:1}
+  .proc.is-done .pcol__hl{opacity:.5}
+  .pcol.is-active .pcol__in,.proc.is-done .pcol__in{opacity:1}
+  .pcol.is-passed .pcol__in{opacity:.6}
+  .pcol .pvis{min-height:190px;display:flex;flex-direction:column;justify-content:center}
+  .pcol .pv{width:100%}
+  .pcol h3{font:700 20px/1.3 var(--font-display);margin:28px 0 10px;color:#fff}
+  .pcol p{font:400 15px/1.62 var(--font-body);color:#9fb0cb}
+  .pfoot{flex-direction:row;align-items:center;justify-content:space-between;gap:24px;padding:22px 28px;background:rgba(0,8,43,.6)}
+  .pfoot__trust{justify-content:flex-start;gap:24px;font-size:12px}
+  .pfoot__trust li:nth-child(2){display:list-item}
+  .proc__cta{font-size:15px;padding:16px 22px}
 }
 
 /* ============ COMPARE ============ */
@@ -872,7 +933,6 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes trailpulse{0%,100%{opacity:.42}50%{opacity:.72}}
 @keyframes pulsecta{0%,100%{box-shadow:0 0 0 0 rgba(46,204,134,.42)}50%{box-shadow:0 0 0 18px rgba(46,204,134,0)}}
-@keyframes stepring{0%{opacity:.85;transform:scale(.85)}100%{opacity:0;transform:scale(1.55)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.22}}
 @keyframes hop{0%{transform:translateY(0)}45%{transform:translateY(-74px) rotate(-8deg)}80%{transform:translateY(0) rotate(4deg)}100%{transform:translateY(0)}}
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
@@ -891,6 +951,7 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
   /* pillars: instant state changes only, no hop/drop/rise or rabbit travel */
   .pz__rabbit img.is-hop,.pz__lead,.pm__rabbit,.pm__open{animation:none!important}
   .pz__rabbit,.pz__fill{transition:none!important}
+  .pnode__c::after{animation:none!important}
 }
 </style>
 </head>
@@ -1305,28 +1366,63 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
 </section>
 
 <!-- PROCESSO -->
-<section class="section" aria-labelledby="processo-h">
+<section class="section proc" id="processo" aria-labelledby="processo-h">
   <div class="shell">
-    <p class="eyebrow">Implementação</p>
-    <h2 class="h2" id="processo-h">Como Escalamos Seu Negócio</h2>
-    <div class="steps" id="steps">
-      <article class="step" style="--i:0">
-        <div class="step__num">1</div>
-        <h3>Diagnóstico</h3>
-        <p>Mapeamento rápido e estruturado direto via WhatsApp.</p>
-      </article>
-      <article class="step" style="--i:1">
-        <div class="step__num">2</div>
-        <h3>Adaptação Plug-and-Play</h3>
-        <p>Integramos a IA e a nova arquitetura diretamente na sua operação atual.</p>
-      </article>
-      <article class="step" style="--i:2">
-        <div class="step__num">3</div>
-        <h3>Lançamento Seguro</h3>
-        <p>Testes rigorosos garantem a captação de clientes sem falhas logo no primeiro dia.</p>
-      </article>
+    <p class="eyebrow reveal">Implementação</p>
+    <h2 class="h2 reveal" id="processo-h">Como Escalamos Seu Negócio</h2>
+
+    <!-- desktop: pipeline header + three columns -->
+    <div class="proc__panel proc__d reveal">
+      <div class="pd__head">
+        <span class="pd__track" aria-hidden="true"></span>
+        <span class="pd__fill" aria-hidden="true"></span>
+        <button type="button" class="pnode" data-k="1" style="--c:#16D7DA" aria-label="Ir ao passo 1: Diagnóstico"><span class="pnode__ring"></span><span class="pnode__c">1</span><span class="pnode__l">DIAGNÓSTICO</span></button>
+        <button type="button" class="pnode" data-k="2" style="--c:#1ED1B8" aria-label="Ir ao passo 2: Adaptação"><span class="pnode__ring"></span><span class="pnode__c">2</span><span class="pnode__l">ADAPTAÇÃO</span></button>
+        <button type="button" class="pnode" data-k="3" style="--c:#2ECC86" aria-label="Ir ao passo 3: Lançamento"><span class="pnode__ring"></span><span class="pnode__c">3</span><span class="pnode__l">LANÇAMENTO</span></button>
+      </div>
+      <div class="pd__cols">
+        <article class="pcol" data-k="1" style="--c:#16D7DA"><span class="pcol__hl"></span><div class="pcol__in"><div class="pvis" data-visual="1"></div><h3>Diagnóstico</h3><p>Mapeamento rápido e estruturado direto via WhatsApp.</p></div></article>
+        <article class="pcol" data-k="2" style="--c:#1ED1B8"><span class="pcol__hl"></span><div class="pcol__in"><div class="pvis" data-visual="2"></div><h3>Adaptação Plug-and-Play</h3><p>Integramos a IA e a nova arquitetura diretamente na sua operação atual.</p></div></article>
+        <article class="pcol" data-k="3" style="--c:#2ECC86"><span class="pcol__hl"></span><div class="pcol__in"><div class="pvis" data-visual="3"></div><h3>Lançamento Seguro</h3><p>Testes rigorosos garantem a captação de clientes sem falhas logo no primeiro dia.</p></div></article>
+      </div>
+      <div class="pfoot">
+        <ul class="pfoot__trust"><li>SEM COMPROMISSO</li><li>RESPOSTA IMEDIATA</li><li>GARANTIA 30 DIAS</li></ul>
+        <a class="btn btn--primary proc__cta" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Agendar Consultoria Gratuita via WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- mobile: vertical pipeline -->
+    <div class="proc__panel proc__m reveal">
+      <div class="pm__rows">
+        <div class="prow" data-k="1" style="--c:#16D7DA">
+          <button type="button" class="pnode" data-k="1" aria-label="Ir ao passo 1: Diagnóstico"><span class="pnode__ring"></span><span class="pnode__c">1</span></button>
+          <div class="pcol__in"><h3>Diagnóstico</h3><p>Mapeamento rápido e estruturado direto via WhatsApp.</p><div class="pvis" data-visual="1"></div></div>
+        </div>
+        <div class="prow" data-k="2" style="--c:#1ED1B8">
+          <button type="button" class="pnode" data-k="2" aria-label="Ir ao passo 2: Adaptação"><span class="pnode__ring"></span><span class="pnode__c">2</span></button>
+          <div class="pcol__in"><h3>Adaptação Plug-and-Play</h3><p>Integramos a IA e a nova arquitetura diretamente na sua operação atual.</p><div class="pvis" data-visual="2"></div></div>
+        </div>
+        <div class="prow" data-k="3" style="--c:#2ECC86">
+          <button type="button" class="pnode" data-k="3" aria-label="Ir ao passo 3: Lançamento"><span class="pnode__ring"></span><span class="pnode__c">3</span></button>
+          <div class="pcol__in"><h3>Lançamento Seguro</h3><p>Testes rigorosos garantem a captação de clientes sem falhas logo no primeiro dia.</p><div class="pvis" data-visual="3"></div></div>
+        </div>
+      </div>
+      <div class="pfoot">
+        <a class="btn btn--primary btn--block proc__cta" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Agendar Consultoria Gratuita via WhatsApp
+        </a>
+        <ul class="pfoot__trust"><li>SEM COMPROMISSO</li><li>RESPOSTA IMEDIATA</li><li>GARANTIA 30 DIAS</li></ul>
+      </div>
     </div>
   </div>
+
+  <template id="pv1"><div class="pv"><div class="pv__chat"><div class="pv__hd"><img src="assets/appicon-cyan.png" alt="" width="24" height="24"><b>Agente Tapiti</b><i>● WHATSAPP</i></div><div class="pv__b pv__b--u">Quero automatizar meu atendimento.</div><div class="pv__b pv__b--a">Perfeito. Qual canal recebe mais clientes hoje?</div><div class="pv__chips"><span class="is-on">WhatsApp</span><span>Instagram</span><span>Telefone</span></div></div></div></template>
+  <template id="pv2"><div class="pv"><div class="pv__cap">SUA OPERAÇÃO → TAPITI</div><div class="pv__int"><div class="pv__ch"><span>WhatsApp</span><span>Redes sociais</span><span>Ligações</span><span>Site</span></div><div class="pv__br"><i></i><u></u></div><div class="pv__ag"><div class="pv__agh"><img src="assets/appicon-cyan.png" alt="" width="22" height="22"><b>Agente IA</b></div><hr><div class="pv__ls">QUALIFICA<br>AGENDA<br>REGISTRA</div></div></div></div></template>
+  <template id="pv3"><div class="pv pv--list"><div class="pv__ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Fluxos de conversa</span><em>OK</em></div><div class="pv__ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Integrações</span><em>OK</em></div><div class="pv__ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Teste de carga</span><em>OK</em></div><div class="pv__live"><s></s><b>Captação ativa</b><em>NO AR</em></div></div></template>
 </section>
 
 <!-- ANTES x DEPOIS -->
@@ -1493,9 +1589,9 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
     });
   }
 
-  // Entrance sequences (showroom cascade on mobile, implementation steps): content stays
+  // Entrance sequences (showroom cascade on mobile): content stays
   // hidden only while armed, and the scroll sweep below plays each one once.
-  var sequences = reduced ? [] : [showroom, byId('steps')].filter(Boolean);
+  var sequences = reduced ? [] : [showroom].filter(Boolean);
   sequences.forEach(function(el){ el.classList.add('is-armed'); });
 
   // Pilares: the stage is pinned while the track scrolls past; scroll position alone
@@ -1707,11 +1803,72 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
     });
   }
 
+  // Processo: a signal travels 1 -> 2 -> 3 once when the section scrolls into view.
+  // step: -1 not started, 0 started, 1..2 active, 3 done (stays lit, rings keep pulsing).
+  var proc = byId('processo'), procRowFrame = null;
+  if (proc) {
+    var STEP_MS = 750, procStep = -1, procTimer = 0;
+    [1, 2, 3].forEach(function(n){
+      var tpl = byId('pv' + n);
+      [].forEach.call(proc.querySelectorAll('[data-visual="' + n + '"]'), function(slot){
+        slot.appendChild(tpl.content.cloneNode(true));
+      });
+    });
+    var procEls = [].slice.call(proc.querySelectorAll('.pnode, .pcol, .prow'));
+    var paintProc = function(){
+      proc.setAttribute('data-step', procStep);
+      proc.classList.toggle('is-done', procStep >= 3);
+      procEls.forEach(function(el){
+        var k = +el.getAttribute('data-k');
+        el.classList.toggle('is-reached', procStep >= k);
+        el.classList.toggle('is-active', procStep === k && procStep < 3);
+        el.classList.toggle('is-passed', procStep > k && procStep < 3);
+        el.classList.toggle('is-linked', procStep > k);
+      });
+    };
+    var procTick = function(){
+      if (procStep >= 3) return;
+      procTimer = setTimeout(function(){ procStep++; paintProc(); procTick(); }, STEP_MS);
+    };
+    var procGo = function(k){ clearTimeout(procTimer); procStep = k; paintProc(); procTick(); };
+    [].forEach.call(proc.querySelectorAll('.pnode'), function(n){
+      n.addEventListener('click', function(){ procGo(+n.getAttribute('data-k')); });
+    });
+    if (reduced || !('IntersectionObserver' in window)) { procStep = 3; paintProc(); }
+    else {
+      paintProc();
+      var procMobile = window.matchMedia('(max-width: 860px)');
+      // Desktop: the whole sequence plays once when the panel is mostly in view.
+      var procIO = new IntersectionObserver(function(es){
+        if (procMobile.matches || !es[0].isIntersecting) return;
+        procIO.disconnect(); procGo(0);
+      }, {threshold: .35});
+      procIO.observe(proc);
+      // Mobile: each step lights up as its row scrolls in (never rewinds). Reaching
+      // step 3 lets the sequence run on to its normal end, then the pulse stays.
+      var procPending = [].slice.call(proc.querySelectorAll('.prow .pnode__c'));
+      procRowFrame = function(){
+        if (!procMobile.matches || !procPending.length) return;
+        var vh = window.innerHeight;
+        procPending = procPending.filter(function(c){
+          var r = c.getBoundingClientRect();
+          if (r.top >= vh * 0.82 || r.bottom <= 0) return true;
+          var k = +c.parentNode.getAttribute('data-k');
+          if (k < 3) { if (procStep < k) { clearTimeout(procTimer); procStep = k; paintProc(); } }
+          else { clearTimeout(procTimer); procStep = Math.max(procStep, 2); paintProc(); procTick(); }
+          return false;
+        });
+      };
+      procRowFrame();
+    }
+  }
+
   var ticking = false;
   function onFrame(){
     ticking = false;
     header.classList.toggle('is-scrolled', window.scrollY > 8);
     if (pilTrack) pilFrame();
+    if (procRowFrame) procRowFrame();
     if (hero) {
       var past = window.scrollY > hero.offsetHeight * 0.75;
       var atEnd = window.innerHeight + window.scrollY > document.body.offsetHeight - 240;
