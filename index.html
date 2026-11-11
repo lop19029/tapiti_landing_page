@@ -571,32 +571,128 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
   .showroom__cta .btn{max-width:440px;padding:17px 26px}
 }
 
-/* ============ PILLARS (bento) ============ */
-.pillars{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
-.pillar{
-  border:1px solid var(--line);border-radius:var(--r-lg);
-  padding:clamp(22px,4vw,28px);
-  background:linear-gradient(180deg,rgba(255,255,255,.035),transparent);
-  transition:border-color .28s var(--ease),box-shadow .28s var(--ease),transform .28s var(--ease);
+/* ============ PILARES (scroll-pinned) ============ */
+/* The track is one stage tall plus one --step per pillar; the stage stays pinned
+   under the header while the page scrolls through the track. */
+.pilares{
+  --step:70vh;               /* scroll distance per pillar (30–150vh) */
+  --pil-ease:cubic-bezier(.45,0,.3,1);
+  position:relative;
+  background:radial-gradient(90% 60% at 50% 0%,#052a63 0%,#00133b 45%,#00082b 100%);
 }
-.pillar__head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.pillar h3{font-weight:700;font-size:18.5px;letter-spacing:-.012em}
-.pillar p{font-size:15px;line-height:1.64;color:var(--text-3)}
-@media (hover:hover){
-  .pillar:hover{transform:translateY(-3px);border-color:rgba(22,215,218,.5);box-shadow:0 0 40px -8px rgba(22,215,218,.22)}
-  .pillar--green:hover{border-color:rgba(46,204,134,.5);box-shadow:0 0 40px -8px rgba(46,204,134,.22)}
+.pilares button{background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.pilares ul{list-style:none;margin:0;padding:0}
+.pilares__intro{
+  max-width:var(--shell);margin:0 auto;
+  padding:clamp(64px,9vw,96px) 20px 0;
+  display:flex;flex-direction:column;gap:12px;
 }
-@media (min-width:720px){
-  .pillars{grid-template-columns:repeat(6,minmax(0,1fr))}
-  .pillar{grid-column:span 3}
-  .pillar:nth-child(1),.pillar:nth-child(4){grid-column:span 3}
+.pilares__eyebrow{font:600 11px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.pilares__h2{font:900 34px/1.05 var(--font-display);letter-spacing:-.028em;color:var(--text-0)}
+.pilares__track{position:relative;height:calc(100vh - var(--header-h) + 4 * var(--step))}
+.pilares__stage{
+  position:sticky;top:var(--header-h);
+  height:calc(100vh - var(--header-h));height:calc(100svh - var(--header-h));
+  display:flex;align-items:center;
+  overflow-x:clip;           /* not hidden: that would clip the rabbit's hop */
 }
-@media (min-width:1040px){
-  .pillar:nth-child(1){grid-column:span 4}
-  .pillar:nth-child(2){grid-column:span 2}
-  .pillar:nth-child(3){grid-column:span 2}
-  .pillar:nth-child(4){grid-column:span 4}
+@media (max-width:860px){.pilares [data-desk]{display:none!important}}
+@media (min-width:861px){
+  .pilares [data-mob]{display:none!important}
+  .pilares__intro{align-items:center;text-align:center;gap:14px}
+  .pilares__eyebrow{font-size:12px}
+  .pilares__h2{font-size:clamp(30px,5vw,56px);line-height:1.04;max-width:16ch}
 }
+
+/* desktop: horizontal track, rabbit hops from dot to dot */
+.pz{width:100%;max-width:var(--shell);margin:0 auto;padding:0 60px}
+.pz__track{position:relative;height:clamp(110px,22vh,150px);max-width:1000px;margin:0 auto}
+.pz__rail{position:absolute;left:12.5%;right:12.5%;bottom:21px;border-top:2px dashed rgba(22,215,218,.28)}
+.pz__fill{
+  position:absolute;left:12.5%;bottom:21px;height:2px;width:0;
+  background:linear-gradient(90deg,#16d7da,#2ecc86);
+  transition:width .75s var(--pil-ease);
+}
+.pz__rabbit{
+  position:absolute;bottom:32px;left:12.5%;width:clamp(70px,9vw,110px);
+  transform:translateX(-50%);transition:left .75s var(--pil-ease);pointer-events:none;
+}
+.pz__rabbit.is-back{transform:translateX(-50%) scaleX(-1)}
+.pz__rabbit img{width:100%;filter:drop-shadow(0 10px 24px rgba(22,215,218,.35))}
+.pz__rabbit img.is-hop{animation:hop .75s var(--pil-ease)}
+.pz__dots{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.pilares .pz__dot{display:flex;justify-content:center;align-items:center;height:44px}
+.pz__dot span{
+  width:16px;height:16px;border-radius:50%;border:2px solid #00133b;
+  background:rgba(255,255,255,.22);transition:background .3s,box-shadow .3s;
+}
+.pz__dot.is-passed span{background:var(--cyan)}
+.pz__dot.is-active span{background:var(--green);box-shadow:0 0 0 6px rgba(46,204,134,.18)}
+.pz__labels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));max-width:1000px;margin:10px auto 0}
+.pilares .pz__label{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:6px 4px;min-height:44px}
+.pz__num,.pm__num{font:600 11px var(--font-mono);letter-spacing:.12em;color:#4f5d78}
+.pz__word{font:800 clamp(14px,1.8vw,20px) var(--font-display);color:#7e8da8;transition:color .3s}
+.pz__label.is-active .pz__num,.pm__row.is-active .pm__num{color:var(--green)}
+.pz__label.is-active .pz__word{color:var(--text-0)}
+.pz__detail{
+  max-width:1000px;margin:clamp(14px,3.5vh,56px) auto 0;
+  border-top:1px solid rgba(255,255,255,.1);padding-top:clamp(16px,3.5vh,48px);
+}
+.pz__panel{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));
+  gap:24px 56px;align-items:start;min-height:clamp(180px,32vh,260px);
+}
+.pz__panel:not(.is-active){display:none}
+.pz__lead{
+  display:flex;flex-direction:column;gap:10px;min-width:0;
+  container-type:inline-size;animation:rise .45s ease-out both;
+}
+.pz__kicker{font:600 12px var(--font-mono);letter-spacing:.14em;color:#7e8da8}
+.pilares__big{
+  letter-spacing:-.035em;padding-bottom:6px;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+/* cqi keeps "Inteligente" inside its column */
+.pz__lead .pilares__big{font:900 clamp(32px,min(13cqi,11vh),92px)/.95 var(--font-display);white-space:nowrap}
+.pz__copy{display:flex;flex-direction:column;gap:clamp(12px,2.4vh,20px)}
+.pz__copy h3{font:800 clamp(18px,min(2.4vw,3.6vh),26px)/1.25 var(--font-display);letter-spacing:-.015em;color:var(--text-0);text-wrap:pretty}
+.pz__copy p{font:400 clamp(15px,2.6vh,16.5px)/1.6 var(--font-body);color:var(--text-2);text-wrap:pretty}
+.pilares__chips{display:flex;flex-wrap:wrap;gap:8px}
+.pilares__chips>*{
+  font:600 12px var(--font-mono);color:#e6edf7;
+  border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:8px 14px;
+}
+
+/* mobile: vertical timeline, active pillar opens in place and the rabbit drops onto it */
+.pm{position:relative;width:100%;padding:0 20px}
+.pm__list{position:relative}
+.pm__rail{position:absolute;left:27px;top:24px;bottom:24px;border-left:2px dashed rgba(22,215,218,.28)}
+.pilares .pm__row{
+  position:relative;display:grid;grid-template-columns:56px minmax(0,1fr);gap:8px;
+  width:100%;min-height:44px;padding:clamp(4px,1vh,10px) 0;
+}
+.pm__mark{display:flex;justify-content:center;align-items:flex-start;height:48px;padding-top:16px}
+.pm__dot{width:14px;height:14px;border-radius:50%;border:2px solid #00133b;background:rgba(255,255,255,.22)}
+.pm__row.is-passed .pm__dot{background:var(--cyan)}
+.pm__rabbit{
+  width:50px;margin-top:-14px;position:relative;z-index:1;
+  filter:drop-shadow(0 6px 14px rgba(22,215,218,.4));
+  animation:drop .6s cubic-bezier(.3,0,.3,1) both;
+}
+.pm__row:not(.is-active) .pm__rabbit,
+.pm__row.is-active .pm__dot,
+.pm__row.is-active .pm__word,
+.pm__row:not(.is-active) .pm__open{display:none}
+.pm__body{display:flex;flex-direction:column;gap:6px;padding-top:6px}
+.pm__word{font:800 clamp(19px,3.4vh,24px)/1.1 var(--font-display);color:#7e8da8}
+.pm__open{
+  display:flex;flex-direction:column;gap:clamp(8px,1.4vh,12px);
+  padding-bottom:clamp(4px,1vh,10px);animation:rise .4s ease-out both;
+}
+.pm__open .pilares__big{font:900 clamp(32px,5.6vh,42px)/1 var(--font-display);padding-bottom:4px}
+.pm__line{font:800 clamp(16px,2.6vh,18px)/1.3 var(--font-display);color:var(--text-0);text-wrap:pretty}
+.pm__text{font:400 clamp(14px,2.2vh,15px)/1.5 var(--font-body);color:var(--text-2);text-wrap:pretty}
+.pm__open .pilares__chips>*{font-size:11.5px;padding:7px 12px}
 
 /* ============ PROCESS TIMELINE ============ */
 .steps{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:0}
@@ -778,6 +874,9 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
 @keyframes pulsecta{0%,100%{box-shadow:0 0 0 0 rgba(46,204,134,.42)}50%{box-shadow:0 0 0 18px rgba(46,204,134,0)}}
 @keyframes stepring{0%{opacity:.85;transform:scale(.85)}100%{opacity:0;transform:scale(1.55)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.22}}
+@keyframes hop{0%{transform:translateY(0)}45%{transform:translateY(-74px) rotate(-8deg)}80%{transform:translateY(0) rotate(4deg)}100%{transform:translateY(0)}}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes drop{0%{transform:translateY(-56px);opacity:0}55%{transform:translateY(4px);opacity:1}75%{transform:translateY(-8px)}100%{transform:none}}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -789,6 +888,9 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
   .sticky-cta{transition:none}
   /* stop the marquee where it stands instead of snapping it to the end */
   .marquee__track{animation:none!important}
+  /* pillars: instant state changes only, no hop/drop/rise or rabbit travel */
+  .pz__rabbit img.is-hop,.pz__lead,.pm__rabbit,.pm__open{animation:none!important}
+  .pz__rabbit,.pz__fill{transition:none!important}
 }
 </style>
 </head>
@@ -1077,40 +1179,127 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
   </div>
 </section>
 
-<!-- PILARES -->
-<section id="engenharia" class="section" aria-labelledby="pilares-h">
-  <div class="shell">
-    <p class="eyebrow is-muted">Os 4 pilares de engenharia</p>
-    <h2 class="h2" id="pilares-h">O Padrão Enterprise</h2>
-    <div class="pillars">
-      <article class="pillar reveal">
-        <div class="pillar__head">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#16D7DA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4.5 12.5H11l-1 9.5 8.5-10.5H12z"/></svg>
-          <h3>Confiabilidade</h3>
+<!-- PILARES (scroll-pinned: the stage stays put while scrolling advances the pillars) -->
+<section id="engenharia" class="pilares" aria-labelledby="pilares-h">
+  <div class="pilares__intro">
+    <p class="pilares__eyebrow">Os 4 pilares Tapiti</p>
+    <h2 class="pilares__h2" id="pilares-h">Por que a Tapiti salta à frente.</h2>
+  </div>
+  <div class="pilares__track" id="pilaresTrack">
+    <div class="pilares__stage" id="pilaresStage">
+
+      <div class="pz" data-desk>
+        <div class="pz__track">
+          <div class="pz__rail" aria-hidden="true"></div>
+          <div class="pz__fill" id="pzFill" aria-hidden="true"></div>
+          <div class="pz__rabbit" id="pzRabbit" aria-hidden="true"><img src="assets/logo-3.png" alt="" width="1579" height="971"></div>
+          <div class="pz__dots" aria-hidden="true">
+            <button type="button" class="pz__dot is-active" data-pilar="0" tabindex="-1"><span></span></button>
+            <button type="button" class="pz__dot" data-pilar="1" tabindex="-1"><span></span></button>
+            <button type="button" class="pz__dot" data-pilar="2" tabindex="-1"><span></span></button>
+            <button type="button" class="pz__dot" data-pilar="3" tabindex="-1"><span></span></button>
+          </div>
         </div>
-        <p>Zero latência. Microsserviços projetados para suportar picos extremos de mensagens sem engasgar ou travar.</p>
-      </article>
-      <article class="pillar reveal">
-        <div class="pillar__head">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#16D7DA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4-3 7-7 8-4-1-7-4-7-8V6z"/><path d="M9 12l2 2 4-4"/></svg>
-          <h3>Segurança</h3>
+        <div class="pz__labels">
+          <button type="button" class="pz__label is-active" data-pilar="0" aria-current="step"><span class="pz__num">01</span><span class="pz__word">Confiável</span></button>
+          <button type="button" class="pz__label" data-pilar="1"><span class="pz__num">02</span><span class="pz__word">Segura</span></button>
+          <button type="button" class="pz__label" data-pilar="2"><span class="pz__num">03</span><span class="pz__word">Ágil</span></button>
+          <button type="button" class="pz__label" data-pilar="3"><span class="pz__num">04</span><span class="pz__word">Inteligente</span></button>
         </div>
-        <p>Arquitetura blindada. Os dados do seu negócio e dos seus clientes transitam com criptografia de ponta a ponta e padrão de mercado financeiro.</p>
-      </article>
-      <article class="pillar pillar--green reveal">
-        <div class="pillar__head">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-6M12 8V4M6 12H4M20 12h-2"/><circle cx="12" cy="11" r="3"/></svg>
-          <h3>Agilidade</h3>
+        <div class="pz__detail">
+          <div class="pz__panel is-active">
+            <div class="pz__lead"><span class="pz__kicker">PILAR 01 / 04</span><span class="pilares__big">Confiável</span></div>
+            <div class="pz__copy">
+              <h3>Infraestrutura robusta para nunca te deixar na mão.</h3>
+              <p>Nossas soluções rodam sobre infraestrutura redundante e monitorada 24 horas. Pico de vendas, campanha viral ou madrugada de domingo: quando seu cliente chama, a Tapiti responde.</p>
+              <ul class="pilares__chips"><li>99,9% de uptime</li><li>Monitoramento 24/7</li></ul>
+            </div>
+          </div>
+          <div class="pz__panel">
+            <div class="pz__lead"><span class="pz__kicker">PILAR 02 / 04</span><span class="pilares__big">Segura</span></div>
+            <div class="pz__copy">
+              <h3>Seus dados tratados com o cuidado que eles merecem.</h3>
+              <p>Usamos métodos de segurança de nível enterprise, os mesmos do mercado financeiro: criptografia de ponta a ponta, acesso controlado e registro de cada operação.</p>
+              <ul class="pilares__chips"><li>Criptografia AES-256</li><li>Conforme a LGPD</li></ul>
+            </div>
+          </div>
+          <div class="pz__panel">
+            <div class="pz__lead"><span class="pz__kicker">PILAR 03 / 04</span><span class="pilares__big">Ágil</span></div>
+            <div class="pz__copy">
+              <h3>Seu ecossistema inteiro no ar em dias, não semanas.</h3>
+              <p>Nossa arquitetura plug-and-play conecta site, agentes de IA e canais de atendimento ao que você já usa. Sem obra, sem parar a operação.</p>
+              <ul class="pilares__chips"><li>Implantação em poucos dias</li><li>Mantém seu WhatsApp</li></ul>
+            </div>
+          </div>
+          <div class="pz__panel">
+            <div class="pz__lead"><span class="pz__kicker">PILAR 04 / 04</span><span class="pilares__big">Inteligente</span></div>
+            <div class="pz__copy">
+              <h3>Decisões mais inteligentes, guiadas pelo seu público.</h3>
+              <p>Cada conversa e cada visita viram informação. Transformamos os dados das suas aplicações em respostas claras sobre quem compra, quando e por quê.</p>
+              <ul class="pilares__chips"><li>Painéis em tempo real</li><li>Insights por canal</li></ul>
+            </div>
+          </div>
         </div>
-        <p>Implementação <i>plug-and-play</i>. Seu novo ecossistema no ar em dias, não meses.</p>
-      </article>
-      <article class="pillar pillar--green reveal">
-        <div class="pillar__head">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
-          <h3>Inteligência</h3>
+      </div>
+
+      <div class="pm" data-mob>
+        <div class="pm__list">
+          <div class="pm__rail" aria-hidden="true"></div>
+          <button type="button" class="pm__row is-active" data-pilar="0" aria-current="step">
+            <span class="pm__mark" aria-hidden="true"><span class="pm__dot"></span><img class="pm__rabbit" src="assets/logo-3.png" alt="" width="1579" height="971" loading="lazy"></span>
+            <span class="pm__body">
+              <span class="pm__num">01</span>
+              <span class="pm__word">Confiável</span>
+              <span class="pm__open">
+                <span class="pilares__big">Confiável</span>
+                <span class="pm__line">Infraestrutura robusta para nunca te deixar na mão.</span>
+                <span class="pm__text">Nossas soluções rodam sobre infraestrutura redundante e monitorada 24 horas. Pico de vendas, campanha viral ou madrugada de domingo: quando seu cliente chama, a Tapiti responde.</span>
+                <span class="pilares__chips"><span>99,9% de uptime</span><span>Monitoramento 24/7</span></span>
+              </span>
+            </span>
+          </button>
+          <button type="button" class="pm__row" data-pilar="1">
+            <span class="pm__mark" aria-hidden="true"><span class="pm__dot"></span><img class="pm__rabbit" src="assets/logo-3.png" alt="" width="1579" height="971" loading="lazy"></span>
+            <span class="pm__body">
+              <span class="pm__num">02</span>
+              <span class="pm__word">Segura</span>
+              <span class="pm__open">
+                <span class="pilares__big">Segura</span>
+                <span class="pm__line">Seus dados tratados com o cuidado que eles merecem.</span>
+                <span class="pm__text">Usamos métodos de segurança de nível enterprise, os mesmos do mercado financeiro: criptografia de ponta a ponta, acesso controlado e registro de cada operação.</span>
+                <span class="pilares__chips"><span>Criptografia AES-256</span><span>Conforme a LGPD</span></span>
+              </span>
+            </span>
+          </button>
+          <button type="button" class="pm__row" data-pilar="2">
+            <span class="pm__mark" aria-hidden="true"><span class="pm__dot"></span><img class="pm__rabbit" src="assets/logo-3.png" alt="" width="1579" height="971" loading="lazy"></span>
+            <span class="pm__body">
+              <span class="pm__num">03</span>
+              <span class="pm__word">Ágil</span>
+              <span class="pm__open">
+                <span class="pilares__big">Ágil</span>
+                <span class="pm__line">Seu ecossistema inteiro no ar em dias, não semanas.</span>
+                <span class="pm__text">Nossa arquitetura plug-and-play conecta site, agentes de IA e canais de atendimento ao que você já usa. Sem obra, sem parar a operação.</span>
+                <span class="pilares__chips"><span>Implantação em poucos dias</span><span>Mantém seu WhatsApp</span></span>
+              </span>
+            </span>
+          </button>
+          <button type="button" class="pm__row" data-pilar="3">
+            <span class="pm__mark" aria-hidden="true"><span class="pm__dot"></span><img class="pm__rabbit" src="assets/logo-3.png" alt="" width="1579" height="971" loading="lazy"></span>
+            <span class="pm__body">
+              <span class="pm__num">04</span>
+              <span class="pm__word">Inteligente</span>
+              <span class="pm__open">
+                <span class="pilares__big">Inteligente</span>
+                <span class="pm__line">Decisões mais inteligentes, guiadas pelo seu público.</span>
+                <span class="pm__text">Cada conversa e cada visita viram informação. Transformamos os dados das suas aplicações em respostas claras sobre quem compra, quando e por quê.</span>
+                <span class="pilares__chips"><span>Painéis em tempo real</span><span>Insights por canal</span></span>
+              </span>
+            </span>
+          </button>
         </div>
-        <p>Dashboards gerados por IA com métricas em tempo real sobre taxas de resposta e conversão.</p>
-      </article>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1309,6 +1498,59 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
   var sequences = reduced ? [] : [showroom, byId('steps')].filter(Boolean);
   sequences.forEach(function(el){ el.classList.add('is-armed'); });
 
+  // Pilares: the stage is pinned while the track scrolls past; scroll position alone
+  // picks the active pillar (clicks just scroll there). The rabbit faces the way it hops.
+  var pilTrack = byId('pilaresTrack'), pilStage = byId('pilaresStage');
+  var pilActive = 0, pilPrev = 0;
+  var pilFill = byId('pzFill'), pilRabbit = byId('pzRabbit');
+  var pilHopImg = pilRabbit && pilRabbit.querySelector('img');
+  var pilItems = pilTrack ? [].slice.call(pilTrack.querySelectorAll('[data-pilar]')) : [];
+  var pilPanels = pilTrack ? [].slice.call(pilTrack.querySelectorAll('.pz__panel')) : [];
+  var pilPinned = false;
+
+  function pilSpan(){ return pilTrack.offsetHeight - pilStage.offsetHeight; }
+  function pilTop(){ return parseFloat(getComputedStyle(pilStage).top) || 0; }
+
+  function setPillar(i){
+    if (i === pilActive) return;
+    pilPrev = pilActive; pilActive = i;
+    pilItems.forEach(function(el){
+      var k = +el.getAttribute('data-pilar');
+      el.classList.toggle('is-active', k === i);
+      el.classList.toggle('is-passed', k < i);
+      if (el.classList.contains('pz__dot')) return;   // dots are decorative (aria-hidden)
+      if (k === i) el.setAttribute('aria-current', 'step');
+      else el.removeAttribute('aria-current');
+    });
+    pilPanels.forEach(function(el, k){ el.classList.toggle('is-active', k === i); });
+    pilFill.style.width = (i * 25) + '%';
+    pilRabbit.style.left = 'calc(12.5% + ' + (i * 25) + '%)';
+    pilRabbit.classList.toggle('is-back', i < pilPrev);
+    pilHopImg.classList.remove('is-hop');
+    void pilHopImg.offsetWidth;              // restart the hop on every change
+    pilHopImg.classList.add('is-hop');
+  }
+
+  function pilFrame(){
+    var span = pilSpan();
+    if (span <= 0) { pilPinned = false; return; }
+    var raw = (pilTop() - pilTrack.getBoundingClientRect().top) / span;
+    pilPinned = raw >= 0 && raw <= 1;
+    setPillar(Math.floor(Math.max(0, Math.min(0.9999, raw)) * 4));
+  }
+
+  if (pilTrack && pilStage) {
+    pilTrack.addEventListener('click', function(e){
+      var btn = e.target.closest('[data-pilar]');
+      if (!btn) return;
+      var i = +btn.getAttribute('data-pilar');
+      var trackTop = pilTrack.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: trackTop - pilTop() + pilSpan() * (i + 0.5) / 4, behavior: reduced ? 'instant' : 'smooth' });
+    });
+  } else {
+    pilTrack = null;
+  }
+
   // Hero chat: animated demo of a real Tapiti agent exchange
   var chatLog = byId('chatLog');
   if (chatLog) {
@@ -1469,10 +1711,12 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
   function onFrame(){
     ticking = false;
     header.classList.toggle('is-scrolled', window.scrollY > 8);
+    if (pilTrack) pilFrame();
     if (hero) {
       var past = window.scrollY > hero.offsetHeight * 0.75;
       var atEnd = window.innerHeight + window.scrollY > document.body.offsetHeight - 240;
-      sticky.classList.toggle('is-visible', past && !atEnd);
+      // also step aside while the pillars stage is pinned, so it gets the full screen height
+      sticky.classList.toggle('is-visible', past && !atEnd && !pilPinned);
     }
     if (revealEls.length || counters.length || sequences.length) sweep();
   }

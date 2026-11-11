@@ -3,6 +3,19 @@
 All notable changes to the Tapiti Digital landing page are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
+## [1.0.5] - 2026-11-10
+
+### Changed
+- "O Padrão Enterprise" (`#engenharia`) redesigned per `design_handoff_pilares_tapiti` into "Os 4 pilares Tapiti / Por que a Tapiti salta à frente.", a scroll-pinned sequence through Confiável → Segura → Ágil → Inteligente with new copy and proof chips:
+  - Desktop (≥861px): horizontal dashed track with four dots and a progress fill; the tapiti rabbit (`assets/logo-3.png`) hops from dot to dot and faces the way it travels. Below it sit the labels and a detail panel with a large gradient word, headline, body and chips.
+  - Mobile (≤860px): vertical dashed timeline; the active pillar opens in place and the rabbit drops onto it.
+- The stage stays pinned under the header for 70vh of scroll per pillar (`--step`). Scroll position alone sets the active pillar; clicking a label, dot or row smooth-scrolls to that pillar's band. It runs on the page's existing rAF scroll loop.
+- The mobile sticky CTA now hides while the pillars stage is pinned, so the tallest state fits on short phones (375×667).
+- Under `prefers-reduced-motion`, the hop, drop and rise animations and the rabbit/fill transitions are off; only the instant state changes remain.
+
+### Removed
+- Old four-card bento grid and its `.pillars` / `.pillar` styles.
+
 ## [1.0.4] - 2026-11-09
 
 ### Changed
