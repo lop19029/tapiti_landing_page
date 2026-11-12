@@ -807,30 +807,97 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
   .proc__cta{font-size:15px;padding:16px 22px}
 }
 
-/* ============ COMPARE ============ */
-.compare{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:start}
-@media (min-width:860px){.compare{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.compare__col{
-  border:1px solid var(--line);border-radius:var(--r-lg);
-  padding:clamp(22px,4vw,28px);background:rgba(255,255,255,.025);
+/* ============ IMPACTO (toggle comparison) ============ */
+.imp{background:radial-gradient(120% 60% at 20% 0%,#04245a 0%,#00133b 50%,#00082b 100%)}
+.imp__head{display:flex;flex-direction:column;gap:0}
+.imp .h2{margin-bottom:24px;max-width:22ch}
+.imp .eyebrow{margin-bottom:12px}
+
+/* switch */
+.imp__switch{position:relative;display:flex;padding:4px;border-radius:999px;background:#000d30;border:1px solid rgba(255,255,255,.14);margin-bottom:16px}
+.imp__btn{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;gap:7px;min-height:48px;background:none;border:0;cursor:pointer;
+  font:700 13.5px var(--font-display);color:#8792a6;transition:color .3s;white-space:nowrap}
+.imp__btn[data-mode="tapiti"]{font-weight:800}
+.imp__btn img{width:18px;height:18px;border-radius:5px}
+.imp__btn[aria-selected="true"][data-mode="tapiti"]{color:#00082b}
+.imp__btn[aria-selected="true"][data-mode="amadora"]{color:var(--red-text)}
+.imp__btn:focus-visible{outline:2px solid var(--cyan);outline-offset:2px;border-radius:999px}
+.imp__full{display:none}
+.imp__knob{position:absolute;top:4px;bottom:4px;left:50%;width:calc(50% - 4px);border-radius:999px;
+  background:linear-gradient(135deg,#16d7da,#2ecc86);box-shadow:0 8px 24px -8px rgba(22,215,218,.7);
+  transition:left .45s cubic-bezier(.5,0,.2,1),background .45s,box-shadow .45s}
+.imp[data-mode="amadora"] .imp__knob{left:4px;background:rgba(255,59,65,.18);box-shadow:inset 0 0 0 1px rgba(255,107,111,.5)}
+
+/* tiles */
+.imp__tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.10);border-radius:20px;overflow:hidden;
+  border:1px solid rgba(22,215,218,.40);box-shadow:0 24px 60px -24px rgba(22,215,218,.40);transition:border-color .5s,box-shadow .5s}
+.imp[data-mode="amadora"] .imp__tiles{border-color:rgba(255,107,111,.30);box-shadow:0 24px 50px rgba(0,0,0,.35)}
+.imp__tile{position:relative;display:flex;flex-direction:column;gap:12px;background:#00113a;padding:18px 16px 20px}
+.imp__tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(22,215,218,.10),transparent 60%);transition:background .6s calc(var(--i) * 80ms)}
+.imp[data-mode="amadora"] .imp__tint{background:linear-gradient(180deg,rgba(255,59,65,.08),transparent 60%)}
+.imp__top{position:relative;display:flex;justify-content:space-between;align-items:flex-start;gap:8px;min-height:28px}
+.imp__label{font:600 10px/1.4 var(--font-mono);letter-spacing:.1em;color:#9fb0cb}
+.imp__dot{flex:none;width:7px;height:7px;margin-top:3px;border-radius:50%;background:#2ecc86;box-shadow:0 0 8px #2ecc86;
+  transition:background .4s calc(var(--i) * 80ms),box-shadow .4s calc(var(--i) * 80ms)}
+.imp[data-mode="amadora"] .imp__dot{background:#ff6b6f;box-shadow:0 0 8px #ff6b6f}
+
+.imp__val{position:relative;height:58px;container-type:inline-size}
+.imp__layer{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;gap:6px;
+  transition:opacity .45s calc(var(--i) * 80ms),transform .55s cubic-bezier(.2,.7,.2,1) calc(var(--i) * 80ms)}
+.imp__layer b{font:900 min(34px,26cqi)/1 var(--font-display);letter-spacing:-.04em;white-space:nowrap}
+.imp__layer span{font:600 12.5px var(--font-body)}
+.imp__layer--t b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;width:max-content;padding-right:.04em}
+.imp__layer--t span{color:#e4ebf3}
+.imp__layer--a b{color:var(--red-loss);text-shadow:0 0 30px rgba(255,59,65,.35)}
+.imp__layer--a span{color:var(--red-text)}
+.imp__layer--a{opacity:0;transform:translateY(14px)}
+.imp[data-mode="amadora"] .imp__layer--a{opacity:1;transform:none}
+.imp[data-mode="amadora"] .imp__layer--t{opacity:0;transform:translateY(-14px)}
+.imp__rule,.imp__note{display:none}
+
+/* summary + footnote */
+.imp__sum{display:grid;margin-top:18px;min-height:52px}
+.imp__sum p{grid-area:1/1;font:700 15px/1.4 var(--font-display);transition:opacity .4s,color .4s}
+.imp__sum--t{color:#fff}
+.imp__sum--a{color:var(--red-text);opacity:0}
+.imp[data-mode="amadora"] .imp__sum--t{opacity:0}
+.imp[data-mode="amadora"] .imp__sum--a{opacity:1}
+.imp__fn{margin-top:14px;font:500 10px/1.6 var(--font-mono);color:#7e8da8}
+
+@media (min-width:861px){
+  .imp{background:radial-gradient(90% 70% at 15% 0%,#04245a 0%,#00133b 45%,#00082b 100%)}
+  .imp__head{flex-direction:row;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:40px}
+  .imp .h2{margin:0}
+  .imp .eyebrow{margin-bottom:14px}
+  .imp__switch{flex:none;margin-bottom:0}
+  .imp__btn{flex:none;width:200px;gap:8px;font-size:14px}
+  .imp__btn img{width:20px;height:20px;border-radius:6px}
+  .imp__full{display:inline}
+  .imp__tiles{grid-template-columns:repeat(4,minmax(0,1fr));border-radius:22px;box-shadow:0 30px 80px -30px rgba(22,215,218,.40)}
+  .imp[data-mode="amadora"] .imp__tiles{box-shadow:0 30px 70px rgba(0,0,0,.35)}
+  .imp__tile{gap:18px;padding:30px 28px 32px;min-height:300px}
+  .imp__top{min-height:0;align-items:center}
+  .imp__label{font-size:11px;letter-spacing:.12em;line-height:1.2}
+  .imp__dot{width:8px;height:8px;margin-top:0;box-shadow:0 0 10px #2ecc86}
+  .imp[data-mode="amadora"] .imp__dot{box-shadow:0 0 10px #ff6b6f}
+  .imp__val{height:96px}
+  .imp__layer b{font-size:min(64px,26cqi)}
+  .imp__layer span{font-size:14px}
+  .imp__layer--a b{text-shadow:0 0 44px rgba(255,59,65,.35)}
+  .imp__layer--a{transform:translateY(18px)}
+  .imp[data-mode="amadora"] .imp__layer--t{transform:translateY(-18px)}
+  .imp__rule{display:block;position:relative;width:100%;height:1px;border:0;margin:0;background:rgba(255,255,255,.10)}
+  .imp__note{display:block;position:relative;min-height:66px}
+  .imp__note p{position:absolute;inset:0;font:400 14.5px/1.6 var(--font-body);transition:opacity .45s calc(var(--i) * 80ms)}
+  .imp__note--t{color:#b9c6db}
+  .imp__note--a{color:#9fb0cb;opacity:0}
+  .imp[data-mode="amadora"] .imp__note--t{opacity:0}
+  .imp[data-mode="amadora"] .imp__note--a{opacity:1}
+  .imp__foot{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;margin-top:22px}
+  .imp__sum{margin-top:0;min-height:0;flex:none}
+  .imp__sum p{font-size:17px}
+  .imp__fn{margin-top:0;max-width:62ch;text-align:right;font-size:11px}
 }
-.compare__col--win{
-  border-color:rgba(22,215,218,.45);
-  background:linear-gradient(160deg,rgba(22,215,218,.1),rgba(46,204,134,.055));
-  box-shadow:0 26px 60px -24px rgba(0,0,0,.6);
-}
-.compare__title{
-  display:flex;align-items:center;gap:10px;
-  font:700 15px var(--font-display);color:var(--text-4);margin-bottom:20px;
-}
-.compare__col--win .compare__title{color:var(--text-0);font-weight:800}
-.compare__title img{width:24px;height:24px;border-radius:7px}
-.cmp-row{display:flex;gap:11px;align-items:flex-start;margin-bottom:15px}
-.cmp-row:last-child{margin-bottom:0}
-.cmp-row svg{flex:none;margin-top:3px}
-.cmp-row dt{font:500 10.5px var(--font-mono);letter-spacing:.06em;color:var(--text-4);margin-bottom:2px}
-.cmp-row dd{margin:0;font-size:15px;color:var(--text-4)}
-.compare__col--win .cmp-row dd{font:700 16px var(--font-display);color:var(--text-0)}
 
 /* ============ FOUNDERS ============ */
 .founders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:32px}
@@ -1425,30 +1492,82 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
   <template id="pv3"><div class="pv pv--list"><div class="pv__ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Fluxos de conversa</span><em>OK</em></div><div class="pv__ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Integrações</span><em>OK</em></div><div class="pv__ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Teste de carga</span><em>OK</em></div><div class="pv__live"><s></s><b>Captação ativa</b><em>NO AR</em></div></div></template>
 </section>
 
-<!-- ANTES x DEPOIS -->
-<section class="section" aria-labelledby="impacto-h">
+<!-- IMPACTO -->
+<section class="section imp" id="impacto" data-mode="tapiti" aria-labelledby="impacto-h">
   <div class="shell">
-    <p class="eyebrow is-muted">O impacto</p>
-    <h2 class="h2" id="impacto-h" style="max-width:22ch">A Matemática de uma Operação Inteligente</h2>
-    <div class="compare">
-      <div class="compare__col reveal">
-        <div class="compare__title">Operação Amadora</div>
-        <dl style="margin:0">
-          <div class="cmp-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg><div><dt>DISPONIBILIDADE</dt><dd>8h/dia</dd></div></div>
-          <div class="cmp-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg><div><dt>TEMPO DE RESPOSTA</dt><dd>45 minutos</dd></div></div>
-          <div class="cmp-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg><div><dt>CAPACIDADE</dt><dd>1 cliente por vez</dd></div></div>
-          <div class="cmp-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg><div><dt>PRESENÇA DIGITAL</dt><dd>Invisível no Google</dd></div></div>
-        </dl>
+    <div class="imp__head reveal">
+      <div>
+        <p class="eyebrow is-muted">O impacto</p>
+        <h2 class="h2" id="impacto-h">A Matemática de uma Operação Inteligente</h2>
       </div>
-      <div class="compare__col compare__col--win reveal">
-        <div class="compare__title"><img src="assets/appicon-cyan.png" alt="" aria-hidden="true">Operação Tapiti Digital</div>
-        <dl style="margin:0">
-          <div class="cmp-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><dt>DISPONIBILIDADE</dt><dd>24h/dia (IA)</dd></div></div>
-          <div class="cmp-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><dt>TEMPO DE RESPOSTA</dt><dd>Instantâneo</dd></div></div>
-          <div class="cmp-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><dt>CAPACIDADE</dt><dd>Simultâneo e Ilimitado</dd></div></div>
-          <div class="cmp-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><dt>PRESENÇA DIGITAL</dt><dd>Ranqueamento de Topo</dd></div></div>
-        </dl>
+      <div class="imp__switch" role="tablist" aria-label="Comparar operações">
+        <span class="imp__knob" aria-hidden="true"></span>
+        <button type="button" class="imp__btn" role="tab" id="imp-tab-amadora" data-mode="amadora" aria-selected="false" tabindex="-1"><span><span class="imp__full">Operação </span>Amadora</span></button>
+        <button type="button" class="imp__btn" role="tab" id="imp-tab-tapiti" data-mode="tapiti" aria-selected="true"><img src="assets/appicon-cyan.png" alt="" aria-hidden="true"><span><span class="imp__full">Operação </span>Tapiti</span></button>
       </div>
+    </div>
+
+    <div class="imp__tiles reveal" aria-live="polite">
+      <div class="imp__tile" style="--i:0">
+        <span class="imp__tint" aria-hidden="true"></span>
+        <div class="imp__top"><span class="imp__label">DISPONIBILIDADE</span><i class="imp__dot" aria-hidden="true"></i></div>
+        <div class="imp__val">
+          <div class="imp__layer imp__layer--t"><b>24h</b><span>por dia, 7 dias</span></div>
+          <div class="imp__layer imp__layer--a" aria-hidden="true"><b>8h</b><span>por dia</span></div>
+        </div>
+        <hr class="imp__rule">
+        <div class="imp__note">
+          <p class="imp__note--t">Agente de IA ativo à noite, nos fins de semana e feriados.</p>
+          <p class="imp__note--a" aria-hidden="true">Horário comercial. Fora dele, o cliente espera ou procura o concorrente.</p>
+        </div>
+      </div>
+      <div class="imp__tile" style="--i:1">
+        <span class="imp__tint" aria-hidden="true"></span>
+        <div class="imp__top"><span class="imp__label">CAPACIDADE</span><i class="imp__dot" aria-hidden="true"></i></div>
+        <div class="imp__val">
+          <div class="imp__layer imp__layer--t"><b>∞</b><span>em paralelo</span></div>
+          <div class="imp__layer imp__layer--a" aria-hidden="true"><b>1</b><span>cliente por vez</span></div>
+        </div>
+        <hr class="imp__rule">
+        <div class="imp__note">
+          <p class="imp__note--t">Conversas simultâneas no WhatsApp, redes e telefone, sem fila.</p>
+          <p class="imp__note--a" aria-hidden="true">Cada atendente conversa com uma pessoa. O resto entra na fila.</p>
+        </div>
+      </div>
+      <div class="imp__tile" style="--i:2">
+        <span class="imp__tint" aria-hidden="true"></span>
+        <div class="imp__top"><span class="imp__label">PRESENÇA DIGITAL</span><i class="imp__dot" aria-hidden="true"></i></div>
+        <div class="imp__val">
+          <div class="imp__layer imp__layer--t"><b>Top 3</b><span>no Google local</span></div>
+          <div class="imp__layer imp__layer--a" aria-hidden="true"><b>Pág. 3+</b><span>no Google</span></div>
+        </div>
+        <hr class="imp__rule">
+        <div class="imp__note">
+          <p class="imp__note--t">Site rápido e SEO técnico para disputar as primeiras posições.</p>
+          <p class="imp__note--a" aria-hidden="true">Quem busca pelo seu serviço não encontra a sua empresa.</p>
+        </div>
+      </div>
+      <div class="imp__tile" style="--i:3">
+        <span class="imp__tint" aria-hidden="true"></span>
+        <div class="imp__top"><span class="imp__label">CUSTO POR ATENDIMENTO*</span><i class="imp__dot" aria-hidden="true"></i></div>
+        <div class="imp__val">
+          <div class="imp__layer imp__layer--t"><b>R$ 0,45</b><span>por conversa</span></div>
+          <div class="imp__layer imp__layer--a" aria-hidden="true"><b>R$ 9</b><span>por conversa</span></div>
+        </div>
+        <hr class="imp__rule">
+        <div class="imp__note">
+          <p class="imp__note--t">O custo cai à medida que o volume cresce.</p>
+          <p class="imp__note--a" aria-hidden="true">Salário, encargos e horas ociosas divididos pelo volume real.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp__foot reveal">
+      <div class="imp__sum" aria-live="polite">
+        <p class="imp__sum--t">Atende 24h, sem fila, na 1ª página, a uma fração do custo.</p>
+        <p class="imp__sum--a" aria-hidden="true">Fecha às 18h, atende um por vez e não aparece no Google.</p>
+      </div>
+      <p class="imp__fn">* Custo estimado: atendente CLT (~R$ 4.500/mês com encargos, ~500 atendimentos) vs. consumo médio do agente de IA.</p>
     </div>
   </div>
 </section>
@@ -1861,6 +1980,38 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
       };
       procRowFrame();
     }
+  }
+
+  // Impacto: Amadora <-> Tapiti toggle. State lives in data-mode on the section; CSS does the rest.
+  var imp = byId('impacto');
+  if (imp) {
+    var impTabs = [].slice.call(imp.querySelectorAll('.imp__btn'));
+    var impSet = function(mode, focus){
+      if (imp.getAttribute('data-mode') === mode) return;
+      imp.setAttribute('data-mode', mode);
+      impTabs.forEach(function(b){
+        var on = b.getAttribute('data-mode') === mode;
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+        b.tabIndex = on ? 0 : -1;
+        if (on && focus) b.focus();
+      });
+      // announce the change: swap which layer is hidden from assistive tech
+      [].forEach.call(imp.querySelectorAll('.imp__layer--t,.imp__note--t,.imp__sum--t'), function(el){
+        el.setAttribute('aria-hidden', mode === 'tapiti' ? 'false' : 'true');
+      });
+      [].forEach.call(imp.querySelectorAll('.imp__layer--a,.imp__note--a,.imp__sum--a'), function(el){
+        el.setAttribute('aria-hidden', mode === 'amadora' ? 'false' : 'true');
+      });
+    };
+    impTabs.forEach(function(b){
+      b.addEventListener('click', function(){ impSet(b.getAttribute('data-mode')); });
+      b.addEventListener('keydown', function(e){
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Home' || e.key === 'End') {
+          e.preventDefault();
+          impSet(e.key === 'ArrowLeft' || e.key === 'Home' ? 'amadora' : 'tapiti', true);
+        }
+      });
+    });
   }
 
   var ticking = false;
