@@ -3,6 +3,18 @@
 All notable changes to the Tapiti Digital landing page are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
+## [1.0.7] - 2026-11-11
+
+### Changed
+- "O impacto" (`#impacto`) redesigned per `design_handoff_impacto_section` (desktop 1b + mobile 2a) into a toggle comparison: a segmented switch flips the section between "Operação Tapiti" (default) and "Operação Amadora" and four metric tiles (Disponibilidade, Capacidade, Presença digital, Custo por atendimento) cross-fade their values in an 80 ms cascade.
+  - State is a single `data-mode` attribute on the section and CSS drives every visual difference. The switch is an ARIA tablist (click, Left/Right/Home/End), the inactive value layers are `aria-hidden`, and the tiles and summary are `aria-live="polite"`.
+  - Desktop (≥861px): 4-column tile grid with explanatory notes, summary and footnote on one row. Mobile (≤860px): 2×2 tiles with label, value and unit only.
+  - Big numbers scale with their tile (container query units) so "R$ 0,45" never clips on narrow desktops.
+  - Cost and ranking figures are placeholders to be confirmed by the owner before launch.
+
+### Removed
+- Old two-card before/after layout and its `.compare*` / `.cmp-row*` styles.
+
 ## [1.0.6] - 2026-11-11
 
 ### Changed
