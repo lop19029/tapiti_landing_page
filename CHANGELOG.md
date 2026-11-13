@@ -3,6 +3,17 @@
 All notable changes to the Tapiti Digital landing page are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
+## [1.0.9] - 2026-11-12
+
+### Added
+- Header language toggle per `design_handoff_language_toggle` (option 1b): globe button showing PT / EN / ES with a listbox dropdown (outside click, Esc, Enter/Space/arrows, Tab closes; panel kept 16px inside the viewport on mobile).
+- The whole page can now be read in Português (default), English and Español: PT stays in the HTML as the source and EN/ES come from a dictionary (`data-i18n` / `data-i18n-attr`). Also translated: `<title>`/meta/og tags, aria-labels and alt text, the hero chat scenarios (the demo restarts on change), the "custo oculto" diagnostic, counters (decimal separator) and the prefilled WhatsApp message. `<html lang>` follows the choice.
+- Language resolution: `?lang=` param, then `localStorage` (`tapiti-lang`), then `navigator.language`, else PT.
+
+### Changed
+- Header CTA now reads "Agendar Consultoria" on desktop and "Falar com IA" on mobile; header spacing/logo size follow the handoff.
+- EN and ES copy is a draft and needs owner review.
+
 ## [1.0.8] - 2026-11-12
 
 ### Changed

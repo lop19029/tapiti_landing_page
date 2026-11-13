@@ -187,6 +187,54 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
   .header__spacer{display:none}
 }
 
+/* ============ LANGUAGE TOGGLE ============ */
+.header__inner{gap:8px;padding-inline:16px}
+.header__logo img{height:18px}
+.header__cta{height:44px;min-height:44px;padding:0 13px;font:800 12.5px/1 var(--font-display);white-space:nowrap}
+.cta-d{display:none}
+.lang{position:relative;flex:none}
+.lang__btn{
+  display:flex;align-items:center;gap:6px;height:44px;padding:0 10px;border-radius:12px;
+  border:1px solid rgba(255,255,255,.14);background:transparent;cursor:pointer;
+  font:700 12px var(--font-mono);letter-spacing:.04em;color:#e6edf7;
+  transition:border-color .2s var(--ease);
+}
+.lang__btn:hover,.lang__btn[aria-expanded="true"]{border-color:rgba(22,215,218,.55)}
+.lang__btn:focus-visible,.lang__opt:focus-visible{outline:2px solid #16d7da;outline-offset:2px}
+.lang__globe{width:16px;height:16px}
+.lang__chev{display:none}
+.lang__menu{
+  position:absolute;top:52px;right:0;width:220px;padding:6px;border-radius:14px;
+  background:#001b4d;border:1px solid rgba(255,255,255,.14);box-shadow:0 20px 50px rgba(0,0,0,.5);
+  display:flex;flex-direction:column;gap:2px;z-index:70;
+  animation:langin .12s var(--ease);
+}
+.lang__menu[hidden]{display:none}
+@keyframes langin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.lang__opt{
+  display:flex;align-items:center;gap:12px;width:100%;height:48px;padding:0 12px;border-radius:9px;
+  border:0;background:transparent;cursor:pointer;text-align:left;color:#e6edf7;
+}
+.lang__opt:hover{background:rgba(255,255,255,.06)}
+.lang__opt[aria-selected="true"]{background:rgba(22,215,218,.10)}
+.lang__code{width:20px;flex:none;font:700 11px var(--font-mono);color:#7e8da8}
+.lang__name{flex:1;font:500 15px var(--font-body)}
+.lang__check{flex:none;opacity:0}
+.lang__opt[aria-selected="true"] .lang__check{opacity:1}
+@media (min-width:900px){
+  .header__inner{gap:20px;padding-inline:var(--gut)}
+  .header__logo img{height:27px}
+  .header__cta{padding:0 16px;font-size:13px}
+  .cta-d{display:inline}.cta-m{display:none}
+  .lang__btn{gap:8px;padding:0 12px}
+  .lang__globe{width:17px;height:17px}
+  .lang__chev{display:block}
+  .lang__menu{width:210px}
+  .lang__opt{height:44px}
+  .lang__name{font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){.lang__menu{animation:none}}
+
 /* ============ HERO ============ */
 .hero{
   position:relative;overflow:hidden;
@@ -1046,18 +1094,26 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 
 <header class="header" id="header">
   <div class="shell header__inner">
-    <a class="header__logo" href="#topo" aria-label="Tapiti Digital — início">
+    <a class="header__logo" href="#topo" aria-label="Tapiti Digital — início" data-i18n-attr="aria-label:a_logo">
       <img src="assets/logo-6.png" alt="Tapiti Digital">
     </a>
-    <nav class="header__nav" aria-label="Navegação principal">
-      <a href="#solucoes">Soluções</a>
-      <a href="#engenharia">Engenharia</a>
-      <a href="#quem-somos">Quem Somos</a>
+    <nav class="header__nav" aria-label="Navegação principal" data-i18n-attr="aria-label:a_nav">
+      <a data-i18n="nav1" href="#solucoes">Soluções</a>
+      <a data-i18n="nav2" href="#engenharia">Engenharia</a>
+      <a data-i18n="nav3" href="#quem-somos">Quem Somos</a>
     </nav>
     <div class="header__spacer"></div>
-    <a class="btn btn--primary btn--sm header__cta" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
+    <div class="lang" id="lang">
+      <button type="button" class="lang__btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="langMenu" aria-label="Idioma / Language"><svg class="lang__globe" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16D7DA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span id="langCode">PT</span><svg class="lang__chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9FB0CB" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="lang__menu" id="langMenu" role="listbox" aria-label="Idioma / Language" hidden>
+        <button type="button" class="lang__opt" role="option" data-lang="pt" aria-selected="true" tabindex="-1"><span class="lang__code">PT</span><span class="lang__name" lang="pt-BR">Português</span><svg class="lang__check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></button>
+        <button type="button" class="lang__opt" role="option" data-lang="en" aria-selected="false" tabindex="-1"><span class="lang__code">EN</span><span class="lang__name" lang="en">English</span><svg class="lang__check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></button>
+        <button type="button" class="lang__opt" role="option" data-lang="es" aria-selected="false" tabindex="-1"><span class="lang__code">ES</span><span class="lang__name" lang="es">Español</span><svg class="lang__check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></button>
+      </div>
+    </div>
+    <a class="btn btn--primary btn--sm header__cta" data-wa href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      Agendar
+      <span class="cta-d" data-i18n="ctad">Agendar Consultoria</span><span class="cta-m" data-i18n="ctam">Falar com IA</span>
     </a>
   </div>
 </header>
@@ -1079,19 +1135,19 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 
   <div class="shell hero__grid">
     <div class="hero__copy">
-      <p class="badge"><span class="dot" aria-hidden="true"></span><span>IA ONLINE · RESPOSTA EM SEGUNDOS</span></p>
-      <h1>Automação Inteligente e Infraestrutura de <span class="grad-text">Nível Enterprise</span> para o seu Negócio.</h1>
-      <p class="hero__sub">Elimine gargalos de atendimento e domine o Google. Sites de alta performance e agentes de IA que atendem via WhatsApp, redes sociais e telefone 24 horas por dia.</p>
+      <p class="badge"><span class="dot" aria-hidden="true"></span><span data-i18n="badge">IA ONLINE · RESPOSTA EM SEGUNDOS</span></p>
+      <h1 data-i18n="h1">Automação Inteligente e Infraestrutura de <span class="grad-text">Nível Enterprise</span> para o seu Negócio.</h1>
+      <p data-i18n="herosub" class="hero__sub">Elimine gargalos de atendimento e domine o Google. Sites de alta performance e agentes de IA que atendem via WhatsApp, redes sociais e telefone 24 horas por dia.</p>
       <div class="hero__cta">
-        <a class="btn btn--primary btn--block btn--lg" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
+        <a class="btn btn--primary btn--block btn--lg" data-wa href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Agendar Consultoria Gratuita
+          <span data-i18n="ctafree">Agendar Consultoria Gratuita</span>
         </a>
       </div>
       <ul class="hero__trust">
-        <li>SEM COMPROMISSO</li>
-        <li>RESPOSTA IMEDIATA</li>
-        <li>GARANTIA 30 DIAS</li>
+        <li data-i18n="trust1">SEM COMPROMISSO</li>
+        <li data-i18n="trust2">RESPOSTA IMEDIATA</li>
+        <li data-i18n="trust3">GARANTIA 30 DIAS</li>
       </ul>
     </div>
 
@@ -1101,16 +1157,16 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
         <div class="chat__head">
           <img src="assets/appicon-cyan.png" alt="" aria-hidden="true">
           <div style="flex:1;min-width:0">
-            <div class="chat__name">Agente Tapiti</div>
-            <div class="chat__status">● online · 24h</div>
+            <div data-i18n="chatname" class="chat__name">Agente Tapiti</div>
+            <div data-i18n="chatstatus" class="chat__status">● online · 24h</div>
           </div>
           <div class="chat__ms">0,8s</div>
         </div>
         <div class="chat__log" id="chatLog"></div>
         <div class="chat__stats">
-          <div class="chat__stat"><b style="color:var(--cyan)">24h</b><small>ATIVO</small></div>
-          <div class="chat__stat"><b style="color:var(--green)">+30%</b><small>LEADS</small></div>
-          <div class="chat__stat"><b>∞</b><small>SIMULT.</small></div>
+          <div class="chat__stat"><b style="color:var(--cyan)">24h</b><small data-i18n="stat1">ATIVO</small></div>
+          <div class="chat__stat"><b style="color:var(--green)">+30%</b><small data-i18n="stat2">LEADS</small></div>
+          <div class="chat__stat"><b>∞</b><small data-i18n="stat3">SIMULT.</small></div>
         </div>
       </div>
     </div>
@@ -1118,21 +1174,21 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 </section>
 
 <!-- PROVA SOCIAL -->
-<section class="proof" aria-label="Clientes">
-  <p class="proof__label">Operações que já escalam com a Tapiti Digital</p>
+<section class="proof" aria-label="Clientes" data-i18n-attr="aria-label:a_clients">
+  <p data-i18n="prooflabel" class="proof__label">Operações que já escalam com a Tapiti Digital</p>
   <div class="marquee" id="marquee">
     <div class="marquee__track">
       <div class="marquee__group">
-        <img class="client-logo" src="assets/company-logos/logo-1.png" alt="Logo de cliente" width="500" height="500" decoding="async">
-        <img class="client-logo" src="assets/company-logos/logo-2.png" alt="Logo de cliente" width="500" height="500" decoding="async">
-        <img class="client-logo" src="assets/company-logos/logo-3.png" alt="Logo de cliente" width="500" height="500" decoding="async">
-        <img class="client-logo" src="assets/company-logos/logo-4.png" alt="Logo de cliente" width="500" height="500" decoding="async">
-        <img class="client-logo" src="assets/company-logos/logo-5.png" alt="Logo de cliente" width="500" height="500" decoding="async">
-        <img class="client-logo" src="assets/company-logos/logo-6.png" alt="Logo de cliente" width="500" height="500" decoding="async">
-        <img class="client-logo" src="assets/company-logos/logo-7.png" alt="Logo de cliente" width="500" height="500" decoding="async">
-        <img class="client-logo" src="assets/company-logos/logo-8.png" alt="Logo de cliente" width="500" height="500" decoding="async">
-        <img class="client-logo" src="assets/company-logos/logo-9.png" alt="Logo de cliente" width="500" height="500" decoding="async">
-        <img class="client-logo" src="assets/company-logos/logo-10.png" alt="Logo de cliente" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-1.png" alt="Logo de cliente" data-i18n-attr="alt:a_clientlogo" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-2.png" alt="Logo de cliente" data-i18n-attr="alt:a_clientlogo" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-3.png" alt="Logo de cliente" data-i18n-attr="alt:a_clientlogo" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-4.png" alt="Logo de cliente" data-i18n-attr="alt:a_clientlogo" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-5.png" alt="Logo de cliente" data-i18n-attr="alt:a_clientlogo" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-6.png" alt="Logo de cliente" data-i18n-attr="alt:a_clientlogo" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-7.png" alt="Logo de cliente" data-i18n-attr="alt:a_clientlogo" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-8.png" alt="Logo de cliente" data-i18n-attr="alt:a_clientlogo" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-9.png" alt="Logo de cliente" data-i18n-attr="alt:a_clientlogo" width="500" height="500" decoding="async">
+        <img class="client-logo" src="assets/company-logos/logo-10.png" alt="Logo de cliente" data-i18n-attr="alt:a_clientlogo" width="500" height="500" decoding="async">
       </div>
       <div class="marquee__group" aria-hidden="true">
         <img class="client-logo" src="assets/company-logos/logo-1.png" alt="" width="500" height="500" decoding="async">
@@ -1151,21 +1207,21 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 </section>
 
 <!-- MÉTRICAS -->
-<section class="metrics" aria-label="Métricas">
+<section class="metrics" aria-label="Métricas" data-i18n-attr="aria-label:a_metrics">
   <div class="shell">
-    <p class="metrics__label">Tecnologia de ponta, resultados imediatos</p>
+    <p data-i18n="metricslabel" class="metrics__label">Tecnologia de ponta, resultados imediatos</p>
     <div class="metrics__grid">
       <div class="metric">
-        <b style="color:var(--cyan)"><span data-count="3" data-prefix="&lt; ">&lt; 3</span> segundos</b>
-        <p class="metric__label">Tempo de resposta</p>
+        <b style="color:var(--cyan)"><span data-count="3" data-prefix="&lt; ">&lt; 3</span><span data-i18n="seg"> segundos</span></b>
+        <p data-i18n="m1" class="metric__label">Tempo de resposta</p>
       </div>
       <div class="metric">
         <b style="color:var(--green)"><span data-count="30" data-prefix="+" data-suffix="%">+30%</span></b>
-        <p class="metric__label">Recuperação de leads perdidos</p>
+        <p data-i18n="m2" class="metric__label">Recuperação de leads perdidos</p>
       </div>
       <div class="metric">
         <b><span data-count="99.9" data-decimals="1" data-suffix="%">99,9%</span></b>
-        <p class="metric__label">Uptime de sistemas</p>
+        <p data-i18n="m3" class="metric__label">Uptime de sistemas</p>
       </div>
     </div>
   </div>
@@ -1175,25 +1231,25 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 <section class="section custo" aria-labelledby="problema-h">
   <div class="shell">
     <!-- Header compartilhado: um único h2 para os dois layouts -->
-    <p class="eyebrow custo__eyebrow">O custo oculto</p>
-    <h2 class="h2" id="problema-h" style="max-width:22ch">O Amadorismo Digital Está Custando Seus Clientes.</h2>
-    <p class="custo__intro">Três perdas que não aparecem no extrato, mas pesam em cada mês de faturamento.</p>
+    <p data-i18n="custoeye" class="eyebrow custo__eyebrow">O custo oculto</p>
+    <h2 data-i18n="custoh" class="h2" id="problema-h" style="max-width:22ch">O Amadorismo Digital Está Custando Seus Clientes.</h2>
+    <p data-i18n="custointro" class="custo__intro">Três perdas que não aparecem no extrato, mas pesam em cada mês de faturamento.</p>
 
     <!-- Desktop: diagnóstico interativo -->
     <div class="custo__desk">
       <div class="custo__grid reveal">
-        <div class="custo__tabs" role="tablist" aria-label="Problemas" id="custoTabs">
-          <button type="button" class="custo__tab is-active" role="tab" aria-selected="true" aria-controls="custoPanel"><span class="custo__tnum">01</span><span class="custo__ttl">A Morte pela Demora</span><span class="custo__tstat">78%</span></button>
-          <button type="button" class="custo__tab" role="tab" aria-selected="false" aria-controls="custoPanel"><span class="custo__tnum">02</span><span class="custo__ttl">Invisibilidade no Google</span><span class="custo__tstat">53%</span></button>
-          <button type="button" class="custo__tab" role="tab" aria-selected="false" aria-controls="custoPanel"><span class="custo__tnum">03</span><span class="custo__ttl">Vazamentos de Orçamento</span><span class="custo__tstat">40%</span></button>
+        <div class="custo__tabs" role="tablist" aria-label="Problemas" data-i18n-attr="aria-label:a_probs" id="custoTabs">
+          <button type="button" class="custo__tab is-active" role="tab" aria-selected="true" aria-controls="custoPanel"><span class="custo__tnum">01</span><span data-i18n="p1ttl" class="custo__ttl">A Morte pela Demora</span><span class="custo__tstat">78%</span></button>
+          <button type="button" class="custo__tab" role="tab" aria-selected="false" aria-controls="custoPanel"><span class="custo__tnum">02</span><span data-i18n="p2ttl" class="custo__ttl">Invisibilidade no Google</span><span class="custo__tstat">53%</span></button>
+          <button type="button" class="custo__tab" role="tab" aria-selected="false" aria-controls="custoPanel"><span class="custo__tnum">03</span><span data-i18n="p3ttl" class="custo__ttl">Vazamentos de Orçamento</span><span class="custo__tstat">40%</span></button>
         </div>
         <div class="custo__panel" id="custoPanel" role="tabpanel" aria-live="polite">
           <div class="custo__ptop">
             <span class="custo__tag" id="custoTag">ATENDIMENTO</span>
-            <span class="custo__risk"><i></i>RISCO ALTO</span>
+            <span class="custo__risk"><i></i><span data-i18n="risk">RISCO ALTO</span></span>
           </div>
           <div class="custo__pstat" id="custoStat">78%</div>
-          <p class="custo__pcopy" id="custoCopy">dos clientes fecham com quem responde primeiro. Atendimento humano sobrecarregado entrega essas vendas ao concorrente.</p>
+          <p data-i18n="p1copy" class="custo__pcopy" id="custoCopy">dos clientes fecham com quem responde primeiro. Atendimento humano sobrecarregado entrega essas vendas ao concorrente.</p>
           <div class="custo__bars">
             <div><div class="custo__blab"><span id="custoL1"></span><b id="custoV1"></b></div><div class="custo__track"><i id="custoF1"></i></div></div>
             <div><div class="custo__blab"><span id="custoL2"></span><b id="custoV2"></b></div><div class="custo__track"><i id="custoF2"></i></div></div>
@@ -1201,8 +1257,8 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
         </div>
       </div>
       <div class="custo__foot reveal">
-        <p>Os três têm a mesma causa: operação sem engenharia.</p>
-        <a href="#solucoes" class="custo__link">VER A SOLUÇÃO →</a>
+        <p data-i18n="custofoot">Os três têm a mesma causa: operação sem engenharia.</p>
+        <a data-i18n="custolink" href="#solucoes" class="custo__link">VER A SOLUÇÃO →</a>
       </div>
     </div>
 
@@ -1210,22 +1266,22 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
     <div class="custo__mob">
       <div class="custo__stats">
         <article class="custo__item reveal">
-          <p class="custo__lab">01 · ATENDIMENTO</p>
+          <p data-i18n="m1lab" class="custo__lab">01 · ATENDIMENTO</p>
           <div class="custo__num">78<em>%</em></div>
-          <h3>A Morte pela Demora</h3>
-          <p>dos clientes fecham com quem responde primeiro. Atendimento humano sobrecarregado entrega essas vendas ao concorrente.</p>
+          <h3 data-i18n="p1ttl">A Morte pela Demora</h3>
+          <p data-i18n="p1copy">dos clientes fecham com quem responde primeiro. Atendimento humano sobrecarregado entrega essas vendas ao concorrente.</p>
         </article>
         <article class="custo__item reveal">
-          <p class="custo__lab">02 · PRESENÇA</p>
+          <p data-i18n="m2lab" class="custo__lab">02 · PRESENÇA</p>
           <div class="custo__num">53<em>%</em></div>
-          <h3>Invisibilidade no Google</h3>
-          <p>dos visitantes abandonam sites lentos. Sem otimização, seu negócio não aparece para novos clientes nem para sistemas de IA.</p>
+          <h3 data-i18n="p2ttl">Invisibilidade no Google</h3>
+          <p data-i18n="p2copy">dos visitantes abandonam sites lentos. Sem otimização, seu negócio não aparece para novos clientes nem para sistemas de IA.</p>
         </article>
         <article class="custo__item reveal">
-          <p class="custo__lab">03 · OPERAÇÃO</p>
+          <p data-i18n="m3lab" class="custo__lab">03 · OPERAÇÃO</p>
           <div class="custo__num">40<em>%</em></div>
-          <h3>Vazamentos de Orçamento</h3>
-          <p>do tempo da equipe vai para tarefas manuais, reduzindo o lucro e expondo dados a falhas.</p>
+          <h3 data-i18n="p3ttl">Vazamentos de Orçamento</h3>
+          <p data-i18n="m3copy">do tempo da equipe vai para tarefas manuais, reduzindo o lucro e expondo dados a falhas.</p>
         </article>
       </div>
 
@@ -1236,8 +1292,8 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 <!-- SOLUÇÃO -->
 <section id="solucoes" class="section solucoes" aria-labelledby="soluc-h">
   <div class="shell">
-    <p class="eyebrow">A solução Tapiti</p>
-    <h2 class="h2" id="soluc-h">Nosso Ecossistema de Soluções</h2>
+    <p data-i18n="solueye" class="eyebrow">A solução Tapiti</p>
+    <h2 data-i18n="soluh" class="h2" id="soluc-h">Nosso Ecossistema de Soluções</h2>
 
     <!-- Showroom: bento com spotlight (desktop) / pilha em cascata (mobile) -->
     <div class="showroom" id="showroom">
@@ -1249,9 +1305,9 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
             <span class="tile__num" aria-hidden="true">01</span>
           </div>
           <div class="tile__main">
-            <div class="tile__titlerow"><h3>Websites Otimizados</h3></div>
-            <p class="tile__tag">SEO &amp; CONVERSÃO</p>
-            <p class="tile__text">Transforme seu negócio na principal autoridade local do Google. Desenvolvemos páginas ultrarrápidas, à prova de quedas e desenhadas com um único objetivo estrutural: converter visitantes em clientes pagantes.</p>
+            <div class="tile__titlerow"><h3 data-i18n="t1h">Websites Otimizados</h3></div>
+            <p data-i18n="t1tag" class="tile__tag">SEO &amp; CONVERSÃO</p>
+            <p data-i18n="t1txt" class="tile__text">Transforme seu negócio na principal autoridade local do Google. Desenvolvemos páginas ultrarrápidas, à prova de quedas e desenhadas com um único objetivo estrutural: converter visitantes em clientes pagantes.</p>
           </div>
         </div>
       </article>
@@ -1264,13 +1320,13 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
             <span class="tile__num" aria-hidden="true">02</span>
           </div>
           <div class="tile__main">
-            <div class="tile__titlerow"><h3>Atendimento de Chat e Ligação Automatizado com IA</h3></div>
-            <p class="tile__lead">O motor da sua escalabilidade.</p>
-            <p class="tile__text">Agentes de Inteligência Artificial Omnichannel que atendem, qualificam e agendam clientes simultaneamente via WhatsApp, Redes Sociais e ligações telefônicas. Respostas instantâneas e suporte a picos extremos sem necessidade de intervenção humana.</p>
-            <ul class="tile__chips" aria-label="Canais">
-              <li>WHATSAPP</li>
-              <li>REDES SOCIAIS</li>
-              <li>TELEFONE</li>
+            <div class="tile__titlerow"><h3 data-i18n="t2h">Atendimento de Chat e Ligação Automatizado com IA</h3></div>
+            <p data-i18n="t2lead" class="tile__lead">O motor da sua escalabilidade.</p>
+            <p data-i18n="t2txt" class="tile__text">Agentes de Inteligência Artificial Omnichannel que atendem, qualificam e agendam clientes simultaneamente via WhatsApp, Redes Sociais e ligações telefônicas. Respostas instantâneas e suporte a picos extremos sem necessidade de intervenção humana.</p>
+            <ul class="tile__chips" aria-label="Canais" data-i18n-attr="aria-label:a_channels">
+              <li data-i18n="chip1">WHATSAPP</li>
+              <li data-i18n="chip2">REDES SOCIAIS</li>
+              <li data-i18n="chip3">TELEFONE</li>
             </ul>
           </div>
         </div>
@@ -1284,8 +1340,8 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
             <span class="tile__num" aria-hidden="true">03</span>
           </div>
           <div class="tile__main">
-            <div class="tile__titlerow"><h3>Chat Bot Humanizado</h3></div>
-            <p class="tile__text">Esqueça os menus robóticos frustrantes. Nossos fluxos de conversação são treinados para interpretar intenções, mantendo um diálogo fluido, natural e empático que retém o cliente até o fechamento da venda.</p>
+            <div class="tile__titlerow"><h3 data-i18n="t3h">Chat Bot Humanizado</h3></div>
+            <p data-i18n="t3txt" class="tile__text">Esqueça os menus robóticos frustrantes. Nossos fluxos de conversação são treinados para interpretar intenções, mantendo um diálogo fluido, natural e empático que retém o cliente até o fechamento da venda.</p>
           </div>
         </div>
       </article>
@@ -1298,8 +1354,8 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
             <span class="tile__num" aria-hidden="true">04</span>
           </div>
           <div class="tile__main">
-            <div class="tile__titlerow"><h3>Dashboard Administrativo Inteligente</h3></div>
-            <p class="tile__text">O centro de comando da sua operação. Acompanhe métricas de conversão em tempo real, volume de chamados por IA e horários de pico. Dados acionáveis para você tomar decisões de mercado baseadas em matemática, não em achismos.</p>
+            <div class="tile__titlerow"><h3 data-i18n="t4h">Dashboard Administrativo Inteligente</h3></div>
+            <p data-i18n="t4txt" class="tile__text">O centro de comando da sua operação. Acompanhe métricas de conversão em tempo real, volume de chamados por IA e horários de pico. Dados acionáveis para você tomar decisões de mercado baseadas em matemática, não em achismos.</p>
           </div>
         </div>
       </article>
@@ -1310,19 +1366,19 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
           <div class="tile__head">
             <span class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>
             <span class="tile__num" aria-hidden="true">05</span>
-            <span class="tile__badge" aria-hidden="true">EM BREVE</span>
+            <span data-i18n="soon" class="tile__badge" aria-hidden="true">EM BREVE</span>
           </div>
           <div class="tile__main">
-            <div class="tile__titlerow"><h3>ARM/CRM</h3><span class="tile__badge">EM BREVE</span></div>
-            <p class="tile__sub">Automação de Relacionamento e Gestão de Clientes.</p>
-            <p class="tile__text">O próximo passo evolutivo da Tapiti. Um CRM integrado nativamente aos seus agentes de IA, mapeando toda a jornada do seu cliente desde o primeiro clique até a recompra.</p>
+            <div class="tile__titlerow"><h3>ARM/CRM</h3><span data-i18n="soon" class="tile__badge">EM BREVE</span></div>
+            <p data-i18n="t5sub" class="tile__sub">Automação de Relacionamento e Gestão de Clientes.</p>
+            <p data-i18n="t5txt" class="tile__text">O próximo passo evolutivo da Tapiti. Um CRM integrado nativamente aos seus agentes de IA, mapeando toda a jornada do seu cliente desde o primeiro clique até a recompra.</p>
           </div>
         </div>
       </article>
     </div>
 
     <div class="showroom__cta">
-      <a class="btn btn--ghost btn--block" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">Quero Blindar Meu Atendimento</a>
+      <a data-i18n="showcta" class="btn btn--ghost btn--block" data-wa href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">Quero Blindar Meu Atendimento</a>
     </div>
   </div>
 </section>
@@ -1330,8 +1386,8 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 <!-- PILARES (scroll-pinned: the stage stays put while scrolling advances the pillars) -->
 <section id="engenharia" class="pilares" aria-labelledby="pilares-h">
   <div class="pilares__intro">
-    <p class="pilares__eyebrow">Os 4 pilares Tapiti</p>
-    <h2 class="pilares__h2" id="pilares-h">Por que a Tapiti salta à frente.</h2>
+    <p data-i18n="pileye" class="pilares__eyebrow">Os 4 pilares Tapiti</p>
+    <h2 data-i18n="pilh" class="pilares__h2" id="pilares-h">Por que a Tapiti salta à frente.</h2>
   </div>
   <div class="pilares__track" id="pilaresTrack">
     <div class="pilares__stage" id="pilaresStage">
@@ -1349,42 +1405,42 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
           </div>
         </div>
         <div class="pz__labels">
-          <button type="button" class="pz__label is-active" data-pilar="0" aria-current="step"><span class="pz__num">01</span><span class="pz__word">Confiável</span></button>
-          <button type="button" class="pz__label" data-pilar="1"><span class="pz__num">02</span><span class="pz__word">Segura</span></button>
-          <button type="button" class="pz__label" data-pilar="2"><span class="pz__num">03</span><span class="pz__word">Ágil</span></button>
-          <button type="button" class="pz__label" data-pilar="3"><span class="pz__num">04</span><span class="pz__word">Inteligente</span></button>
+          <button type="button" class="pz__label is-active" data-pilar="0" aria-current="step"><span class="pz__num">01</span><span data-i18n="pw1" class="pz__word">Confiável</span></button>
+          <button type="button" class="pz__label" data-pilar="1"><span class="pz__num">02</span><span data-i18n="pw2" class="pz__word">Segura</span></button>
+          <button type="button" class="pz__label" data-pilar="2"><span class="pz__num">03</span><span data-i18n="pw3" class="pz__word">Ágil</span></button>
+          <button type="button" class="pz__label" data-pilar="3"><span class="pz__num">04</span><span data-i18n="pw4" class="pz__word">Inteligente</span></button>
         </div>
         <div class="pz__detail">
           <div class="pz__panel is-active">
-            <div class="pz__lead"><span class="pz__kicker">PILAR 01 / 04</span><span class="pilares__big">Confiável</span></div>
+            <div class="pz__lead"><span data-i18n="pk1" class="pz__kicker">PILAR 01 / 04</span><span data-i18n="pw1" class="pilares__big">Confiável</span></div>
             <div class="pz__copy">
-              <h3>Infraestrutura robusta para nunca te deixar na mão.</h3>
-              <p>Nossas soluções rodam sobre infraestrutura redundante e monitorada 24 horas. Pico de vendas, campanha viral ou madrugada de domingo: quando seu cliente chama, a Tapiti responde.</p>
-              <ul class="pilares__chips"><li>99,9% de uptime</li><li>Monitoramento 24/7</li></ul>
+              <h3 data-i18n="ph1">Infraestrutura robusta para nunca te deixar na mão.</h3>
+              <p data-i18n="pt1">Nossas soluções rodam sobre infraestrutura redundante e monitorada 24 horas. Pico de vendas, campanha viral ou madrugada de domingo: quando seu cliente chama, a Tapiti responde.</p>
+              <ul class="pilares__chips"><li data-i18n="pc1a">99,9% de uptime</li><li data-i18n="pc1b">Monitoramento 24/7</li></ul>
             </div>
           </div>
           <div class="pz__panel">
-            <div class="pz__lead"><span class="pz__kicker">PILAR 02 / 04</span><span class="pilares__big">Segura</span></div>
+            <div class="pz__lead"><span data-i18n="pk2" class="pz__kicker">PILAR 02 / 04</span><span data-i18n="pw2" class="pilares__big">Segura</span></div>
             <div class="pz__copy">
-              <h3>Seus dados tratados com o cuidado que eles merecem.</h3>
-              <p>Usamos métodos de segurança de nível enterprise, os mesmos do mercado financeiro: criptografia de ponta a ponta, acesso controlado e registro de cada operação.</p>
-              <ul class="pilares__chips"><li>Criptografia AES-256</li><li>Conforme a LGPD</li></ul>
+              <h3 data-i18n="ph2">Seus dados tratados com o cuidado que eles merecem.</h3>
+              <p data-i18n="pt2">Usamos métodos de segurança de nível enterprise, os mesmos do mercado financeiro: criptografia de ponta a ponta, acesso controlado e registro de cada operação.</p>
+              <ul class="pilares__chips"><li data-i18n="pc2a">Criptografia AES-256</li><li data-i18n="pc2b">Conforme a LGPD</li></ul>
             </div>
           </div>
           <div class="pz__panel">
-            <div class="pz__lead"><span class="pz__kicker">PILAR 03 / 04</span><span class="pilares__big">Ágil</span></div>
+            <div class="pz__lead"><span data-i18n="pk3" class="pz__kicker">PILAR 03 / 04</span><span data-i18n="pw3" class="pilares__big">Ágil</span></div>
             <div class="pz__copy">
-              <h3>Seu ecossistema inteiro no ar em dias, não semanas.</h3>
-              <p>Nossa arquitetura plug-and-play conecta site, agentes de IA e canais de atendimento ao que você já usa. Sem obra, sem parar a operação.</p>
-              <ul class="pilares__chips"><li>Implantação em poucos dias</li><li>Mantém seu WhatsApp</li></ul>
+              <h3 data-i18n="ph3">Seu ecossistema inteiro no ar em dias, não semanas.</h3>
+              <p data-i18n="pt3">Nossa arquitetura plug-and-play conecta site, agentes de IA e canais de atendimento ao que você já usa. Sem obra, sem parar a operação.</p>
+              <ul class="pilares__chips"><li data-i18n="pc3a">Implantação em poucos dias</li><li data-i18n="pc3b">Mantém seu WhatsApp</li></ul>
             </div>
           </div>
           <div class="pz__panel">
-            <div class="pz__lead"><span class="pz__kicker">PILAR 04 / 04</span><span class="pilares__big">Inteligente</span></div>
+            <div class="pz__lead"><span data-i18n="pk4" class="pz__kicker">PILAR 04 / 04</span><span data-i18n="pw4" class="pilares__big">Inteligente</span></div>
             <div class="pz__copy">
-              <h3>Decisões mais inteligentes, guiadas pelo seu público.</h3>
-              <p>Cada conversa e cada visita viram informação. Transformamos os dados das suas aplicações em respostas claras sobre quem compra, quando e por quê.</p>
-              <ul class="pilares__chips"><li>Painéis em tempo real</li><li>Insights por canal</li></ul>
+              <h3 data-i18n="ph4">Decisões mais inteligentes, guiadas pelo seu público.</h3>
+              <p data-i18n="pt4">Cada conversa e cada visita viram informação. Transformamos os dados das suas aplicações em respostas claras sobre quem compra, quando e por quê.</p>
+              <ul class="pilares__chips"><li data-i18n="pc4a">Painéis em tempo real</li><li data-i18n="pc4b">Insights por canal</li></ul>
             </div>
           </div>
         </div>
@@ -1397,12 +1453,12 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
             <span class="pm__mark" aria-hidden="true"><span class="pm__dot"></span><img class="pm__rabbit" src="assets/logo-3.png" alt="" width="1579" height="971" loading="lazy"></span>
             <span class="pm__body">
               <span class="pm__num">01</span>
-              <span class="pm__word">Confiável</span>
+              <span data-i18n="pw1" class="pm__word">Confiável</span>
               <span class="pm__open">
-                <span class="pilares__big">Confiável</span>
-                <span class="pm__line">Infraestrutura robusta para nunca te deixar na mão.</span>
-                <span class="pm__text">Nossas soluções rodam sobre infraestrutura redundante e monitorada 24 horas. Pico de vendas, campanha viral ou madrugada de domingo: quando seu cliente chama, a Tapiti responde.</span>
-                <span class="pilares__chips"><span>99,9% de uptime</span><span>Monitoramento 24/7</span></span>
+                <span data-i18n="pw1" class="pilares__big">Confiável</span>
+                <span data-i18n="ph1" class="pm__line">Infraestrutura robusta para nunca te deixar na mão.</span>
+                <span data-i18n="pt1" class="pm__text">Nossas soluções rodam sobre infraestrutura redundante e monitorada 24 horas. Pico de vendas, campanha viral ou madrugada de domingo: quando seu cliente chama, a Tapiti responde.</span>
+                <span class="pilares__chips"><span data-i18n="pc1a">99,9% de uptime</span><span data-i18n="pc1b">Monitoramento 24/7</span></span>
               </span>
             </span>
           </button>
@@ -1410,12 +1466,12 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
             <span class="pm__mark" aria-hidden="true"><span class="pm__dot"></span><img class="pm__rabbit" src="assets/logo-3.png" alt="" width="1579" height="971" loading="lazy"></span>
             <span class="pm__body">
               <span class="pm__num">02</span>
-              <span class="pm__word">Segura</span>
+              <span data-i18n="pw2" class="pm__word">Segura</span>
               <span class="pm__open">
-                <span class="pilares__big">Segura</span>
-                <span class="pm__line">Seus dados tratados com o cuidado que eles merecem.</span>
-                <span class="pm__text">Usamos métodos de segurança de nível enterprise, os mesmos do mercado financeiro: criptografia de ponta a ponta, acesso controlado e registro de cada operação.</span>
-                <span class="pilares__chips"><span>Criptografia AES-256</span><span>Conforme a LGPD</span></span>
+                <span data-i18n="pw2" class="pilares__big">Segura</span>
+                <span data-i18n="ph2" class="pm__line">Seus dados tratados com o cuidado que eles merecem.</span>
+                <span data-i18n="pt2" class="pm__text">Usamos métodos de segurança de nível enterprise, os mesmos do mercado financeiro: criptografia de ponta a ponta, acesso controlado e registro de cada operação.</span>
+                <span class="pilares__chips"><span data-i18n="pc2a">Criptografia AES-256</span><span data-i18n="pc2b">Conforme a LGPD</span></span>
               </span>
             </span>
           </button>
@@ -1423,12 +1479,12 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
             <span class="pm__mark" aria-hidden="true"><span class="pm__dot"></span><img class="pm__rabbit" src="assets/logo-3.png" alt="" width="1579" height="971" loading="lazy"></span>
             <span class="pm__body">
               <span class="pm__num">03</span>
-              <span class="pm__word">Ágil</span>
+              <span data-i18n="pw3" class="pm__word">Ágil</span>
               <span class="pm__open">
-                <span class="pilares__big">Ágil</span>
-                <span class="pm__line">Seu ecossistema inteiro no ar em dias, não semanas.</span>
-                <span class="pm__text">Nossa arquitetura plug-and-play conecta site, agentes de IA e canais de atendimento ao que você já usa. Sem obra, sem parar a operação.</span>
-                <span class="pilares__chips"><span>Implantação em poucos dias</span><span>Mantém seu WhatsApp</span></span>
+                <span data-i18n="pw3" class="pilares__big">Ágil</span>
+                <span data-i18n="ph3" class="pm__line">Seu ecossistema inteiro no ar em dias, não semanas.</span>
+                <span data-i18n="pt3" class="pm__text">Nossa arquitetura plug-and-play conecta site, agentes de IA e canais de atendimento ao que você já usa. Sem obra, sem parar a operação.</span>
+                <span class="pilares__chips"><span data-i18n="pc3a">Implantação em poucos dias</span><span data-i18n="pc3b">Mantém seu WhatsApp</span></span>
               </span>
             </span>
           </button>
@@ -1436,12 +1492,12 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
             <span class="pm__mark" aria-hidden="true"><span class="pm__dot"></span><img class="pm__rabbit" src="assets/logo-3.png" alt="" width="1579" height="971" loading="lazy"></span>
             <span class="pm__body">
               <span class="pm__num">04</span>
-              <span class="pm__word">Inteligente</span>
+              <span data-i18n="pw4" class="pm__word">Inteligente</span>
               <span class="pm__open">
-                <span class="pilares__big">Inteligente</span>
-                <span class="pm__line">Decisões mais inteligentes, guiadas pelo seu público.</span>
-                <span class="pm__text">Cada conversa e cada visita viram informação. Transformamos os dados das suas aplicações em respostas claras sobre quem compra, quando e por quê.</span>
-                <span class="pilares__chips"><span>Painéis em tempo real</span><span>Insights por canal</span></span>
+                <span data-i18n="pw4" class="pilares__big">Inteligente</span>
+                <span data-i18n="ph4" class="pm__line">Decisões mais inteligentes, guiadas pelo seu público.</span>
+                <span data-i18n="pt4" class="pm__text">Cada conversa e cada visita viram informação. Transformamos os dados das suas aplicações em respostas claras sobre quem compra, quando e por quê.</span>
+                <span class="pilares__chips"><span data-i18n="pc4a">Painéis em tempo real</span><span data-i18n="pc4b">Insights por canal</span></span>
               </span>
             </span>
           </button>
@@ -1455,28 +1511,28 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 <!-- PROCESSO -->
 <section class="section proc" id="processo" aria-labelledby="processo-h">
   <div class="shell">
-    <p class="eyebrow reveal">Implementação</p>
-    <h2 class="h2 reveal" id="processo-h">Como Escalamos Seu Negócio</h2>
+    <p data-i18n="proceye" class="eyebrow reveal">Implementação</p>
+    <h2 data-i18n="proch" class="h2 reveal" id="processo-h">Como Escalamos Seu Negócio</h2>
 
     <!-- desktop: pipeline header + three columns -->
     <div class="proc__panel proc__d reveal">
       <div class="pd__head">
         <span class="pd__track" aria-hidden="true"></span>
         <span class="pd__fill" aria-hidden="true"></span>
-        <button type="button" class="pnode" data-k="1" style="--c:#16D7DA" aria-label="Ir ao passo 1: Diagnóstico"><span class="pnode__ring"></span><span class="pnode__c">1</span><span class="pnode__l">DIAGNÓSTICO</span></button>
-        <button type="button" class="pnode" data-k="2" style="--c:#1ED1B8" aria-label="Ir ao passo 2: Adaptação"><span class="pnode__ring"></span><span class="pnode__c">2</span><span class="pnode__l">ADAPTAÇÃO</span></button>
-        <button type="button" class="pnode" data-k="3" style="--c:#2ECC86" aria-label="Ir ao passo 3: Lançamento"><span class="pnode__ring"></span><span class="pnode__c">3</span><span class="pnode__l">LANÇAMENTO</span></button>
+        <button type="button" class="pnode" data-k="1" style="--c:#16D7DA" aria-label="Ir ao passo 1: Diagnóstico" data-i18n-attr="aria-label:a_step1"><span class="pnode__ring"></span><span class="pnode__c">1</span><span data-i18n="n1" class="pnode__l">DIAGNÓSTICO</span></button>
+        <button type="button" class="pnode" data-k="2" style="--c:#1ED1B8" aria-label="Ir ao passo 2: Adaptação" data-i18n-attr="aria-label:a_step2"><span class="pnode__ring"></span><span class="pnode__c">2</span><span data-i18n="n2" class="pnode__l">ADAPTAÇÃO</span></button>
+        <button type="button" class="pnode" data-k="3" style="--c:#2ECC86" aria-label="Ir ao passo 3: Lançamento" data-i18n-attr="aria-label:a_step3"><span class="pnode__ring"></span><span class="pnode__c">3</span><span data-i18n="n3" class="pnode__l">LANÇAMENTO</span></button>
       </div>
       <div class="pd__cols">
-        <article class="pcol" data-k="1" style="--c:#16D7DA"><span class="pcol__hl"></span><div class="pcol__in"><div class="pvis" data-visual="1"></div><h3>Diagnóstico</h3><p>Mapeamento rápido e estruturado direto via WhatsApp.</p></div></article>
-        <article class="pcol" data-k="2" style="--c:#1ED1B8"><span class="pcol__hl"></span><div class="pcol__in"><div class="pvis" data-visual="2"></div><h3>Adaptação Plug-and-Play</h3><p>Integramos a IA e a nova arquitetura diretamente na sua operação atual.</p></div></article>
-        <article class="pcol" data-k="3" style="--c:#2ECC86"><span class="pcol__hl"></span><div class="pcol__in"><div class="pvis" data-visual="3"></div><h3>Lançamento Seguro</h3><p>Testes rigorosos garantem a captação de clientes sem falhas logo no primeiro dia.</p></div></article>
+        <article class="pcol" data-k="1" style="--c:#16D7DA"><span class="pcol__hl"></span><div class="pcol__in"><div class="pvis" data-visual="1"></div><h3 data-i18n="s1h">Diagnóstico</h3><p data-i18n="s1p">Mapeamento rápido e estruturado direto via WhatsApp.</p></div></article>
+        <article class="pcol" data-k="2" style="--c:#1ED1B8"><span class="pcol__hl"></span><div class="pcol__in"><div class="pvis" data-visual="2"></div><h3 data-i18n="s2h">Adaptação Plug-and-Play</h3><p data-i18n="s2p">Integramos a IA e a nova arquitetura diretamente na sua operação atual.</p></div></article>
+        <article class="pcol" data-k="3" style="--c:#2ECC86"><span class="pcol__hl"></span><div class="pcol__in"><div class="pvis" data-visual="3"></div><h3 data-i18n="s3h">Lançamento Seguro</h3><p data-i18n="s3p">Testes rigorosos garantem a captação de clientes sem falhas logo no primeiro dia.</p></div></article>
       </div>
       <div class="pfoot">
-        <ul class="pfoot__trust"><li>SEM COMPROMISSO</li><li>RESPOSTA IMEDIATA</li><li>GARANTIA 30 DIAS</li></ul>
-        <a class="btn btn--primary proc__cta" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
+        <ul class="pfoot__trust"><li data-i18n="trust1">SEM COMPROMISSO</li><li data-i18n="trust2">RESPOSTA IMEDIATA</li><li data-i18n="trust3">GARANTIA 30 DIAS</li></ul>
+        <a class="btn btn--primary proc__cta" data-wa href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Agendar Consultoria Gratuita via WhatsApp
+          <span data-i18n="ctawa">Agendar Consultoria Gratuita via WhatsApp</span>
         </a>
       </div>
     </div>
@@ -1485,31 +1541,31 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
     <div class="proc__panel proc__m reveal">
       <div class="pm__rows">
         <div class="prow" data-k="1" style="--c:#16D7DA">
-          <button type="button" class="pnode" data-k="1" aria-label="Ir ao passo 1: Diagnóstico"><span class="pnode__ring"></span><span class="pnode__c">1</span></button>
-          <div class="pcol__in"><h3>Diagnóstico</h3><p>Mapeamento rápido e estruturado direto via WhatsApp.</p><div class="pvis" data-visual="1"></div></div>
+          <button type="button" class="pnode" data-k="1" aria-label="Ir ao passo 1: Diagnóstico" data-i18n-attr="aria-label:a_step1"><span class="pnode__ring"></span><span class="pnode__c">1</span></button>
+          <div class="pcol__in"><h3 data-i18n="s1h">Diagnóstico</h3><p data-i18n="s1p">Mapeamento rápido e estruturado direto via WhatsApp.</p><div class="pvis" data-visual="1"></div></div>
         </div>
         <div class="prow" data-k="2" style="--c:#1ED1B8">
-          <button type="button" class="pnode" data-k="2" aria-label="Ir ao passo 2: Adaptação"><span class="pnode__ring"></span><span class="pnode__c">2</span></button>
-          <div class="pcol__in"><h3>Adaptação Plug-and-Play</h3><p>Integramos a IA e a nova arquitetura diretamente na sua operação atual.</p><div class="pvis" data-visual="2"></div></div>
+          <button type="button" class="pnode" data-k="2" aria-label="Ir ao passo 2: Adaptação" data-i18n-attr="aria-label:a_step2"><span class="pnode__ring"></span><span class="pnode__c">2</span></button>
+          <div class="pcol__in"><h3 data-i18n="s2h">Adaptação Plug-and-Play</h3><p data-i18n="s2p">Integramos a IA e a nova arquitetura diretamente na sua operação atual.</p><div class="pvis" data-visual="2"></div></div>
         </div>
         <div class="prow" data-k="3" style="--c:#2ECC86">
-          <button type="button" class="pnode" data-k="3" aria-label="Ir ao passo 3: Lançamento"><span class="pnode__ring"></span><span class="pnode__c">3</span></button>
-          <div class="pcol__in"><h3>Lançamento Seguro</h3><p>Testes rigorosos garantem a captação de clientes sem falhas logo no primeiro dia.</p><div class="pvis" data-visual="3"></div></div>
+          <button type="button" class="pnode" data-k="3" aria-label="Ir ao passo 3: Lançamento" data-i18n-attr="aria-label:a_step3"><span class="pnode__ring"></span><span class="pnode__c">3</span></button>
+          <div class="pcol__in"><h3 data-i18n="s3h">Lançamento Seguro</h3><p data-i18n="s3p">Testes rigorosos garantem a captação de clientes sem falhas logo no primeiro dia.</p><div class="pvis" data-visual="3"></div></div>
         </div>
       </div>
       <div class="pfoot">
-        <a class="btn btn--primary btn--block proc__cta" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
+        <a class="btn btn--primary btn--block proc__cta" data-wa href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Agendar Consultoria Gratuita via WhatsApp
+          <span data-i18n="ctawa">Agendar Consultoria Gratuita via WhatsApp</span>
         </a>
-        <ul class="pfoot__trust"><li>SEM COMPROMISSO</li><li>RESPOSTA IMEDIATA</li><li>GARANTIA 30 DIAS</li></ul>
+        <ul class="pfoot__trust"><li data-i18n="trust1">SEM COMPROMISSO</li><li data-i18n="trust2">RESPOSTA IMEDIATA</li><li data-i18n="trust3">GARANTIA 30 DIAS</li></ul>
       </div>
     </div>
   </div>
 
-  <template id="pv1"><div class="pv"><div class="pv__chat"><div class="pv__hd"><img src="assets/appicon-cyan.png" alt="" width="24" height="24"><b>Agente Tapiti</b><i>● WHATSAPP</i></div><div class="pv__b pv__b--u">Quero automatizar meu atendimento.</div><div class="pv__b pv__b--a">Perfeito. Qual canal recebe mais clientes hoje?</div><div class="pv__chips"><span class="is-on">WhatsApp</span><span>Instagram</span><span>Telefone</span></div></div></div></template>
-  <template id="pv2"><div class="pv"><div class="pv__cap">SUA OPERAÇÃO → TAPITI</div><div class="pv__int"><div class="pv__ch"><span>WhatsApp</span><span>Redes sociais</span><span>Ligações</span><span>Site</span></div><div class="pv__br"><i></i><u></u></div><div class="pv__ag"><div class="pv__agh"><img src="assets/appicon-cyan.png" alt="" width="22" height="22"><b>Agente IA</b></div><hr><div class="pv__ls">QUALIFICA<br>AGENDA<br>REGISTRA</div></div></div></div></template>
-  <template id="pv3"><div class="pv pv--list"><div class="pv__ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Fluxos de conversa</span><em>OK</em></div><div class="pv__ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Integrações</span><em>OK</em></div><div class="pv__ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Teste de carga</span><em>OK</em></div><div class="pv__live"><s></s><b>Captação ativa</b><em>NO AR</em></div></div></template>
+  <template id="pv1"><div class="pv"><div class="pv__chat"><div class="pv__hd"><img src="assets/appicon-cyan.png" alt="" width="24" height="24"><b data-i18n="chatname">Agente Tapiti</b><i>● WHATSAPP</i></div><div data-i18n="pv1a" class="pv__b pv__b--u">Quero automatizar meu atendimento.</div><div data-i18n="pv1b" class="pv__b pv__b--a">Perfeito. Qual canal recebe mais clientes hoje?</div><div class="pv__chips"><span class="is-on">WhatsApp</span><span>Instagram</span><span data-i18n="pv1c">Telefone</span></div></div></div></template>
+  <template id="pv2"><div class="pv"><div data-i18n="pv2cap" class="pv__cap">SUA OPERAÇÃO → TAPITI</div><div class="pv__int"><div class="pv__ch"><span>WhatsApp</span><span data-i18n="pv2a">Redes sociais</span><span data-i18n="pv2b">Ligações</span><span data-i18n="pv2c">Site</span></div><div class="pv__br"><i></i><u></u></div><div class="pv__ag"><div class="pv__agh"><img src="assets/appicon-cyan.png" alt="" width="22" height="22"><b data-i18n="pv2d">Agente IA</b></div><hr><div data-i18n="pv2e" class="pv__ls">QUALIFICA<br>AGENDA<br>REGISTRA</div></div></div></div></template>
+  <template id="pv3"><div class="pv pv--list"><div class="pv__ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="pv3a">Fluxos de conversa</span><em>OK</em></div><div class="pv__ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="pv3b">Integrações</span><em>OK</em></div><div class="pv__ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="pv3c">Teste de carga</span><em>OK</em></div><div class="pv__live"><s></s><b data-i18n="pv3d">Captação ativa</b><em data-i18n="pv3e">NO AR</em></div></div></template>
 </section>
 
 <!-- IMPACTO -->
@@ -1517,77 +1573,77 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
   <div class="shell">
     <div class="imp__head reveal">
       <div>
-        <p class="eyebrow is-muted">O impacto</p>
-        <h2 class="h2" id="impacto-h">A Matemática de uma Operação Inteligente</h2>
+        <p data-i18n="impeye" class="eyebrow is-muted">O impacto</p>
+        <h2 data-i18n="imph" class="h2" id="impacto-h">A Matemática de uma Operação Inteligente</h2>
       </div>
-      <div class="imp__switch" role="tablist" aria-label="Comparar operações">
+      <div class="imp__switch" role="tablist" aria-label="Comparar operações" data-i18n-attr="aria-label:a_cmp">
         <span class="imp__knob" aria-hidden="true"></span>
-        <button type="button" class="imp__btn" role="tab" id="imp-tab-amadora" data-mode="amadora" aria-selected="false" tabindex="-1"><span><span class="imp__full">Operação </span>Amadora</span></button>
-        <button type="button" class="imp__btn" role="tab" id="imp-tab-tapiti" data-mode="tapiti" aria-selected="true"><img src="assets/appicon-cyan.png" alt="" aria-hidden="true"><span><span class="imp__full">Operação </span>Tapiti</span></button>
+        <button type="button" class="imp__btn" role="tab" id="imp-tab-amadora" data-mode="amadora" aria-selected="false" tabindex="-1"><span><span class="imp__full" data-i18n="opfull">Operação </span><span data-i18n="amadora">Amadora</span><span class="imp__full" data-i18n="opsfx"></span></span></button>
+        <button type="button" class="imp__btn" role="tab" id="imp-tab-tapiti" data-mode="tapiti" aria-selected="true"><img src="assets/appicon-cyan.png" alt="" aria-hidden="true"><span><span class="imp__full" data-i18n="opfull">Operação </span>Tapiti<span class="imp__full" data-i18n="opsfx"></span></span></button>
       </div>
     </div>
 
     <div class="imp__tiles reveal" aria-live="polite">
       <div class="imp__tile" style="--i:0">
         <span class="imp__tint" aria-hidden="true"></span>
-        <div class="imp__top"><span class="imp__label">DISPONIBILIDADE</span><i class="imp__dot" aria-hidden="true"></i></div>
+        <div class="imp__top"><span data-i18n="i1l" class="imp__label">DISPONIBILIDADE</span><i class="imp__dot" aria-hidden="true"></i></div>
         <div class="imp__val">
-          <div class="imp__layer imp__layer--t"><b>24h</b><span>por dia, 7 dias</span></div>
-          <div class="imp__layer imp__layer--a" aria-hidden="true"><b>8h</b><span>por dia</span></div>
+          <div class="imp__layer imp__layer--t"><b>24h</b><span data-i18n="i1ta">por dia, 7 dias</span></div>
+          <div class="imp__layer imp__layer--a" aria-hidden="true"><b>8h</b><span data-i18n="i1aa">por dia</span></div>
         </div>
         <hr class="imp__rule">
         <div class="imp__note">
-          <p class="imp__note--t">Agente de IA ativo à noite, nos fins de semana e feriados.</p>
-          <p class="imp__note--a" aria-hidden="true">Horário comercial. Fora dele, o cliente espera ou procura o concorrente.</p>
+          <p data-i18n="i1tn" class="imp__note--t">Agente de IA ativo à noite, nos fins de semana e feriados.</p>
+          <p data-i18n="i1an" class="imp__note--a" aria-hidden="true">Horário comercial. Fora dele, o cliente espera ou procura o concorrente.</p>
         </div>
       </div>
       <div class="imp__tile" style="--i:1">
         <span class="imp__tint" aria-hidden="true"></span>
-        <div class="imp__top"><span class="imp__label">CAPACIDADE</span><i class="imp__dot" aria-hidden="true"></i></div>
+        <div class="imp__top"><span data-i18n="i2l" class="imp__label">CAPACIDADE</span><i class="imp__dot" aria-hidden="true"></i></div>
         <div class="imp__val">
-          <div class="imp__layer imp__layer--t"><b>∞</b><span>em paralelo</span></div>
-          <div class="imp__layer imp__layer--a" aria-hidden="true"><b>1</b><span>cliente por vez</span></div>
+          <div class="imp__layer imp__layer--t"><b>∞</b><span data-i18n="i2ta">em paralelo</span></div>
+          <div class="imp__layer imp__layer--a" aria-hidden="true"><b>1</b><span data-i18n="i2aa">cliente por vez</span></div>
         </div>
         <hr class="imp__rule">
         <div class="imp__note">
-          <p class="imp__note--t">Conversas simultâneas no WhatsApp, redes e telefone, sem fila.</p>
-          <p class="imp__note--a" aria-hidden="true">Cada atendente conversa com uma pessoa. O resto entra na fila.</p>
+          <p data-i18n="i2tn" class="imp__note--t">Conversas simultâneas no WhatsApp, redes e telefone, sem fila.</p>
+          <p data-i18n="i2an" class="imp__note--a" aria-hidden="true">Cada atendente conversa com uma pessoa. O resto entra na fila.</p>
         </div>
       </div>
       <div class="imp__tile" style="--i:2">
         <span class="imp__tint" aria-hidden="true"></span>
-        <div class="imp__top"><span class="imp__label">PRESENÇA DIGITAL</span><i class="imp__dot" aria-hidden="true"></i></div>
+        <div class="imp__top"><span data-i18n="p2tag" class="imp__label">PRESENÇA DIGITAL</span><i class="imp__dot" aria-hidden="true"></i></div>
         <div class="imp__val">
-          <div class="imp__layer imp__layer--t"><b>Top 3</b><span>no Google local</span></div>
-          <div class="imp__layer imp__layer--a" aria-hidden="true"><b>Pág. 3+</b><span>no Google</span></div>
+          <div class="imp__layer imp__layer--t"><b>Top 3</b><span data-i18n="i3ta">no Google local</span></div>
+          <div class="imp__layer imp__layer--a" aria-hidden="true"><b data-i18n="i3aa">Pág. 3+</b><span data-i18n="i3ab">no Google</span></div>
         </div>
         <hr class="imp__rule">
         <div class="imp__note">
-          <p class="imp__note--t">Site rápido e SEO técnico para disputar as primeiras posições.</p>
-          <p class="imp__note--a" aria-hidden="true">Quem busca pelo seu serviço não encontra a sua empresa.</p>
+          <p data-i18n="i3tn" class="imp__note--t">Site rápido e SEO técnico para disputar as primeiras posições.</p>
+          <p data-i18n="i3an" class="imp__note--a" aria-hidden="true">Quem busca pelo seu serviço não encontra a sua empresa.</p>
         </div>
       </div>
       <div class="imp__tile" style="--i:3">
         <span class="imp__tint" aria-hidden="true"></span>
-        <div class="imp__top"><span class="imp__label">CUSTO POR ATENDIMENTO*</span><i class="imp__dot" aria-hidden="true"></i></div>
+        <div class="imp__top"><span data-i18n="i4l" class="imp__label">CUSTO POR ATENDIMENTO*</span><i class="imp__dot" aria-hidden="true"></i></div>
         <div class="imp__val">
-          <div class="imp__layer imp__layer--t"><b>R$ 0,45</b><span>por conversa</span></div>
-          <div class="imp__layer imp__layer--a" aria-hidden="true"><b>R$ 9</b><span>por conversa</span></div>
+          <div class="imp__layer imp__layer--t"><b>R$ 0,45</b><span data-i18n="i4a">por conversa</span></div>
+          <div class="imp__layer imp__layer--a" aria-hidden="true"><b>R$ 9</b><span data-i18n="i4a">por conversa</span></div>
         </div>
         <hr class="imp__rule">
         <div class="imp__note">
-          <p class="imp__note--t">O custo cai à medida que o volume cresce.</p>
-          <p class="imp__note--a" aria-hidden="true">Salário, encargos e horas ociosas divididos pelo volume real.</p>
+          <p data-i18n="i4tn" class="imp__note--t">O custo cai à medida que o volume cresce.</p>
+          <p data-i18n="i4an" class="imp__note--a" aria-hidden="true">Salário, encargos e horas ociosas divididos pelo volume real.</p>
         </div>
       </div>
     </div>
 
     <div class="imp__foot reveal">
       <div class="imp__sum" aria-live="polite">
-        <p class="imp__sum--t">Atende 24h, sem fila, na 1ª página, a uma fração do custo.</p>
-        <p class="imp__sum--a" aria-hidden="true">Fecha às 18h, atende um por vez e não aparece no Google.</p>
+        <p data-i18n="isumt" class="imp__sum--t">Atende 24h, sem fila, na 1ª página, a uma fração do custo.</p>
+        <p data-i18n="isuma" class="imp__sum--a" aria-hidden="true">Fecha às 18h, atende um por vez e não aparece no Google.</p>
       </div>
-      <p class="imp__fn">* Custo estimado: atendente CLT (~R$ 4.500/mês com encargos, ~500 atendimentos) vs. consumo médio do agente de IA.</p>
+      <p data-i18n="ifn" class="imp__fn">* Custo estimado: atendente CLT (~R$ 4.500/mês com encargos, ~500 atendimentos) vs. consumo médio do agente de IA.</p>
     </div>
   </div>
 </section>
@@ -1596,8 +1652,8 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 <section id="quem-somos" class="section" aria-labelledby="quem-h">
   <div class="shell">
     <div class="carta__head">
-      <p class="eyebrow">Quem somos</p>
-      <h2 class="h2" id="quem-h">A força que o seu negócio precisava</h2>
+      <p data-i18n="quemeye" class="eyebrow">Quem somos</p>
+      <h2 data-i18n="quemh" class="h2" id="quem-h">A força que o seu negócio precisava</h2>
     </div>
     <div class="carta">
       <div class="carta__sheet carta__sheet--back" aria-hidden="true"></div>
@@ -1605,27 +1661,27 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
       <article class="carta__paper">
         <div class="carta__letterhead">
           <div class="carta__brand"><img src="assets/appicon-navy.png" alt="" width="30" height="30"><span>Tapiti Digital</span></div>
-          <span class="carta__tag">Carta aberta</span>
+          <span data-i18n="carta" class="carta__tag">Carta aberta</span>
         </div>
         <div class="founders">
           <div class="founder">
             <div class="founder__photo"><img src="assets/founder-1.jpg" alt="Monica" style="object-position:center 20%"></div>
-            <div><div class="founder__name">Monica</div><div class="founder__role">Estratégia de Negócios</div></div>
+            <div><div class="founder__name">Monica</div><div data-i18n="role1" class="founder__role">Estratégia de Negócios</div></div>
           </div>
           <div class="founder">
             <div class="founder__photo"><img src="assets/founder-2.jpg" alt="Alex" style="object-position:center 25%"></div>
-            <div><div class="founder__name">Alex</div><div class="founder__role">Engenharia de Plataforma</div></div>
+            <div><div class="founder__name">Alex</div><div data-i18n="role2" class="founder__role">Engenharia de Plataforma</div></div>
           </div>
           <div class="founder">
             <div class="founder__photo"><img src="assets/founder-3.jpg" alt="Ivan" style="object-position:center 20%"></div>
-            <div><div class="founder__name">Ivan</div><div class="founder__role">Arquitetura &amp; IA</div></div>
+            <div><div class="founder__name">Ivan</div><div data-i18n="role3" class="founder__role">Arquitetura &amp; IA</div></div>
           </div>
         </div>
         <div class="carta__body">
-          <p>Para nós, o seu negócio vai muito além de uma simples empresa: <strong>ele é a base da nossa comunidade.</strong> Acreditamos que cada empreendedor desempenha um papel fundamental na inovação e no desenvolvimento do nosso mercado.</p>
-          <p>Nossa missão é simples e ambiciosa: pegar a mesma robustez, segurança e inteligência de sistemas backend complexos utilizados pelo mercado corporativo e disponibilizá-los para acelerar a sua operação. Queremos equipar o seu negócio com os mais avançados padrões de engenharia de software, inteligência artificial e estratégias de mercado.</p>
-          <p>Saiba que não está sozinho nesta jornada. Queremos que você tenha total liberdade para focar naquilo que faz de melhor. A tecnologia, a automação e os bastidores, você pode deixar com a gente.</p>
-          <p>Acreditamos que o futuro pertence a quem ousa moldá-lo. <strong>Nossa aposta é no seu potencial. Vamos construí-lo juntos.</strong></p>
+          <p data-i18n="l1">Para nós, o seu negócio vai muito além de uma simples empresa: <strong>ele é a base da nossa comunidade.</strong> Acreditamos que cada empreendedor desempenha um papel fundamental na inovação e no desenvolvimento do nosso mercado.</p>
+          <p data-i18n="l2">Nossa missão é simples e ambiciosa: pegar a mesma robustez, segurança e inteligência de sistemas backend complexos utilizados pelo mercado corporativo e disponibilizá-los para acelerar a sua operação. Queremos equipar o seu negócio com os mais avançados padrões de engenharia de software, inteligência artificial e estratégias de mercado.</p>
+          <p data-i18n="l3">Saiba que não está sozinho nesta jornada. Queremos que você tenha total liberdade para focar naquilo que faz de melhor. A tecnologia, a automação e os bastidores, você pode deixar com a gente.</p>
+          <p data-i18n="l4">Acreditamos que o futuro pertence a quem ousa moldá-lo. <strong>Nossa aposta é no seu potencial. Vamos construí-lo juntos.</strong></p>
         </div>
         <div class="carta__sign">
           <div class="carta__sig">Monica, Alex &amp; Ivan</div>
@@ -1640,20 +1696,20 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 <section class="guarantee" aria-labelledby="garantia-h">
   <div class="shell">
     <div class="guarantee__seal"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2ECC86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4-3 7-7 8-4-1-7-4-7-8V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-    <h2 id="garantia-h">Garantia de Satisfação de 30 Dias</h2>
-    <p class="lead" style="max-width:62ch;margin-inline:auto">Confiamos no nível enterprise da nossa arquitetura. Implemente a Tapiti na sua operação. Se em 30 dias a nossa tecnologia não transformar a velocidade do seu atendimento e a robustez da sua presença digital, nós devolvemos o seu investimento.</p>
-    <p class="guarantee__fine">*Condições de cobertura aplicáveis. <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">Chame nossa Inteligência Artificial no WhatsApp agora mesmo para consultar os termos exatos de forma transparente.</a></p>
+    <h2 data-i18n="gh" id="garantia-h">Garantia de Satisfação de 30 Dias</h2>
+    <p data-i18n="glead" class="lead" style="max-width:62ch;margin-inline:auto">Confiamos no nível enterprise da nossa arquitetura. Implemente a Tapiti na sua operação. Se em 30 dias a nossa tecnologia não transformar a velocidade do seu atendimento e a robustez da sua presença digital, nós devolvemos o seu investimento.</p>
+    <p class="guarantee__fine" data-i18n="gfine">*Condições de cobertura aplicáveis. <a data-wa href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">Chame nossa Inteligência Artificial no WhatsApp agora mesmo para consultar os termos exatos de forma transparente.</a></p>
   </div>
 </section>
 
 <!-- CONVERSÃO FINAL -->
 <section class="final" aria-labelledby="final-h">
   <div class="shell">
-    <h2 id="final-h">Pronto para Escalar Sua Operação?</h2>
-    <p>Pare de perder vendas para o amadorismo. Clique abaixo e experimente a eficiência da nossa tecnologia agendando sua consultoria gratuita agora.</p>
-    <a class="btn btn--primary btn--block btn--lg" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
+    <h2 data-i18n="fh" id="final-h">Pronto para Escalar Sua Operação?</h2>
+    <p data-i18n="fp">Pare de perder vendas para o amadorismo. Clique abaixo e experimente a eficiência da nossa tecnologia agendando sua consultoria gratuita agora.</p>
+    <a class="btn btn--primary btn--block btn--lg" data-wa href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      Falar com a Inteligência da Tapiti
+      <span data-i18n="ctafinal">Falar com a Inteligência da Tapiti</span>
     </a>
   </div>
 </section>
@@ -1664,32 +1720,32 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
   <div class="shell footer__grid">
     <div>
       <img class="footer__logo" src="assets/logo-6.png" alt="Tapiti Digital">
-      <p class="footer__meta">CNPJ: XX.XXX.XXX/0001-XX<br>[Cidade/Sede], Brasil.</p>
+      <p data-i18n="fmeta" class="footer__meta">CNPJ: XX.XXX.XXX/0001-XX<br>[Cidade/Sede], Brasil.</p>
     </div>
     <div>
       <h3>Legal</h3>
       <ul>
-        <li><a href="#">Termos de Uso</a></li>
-        <li><a href="#">Políticas de Privacidade</a></li>
+        <li><a data-i18n="fterms" href="#">Termos de Uso</a></li>
+        <li><a data-i18n="fpriv" href="#">Políticas de Privacidade</a></li>
       </ul>
     </div>
     <div>
-      <h3>Contato</h3>
+      <h3 data-i18n="fcontact">Contato</h3>
       <ul>
         <li><a href="mailto:contato@tapiti.digital">contato@tapiti.digital</a></li>
-        <li><a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener" style="color:var(--cyan)">
+        <li><a data-wa href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener" style="color:var(--cyan)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Falar no WhatsApp</a></li>
+          <span data-i18n="fwa">Falar no WhatsApp</span></a></li>
       </ul>
     </div>
   </div>
-  <div class="shell footer__bar">© 2026 Tapiti Digital. Todos os direitos reservados.</div>
+  <div data-i18n="fbar" class="shell footer__bar">© 2026 Tapiti Digital. Todos os direitos reservados.</div>
 </footer>
 
 <div class="sticky-cta" id="stickyCta">
-  <a class="btn btn--primary btn--block" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
+  <a class="btn btn--primary btn--block" data-wa href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20agendar%20a%20consultoria%20gratuita%20da%20Tapiti%20Digital." target="_blank" rel="noopener">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    Agendar Consultoria Gratuita
+    <span data-i18n="ctafree">Agendar Consultoria Gratuita</span>
   </a>
 </div>
 
@@ -1697,19 +1753,75 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 (function(){
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Custo oculto: diagnóstico interativo (desktop). Cores das barras vêm de classes CSS.
-  var problems = [
-    {tag:'ATENDIMENTO', stat:'78%', copy:'dos clientes fecham com quem responde primeiro. Atendimento humano sobrecarregado entrega essas vendas ao concorrente.',
-     bars:[{l:'Resposta · operação amadora',v:'45 min',w:100,c:'is-red'},{l:'Resposta · agente de IA',v:'< 3 s',w:3,c:'is-green'}]},
-    {tag:'PRESENÇA DIGITAL', stat:'53%', copy:'dos visitantes abandonam sites lentos. Sem otimização, seu negócio não aparece para novos clientes nem para sistemas de IA.',
-     bars:[{l:'Abandonam o site lento',v:'53%',w:53,c:'is-red'},{l:'Permanecem',v:'47%',w:47,c:'is-grey'}]},
-    {tag:'OPERAÇÃO', stat:'40%', copy:'do tempo da equipe vai para tarefas manuais, reduzindo o lucro e expondo dados a falhas amadoras.',
-     bars:[{l:'Tarefas manuais',v:'até 40%',w:40,c:'is-red'},{l:'Trabalho estratégico',v:'60%',w:60,c:'is-grey'}]}
-  ];
-  var problemTabs = [].slice.call(document.querySelectorAll('.custo__tab'));
+  // ---- i18n: PT is the source (HTML), EN/ES live in this dictionary ----
+  var I18N = {"pt":{"nav1":"Soluções","nav2":"Engenharia","nav3":"Quem Somos","ctad":"Agendar Consultoria","ctam":"Falar com IA","badge":"IA ONLINE · RESPOSTA EM SEGUNDOS","h1":"Automação Inteligente e Infraestrutura de <span class=\"grad-text\">Nível Enterprise</span> para o seu Negócio.","herosub":"Elimine gargalos de atendimento e domine o Google. Sites de alta performance e agentes de IA que atendem via WhatsApp, redes sociais e telefone 24 horas por dia.","ctafree":"Agendar Consultoria Gratuita","trust1":"SEM COMPROMISSO","trust2":"RESPOSTA IMEDIATA","trust3":"GARANTIA 30 DIAS","chatname":"Agente Tapiti","chatstatus":"● online · 24h","stat1":"ATIVO","stat2":"LEADS","stat3":"SIMULT.","prooflabel":"Operações que já escalam com a Tapiti Digital","metricslabel":"Tecnologia de ponta, resultados imediatos","seg":" segundos","m1":"Tempo de resposta","m2":"Recuperação de leads perdidos","m3":"Uptime de sistemas","custoeye":"O custo oculto","custoh":"O Amadorismo Digital Está Custando Seus Clientes.","custointro":"Três perdas que não aparecem no extrato, mas pesam em cada mês de faturamento.","p1ttl":"A Morte pela Demora","p2ttl":"Invisibilidade no Google","p3ttl":"Vazamentos de Orçamento","risk":"RISCO ALTO","custofoot":"Os três têm a mesma causa: operação sem engenharia.","custolink":"VER A SOLUÇÃO →","p1tag":"ATENDIMENTO","p2tag":"PRESENÇA DIGITAL","p3tag":"OPERAÇÃO","p1copy":"dos clientes fecham com quem responde primeiro. Atendimento humano sobrecarregado entrega essas vendas ao concorrente.","p2copy":"dos visitantes abandonam sites lentos. Sem otimização, seu negócio não aparece para novos clientes nem para sistemas de IA.","p3copy":"do tempo da equipe vai para tarefas manuais, reduzindo o lucro e expondo dados a falhas amadoras.","m3copy":"do tempo da equipe vai para tarefas manuais, reduzindo o lucro e expondo dados a falhas.","m1lab":"01 · ATENDIMENTO","m2lab":"02 · PRESENÇA","m3lab":"03 · OPERAÇÃO","b1l1":"Resposta · operação amadora","b1v1":"45 min","b1l2":"Resposta · agente de IA","b1v2":"< 3 s","b2l1":"Abandonam o site lento","b2l2":"Permanecem","b3l1":"Tarefas manuais","b3v1":"até 40%","b3l2":"Trabalho estratégico","solueye":"A solução Tapiti","soluh":"Nosso Ecossistema de Soluções","t1h":"Websites Otimizados","t1tag":"SEO &amp; CONVERSÃO","t1txt":"Transforme seu negócio na principal autoridade local do Google. Desenvolvemos páginas ultrarrápidas, à prova de quedas e desenhadas com um único objetivo estrutural: converter visitantes em clientes pagantes.","t2h":"Atendimento de Chat e Ligação Automatizado com IA","t2lead":"O motor da sua escalabilidade.","t2txt":"Agentes de Inteligência Artificial Omnichannel que atendem, qualificam e agendam clientes simultaneamente via WhatsApp, Redes Sociais e ligações telefônicas. Respostas instantâneas e suporte a picos extremos sem necessidade de intervenção humana.","chip1":"WHATSAPP","chip2":"REDES SOCIAIS","chip3":"TELEFONE","t3h":"Chat Bot Humanizado","t3txt":"Esqueça os menus robóticos frustrantes. Nossos fluxos de conversação são treinados para interpretar intenções, mantendo um diálogo fluido, natural e empático que retém o cliente até o fechamento da venda.","t4h":"Dashboard Administrativo Inteligente","t4txt":"O centro de comando da sua operação. Acompanhe métricas de conversão em tempo real, volume de chamados por IA e horários de pico. Dados acionáveis para você tomar decisões de mercado baseadas em matemática, não em achismos.","soon":"EM BREVE","t5sub":"Automação de Relacionamento e Gestão de Clientes.","t5txt":"O próximo passo evolutivo da Tapiti. Um CRM integrado nativamente aos seus agentes de IA, mapeando toda a jornada do seu cliente desde o primeiro clique até a recompra.","showcta":"Quero Blindar Meu Atendimento","pileye":"Os 4 pilares Tapiti","pilh":"Por que a Tapiti salta à frente.","pw1":"Confiável","pw2":"Segura","pw3":"Ágil","pw4":"Inteligente","pk1":"PILAR 01 / 04","pk2":"PILAR 02 / 04","pk3":"PILAR 03 / 04","pk4":"PILAR 04 / 04","ph1":"Infraestrutura robusta para nunca te deixar na mão.","pt1":"Nossas soluções rodam sobre infraestrutura redundante e monitorada 24 horas. Pico de vendas, campanha viral ou madrugada de domingo: quando seu cliente chama, a Tapiti responde.","pc1a":"99,9% de uptime","pc1b":"Monitoramento 24/7","ph2":"Seus dados tratados com o cuidado que eles merecem.","pt2":"Usamos métodos de segurança de nível enterprise, os mesmos do mercado financeiro: criptografia de ponta a ponta, acesso controlado e registro de cada operação.","pc2a":"Criptografia AES-256","pc2b":"Conforme a LGPD","ph3":"Seu ecossistema inteiro no ar em dias, não semanas.","pt3":"Nossa arquitetura plug-and-play conecta site, agentes de IA e canais de atendimento ao que você já usa. Sem obra, sem parar a operação.","pc3a":"Implantação em poucos dias","pc3b":"Mantém seu WhatsApp","ph4":"Decisões mais inteligentes, guiadas pelo seu público.","pt4":"Cada conversa e cada visita viram informação. Transformamos os dados das suas aplicações em respostas claras sobre quem compra, quando e por quê.","pc4a":"Painéis em tempo real","pc4b":"Insights por canal","proceye":"Implementação","proch":"Como Escalamos Seu Negócio","n1":"DIAGNÓSTICO","n2":"ADAPTAÇÃO","n3":"LANÇAMENTO","s1h":"Diagnóstico","s1p":"Mapeamento rápido e estruturado direto via WhatsApp.","s2h":"Adaptação Plug-and-Play","s2p":"Integramos a IA e a nova arquitetura diretamente na sua operação atual.","s3h":"Lançamento Seguro","s3p":"Testes rigorosos garantem a captação de clientes sem falhas logo no primeiro dia.","ctawa":"Agendar Consultoria Gratuita via WhatsApp","pv1a":"Quero automatizar meu atendimento.","pv1b":"Perfeito. Qual canal recebe mais clientes hoje?","pv1c":"Telefone","pv2cap":"SUA OPERAÇÃO → TAPITI","pv2a":"Redes sociais","pv2b":"Ligações","pv2c":"Site","pv2d":"Agente IA","pv2e":"QUALIFICA<br>AGENDA<br>REGISTRA","pv3a":"Fluxos de conversa","pv3b":"Integrações","pv3c":"Teste de carga","pv3d":"Captação ativa","pv3e":"NO AR","impeye":"O impacto","imph":"A Matemática de uma Operação Inteligente","opfull":"Operação ","opsfx":"","amadora":"Amadora","i1l":"DISPONIBILIDADE","i1ta":"por dia, 7 dias","i1aa":"por dia","i1tn":"Agente de IA ativo à noite, nos fins de semana e feriados.","i1an":"Horário comercial. Fora dele, o cliente espera ou procura o concorrente.","i2l":"CAPACIDADE","i2ta":"em paralelo","i2aa":"cliente por vez","i2tn":"Conversas simultâneas no WhatsApp, redes e telefone, sem fila.","i2an":"Cada atendente conversa com uma pessoa. O resto entra na fila.","i3l":"PRESENÇA DIGITAL","i3ta":"no Google local","i3aa":"Pág. 3+","i3ab":"no Google","i3tn":"Site rápido e SEO técnico para disputar as primeiras posições.","i3an":"Quem busca pelo seu serviço não encontra a sua empresa.","i4l":"CUSTO POR ATENDIMENTO*","i4a":"por conversa","i4tn":"O custo cai à medida que o volume cresce.","i4an":"Salário, encargos e horas ociosas divididos pelo volume real.","isumt":"Atende 24h, sem fila, na 1ª página, a uma fração do custo.","isuma":"Fecha às 18h, atende um por vez e não aparece no Google.","ifn":"* Custo estimado: atendente CLT (~R$ 4.500/mês com encargos, ~500 atendimentos) vs. consumo médio do agente de IA.","quemeye":"Quem somos","quemh":"A força que o seu negócio precisava","carta":"Carta aberta","role1":"Estratégia de Negócios","role2":"Engenharia de Plataforma","role3":"Arquitetura &amp; IA","l1":"Para nós, o seu negócio vai muito além de uma simples empresa: <strong>ele é a base da nossa comunidade.</strong> Acreditamos que cada empreendedor desempenha um papel fundamental na inovação e no desenvolvimento do nosso mercado.","l2":"Nossa missão é simples e ambiciosa: pegar a mesma robustez, segurança e inteligência de sistemas backend complexos utilizados pelo mercado corporativo e disponibilizá-los para acelerar a sua operação. Queremos equipar o seu negócio com os mais avançados padrões de engenharia de software, inteligência artificial e estratégias de mercado.","l3":"Saiba que não está sozinho nesta jornada. Queremos que você tenha total liberdade para focar naquilo que faz de melhor. A tecnologia, a automação e os bastidores, você pode deixar com a gente.","l4":"Acreditamos que o futuro pertence a quem ousa moldá-lo. <strong>Nossa aposta é no seu potencial. Vamos construí-lo juntos.</strong>","gh":"Garantia de Satisfação de 30 Dias","glead":"Confiamos no nível enterprise da nossa arquitetura. Implemente a Tapiti na sua operação. Se em 30 dias a nossa tecnologia não transformar a velocidade do seu atendimento e a robustez da sua presença digital, nós devolvemos o seu investimento.","gfine":"*Condições de cobertura aplicáveis. <a data-wa href=\"https://wa.me/5511999999999\" target=\"_blank\" rel=\"noopener\">Chame nossa Inteligência Artificial no WhatsApp agora mesmo para consultar os termos exatos de forma transparente.</a>","fh":"Pronto para Escalar Sua Operação?","fp":"Pare de perder vendas para o amadorismo. Clique abaixo e experimente a eficiência da nossa tecnologia agendando sua consultoria gratuita agora.","ctafinal":"Falar com a Inteligência da Tapiti","fmeta":"CNPJ: XX.XXX.XXX/0001-XX<br>[Cidade/Sede], Brasil.","fterms":"Termos de Uso","fpriv":"Políticas de Privacidade","fcontact":"Contato","fwa":"Falar no WhatsApp","fbar":"© 2026 Tapiti Digital. Todos os direitos reservados.","title":"Tapiti Digital — Automação Inteligente e Infraestrutura Enterprise","desc":"Sites de alta performance e agentes de IA que atendem via WhatsApp, redes sociais e telefone 24 horas por dia. Consultoria gratuita.","ogdesc":"Elimine gargalos de atendimento e domine o Google.","wamsg":"Olá! Quero agendar a consultoria gratuita da Tapiti Digital."},"en":{"nav1":"Solutions","nav2":"Engineering","nav3":"About Us","ctad":"Book a Consultation","ctam":"Chat with AI","badge":"AI ONLINE · ANSWERS IN SECONDS","h1":"Intelligent Automation and <span class=\"grad-text\">Enterprise-Grade</span> Infrastructure for Your Business.","herosub":"Eliminate service bottlenecks and take over Google. High-performance websites and AI agents that answer via WhatsApp, social media and phone 24 hours a day.","ctafree":"Book a Free Consultation","trust1":"NO COMMITMENT","trust2":"INSTANT REPLY","trust3":"30-DAY GUARANTEE","chatname":"Tapiti Agent","chatstatus":"● online · 24h","stat1":"ACTIVE","stat2":"LEADS","stat3":"SIMULT.","prooflabel":"Businesses already scaling with Tapiti Digital","metricslabel":"Cutting-edge technology, immediate results","seg":" seconds","m1":"Response time","m2":"Lost leads recovered","m3":"Systems uptime","custoeye":"The hidden cost","custoh":"Digital Amateurism Is Costing You Customers.","custointro":"Three losses that never show up on your statement, yet weigh on every month of revenue.","p1ttl":"Death by Delay","p2ttl":"Invisible on Google","p3ttl":"Budget Leaks","risk":"HIGH RISK","custofoot":"All three share the same cause: an operation without engineering.","custolink":"SEE THE SOLUTION →","p1tag":"SERVICE","p2tag":"DIGITAL PRESENCE","p3tag":"OPERATIONS","p1copy":"of customers buy from whoever replies first. An overloaded human team hands those sales to your competitor.","p2copy":"of visitors leave slow websites. Without optimization, your business doesn't show up for new customers or for AI systems.","p3copy":"of your team's time goes to manual tasks, cutting profit and exposing data to amateur mistakes.","m3copy":"of your team's time goes to manual tasks, cutting profit and exposing data to failures.","m1lab":"01 · SERVICE","m2lab":"02 · PRESENCE","m3lab":"03 · OPERATIONS","b1l1":"Response · amateur operation","b1v1":"45 min","b1l2":"Response · AI agent","b1v2":"< 3 s","b2l1":"Leave the slow site","b2l2":"Stay","b3l1":"Manual tasks","b3v1":"up to 40%","b3l2":"Strategic work","solueye":"The Tapiti solution","soluh":"Our Ecosystem of Solutions","t1h":"Optimized Websites","t1tag":"SEO &amp; CONVERSION","t1txt":"Turn your business into the leading local authority on Google. We build ultra-fast, outage-proof pages designed around a single structural goal: turning visitors into paying customers.","t2h":"AI-Automated Chat and Call Service","t2lead":"The engine of your scalability.","t2txt":"Omnichannel Artificial Intelligence agents that answer, qualify and schedule customers simultaneously via WhatsApp, social media and phone calls. Instant replies and support for extreme peaks with no human intervention needed.","chip1":"WHATSAPP","chip2":"SOCIAL MEDIA","chip3":"PHONE","t3h":"Human-Like Chatbot","t3txt":"Forget frustrating robotic menus. Our conversation flows are trained to interpret intent, keeping a fluid, natural and empathetic dialogue that holds the customer until the sale closes.","t4h":"Smart Admin Dashboard","t4txt":"The command center of your operation. Track conversion metrics in real time, AI conversation volume and peak hours. Actionable data so you make market decisions based on math, not guesswork.","soon":"COMING SOON","t5sub":"Relationship Automation and Customer Management.","t5txt":"Tapiti's next evolutionary step. A CRM natively integrated with your AI agents, mapping your customer's entire journey from the first click to the repeat purchase.","showcta":"I Want to Secure My Customer Service","pileye":"The 4 Tapiti pillars","pilh":"Why Tapiti leaps ahead.","pw1":"Reliable","pw2":"Secure","pw3":"Agile","pw4":"Intelligent","pk1":"PILLAR 01 / 04","pk2":"PILLAR 02 / 04","pk3":"PILLAR 03 / 04","pk4":"PILLAR 04 / 04","ph1":"Robust infrastructure that never lets you down.","pt1":"Our solutions run on redundant infrastructure monitored 24 hours a day. Sales peak, viral campaign or Sunday at 3 a.m.: when your customer calls, Tapiti answers.","pc1a":"99.9% uptime","pc1b":"24/7 monitoring","ph2":"Your data handled with the care it deserves.","pt2":"We use enterprise-grade security methods, the same as the financial market: end-to-end encryption, controlled access and a record of every operation.","pc2a":"AES-256 encryption","pc2b":"LGPD compliant","ph3":"Your entire ecosystem live in days, not weeks.","pt3":"Our plug-and-play architecture connects your website, AI agents and service channels to what you already use. No construction, no stopping your operation.","pc3a":"Rollout in a few days","pc3b":"Keeps your WhatsApp","ph4":"Smarter decisions, guided by your audience.","pt4":"Every conversation and every visit becomes information. We turn your applications' data into clear answers about who buys, when and why.","pc4a":"Real-time dashboards","pc4b":"Insights by channel","proceye":"Implementation","proch":"How We Scale Your Business","n1":"DIAGNOSIS","n2":"ADAPTATION","n3":"LAUNCH","s1h":"Diagnosis","s1p":"Quick, structured mapping straight through WhatsApp.","s2h":"Plug-and-Play Adaptation","s2p":"We integrate the AI and the new architecture directly into your current operation.","s3h":"Safe Launch","s3p":"Rigorous testing ensures flawless customer capture from day one.","ctawa":"Book a Free Consultation via WhatsApp","pv1a":"I want to automate my customer service.","pv1b":"Perfect. Which channel brings in the most customers today?","pv1c":"Phone","pv2cap":"YOUR OPERATION → TAPITI","pv2a":"Social media","pv2b":"Calls","pv2c":"Website","pv2d":"AI Agent","pv2e":"QUALIFIES<br>SCHEDULES<br>LOGS","pv3a":"Conversation flows","pv3b":"Integrations","pv3c":"Load test","pv3d":"Capture live","pv3e":"LIVE","impeye":"The impact","imph":"The Math of a Smart Operation","opfull":"","opsfx":" Operation","amadora":"Amateur","i1l":"AVAILABILITY","i1ta":"a day, 7 days a week","i1aa":"a day","i1tn":"AI agent active at night, on weekends and on holidays.","i1an":"Business hours only. Outside them, the customer waits or goes to a competitor.","i2l":"CAPACITY","i2ta":"in parallel","i2aa":"customer at a time","i2tn":"Simultaneous conversations on WhatsApp, social media and phone, no queue.","i2an":"Each agent talks to one person. Everyone else joins the queue.","i3l":"DIGITAL PRESENCE","i3ta":"on local Google","i3aa":"Page 3+","i3ab":"on Google","i3tn":"Fast website and technical SEO to compete for the top spots.","i3an":"People searching for your service don't find your company.","i4l":"COST PER CONVERSATION*","i4a":"per conversation","i4tn":"The cost drops as volume grows.","i4an":"Salary, payroll costs and idle hours divided by actual volume.","isumt":"Answers 24/7, no queue, on page 1, at a fraction of the cost.","isuma":"Closes at 6 p.m., serves one at a time and doesn't show up on Google.","ifn":"* Estimated cost: salaried employee in Brazil (~R$ 4,500/month including payroll costs, ~500 conversations) vs. average AI agent usage.","quemeye":"About us","quemh":"The strength your business needed","carta":"Open letter","role1":"Business Strategy","role2":"Platform Engineering","role3":"Architecture &amp; AI","l1":"To us, your business is far more than a simple company: <strong>it is the foundation of our community.</strong> We believe every entrepreneur plays a fundamental role in the innovation and development of our market.","l2":"Our mission is simple and ambitious: to take the same robustness, security and intelligence of the complex backend systems used by the corporate market and make them available to accelerate your operation. We want to equip your business with the most advanced standards in software engineering, artificial intelligence and market strategy.","l3":"Know that you are not alone on this journey. We want you to have complete freedom to focus on what you do best. The technology, the automation and the behind-the-scenes, you can leave to us.","l4":"We believe the future belongs to those who dare to shape it. <strong>Our bet is on your potential. Let's build it together.</strong>","gh":"30-Day Satisfaction Guarantee","glead":"We trust the enterprise level of our architecture. Put Tapiti to work in your operation. If within 30 days our technology doesn't transform the speed of your customer service and the strength of your digital presence, we refund your investment.","gfine":"*Coverage conditions apply. <a data-wa href=\"https://wa.me/5511999999999\" target=\"_blank\" rel=\"noopener\">Message our Artificial Intelligence on WhatsApp right now to check the exact terms, transparently.</a>","fh":"Ready to Scale Your Operation?","fp":"Stop losing sales to amateurism. Click below and experience the efficiency of our technology by booking your free consultation now.","ctafinal":"Talk to Tapiti's Intelligence","fmeta":"CNPJ: XX.XXX.XXX/0001-XX<br>[City/HQ], Brazil.","fterms":"Terms of Use","fpriv":"Privacy Policy","fcontact":"Contact","fwa":"Chat on WhatsApp","fbar":"© 2026 Tapiti Digital. All rights reserved.","title":"Tapiti Digital — Intelligent Automation and Enterprise Infrastructure","desc":"High-performance websites and AI agents that answer via WhatsApp, social media and phone 24 hours a day. Free consultation.","ogdesc":"Eliminate service bottlenecks and take over Google.","wamsg":"Hello! I'd like to book the free Tapiti Digital consultation."},"es":{"nav1":"Soluciones","nav2":"Ingeniería","nav3":"Quiénes Somos","ctad":"Agendar Consultoría","ctam":"Hablar con IA","badge":"IA EN LÍNEA · RESPUESTA EN SEGUNDOS","h1":"Automatización Inteligente e Infraestructura de <span class=\"grad-text\">Nivel Enterprise</span> para tu Negocio.","herosub":"Elimina los cuellos de botella en la atención y domina Google. Sitios de alto rendimiento y agentes de IA que atienden por WhatsApp, redes sociales y teléfono las 24 horas.","ctafree":"Agendar Consultoría Gratuita","trust1":"SIN COMPROMISO","trust2":"RESPUESTA INMEDIATA","trust3":"GARANTÍA 30 DÍAS","chatname":"Agente Tapiti","chatstatus":"● en línea · 24h","stat1":"ACTIVO","stat2":"LEADS","stat3":"SIMULT.","prooflabel":"Operaciones que ya escalan con Tapiti Digital","metricslabel":"Tecnología de punta, resultados inmediatos","seg":" segundos","m1":"Tiempo de respuesta","m2":"Recuperación de leads perdidos","m3":"Uptime de sistemas","custoeye":"El costo oculto","custoh":"El Amateurismo Digital Te Está Costando Clientes.","custointro":"Tres pérdidas que no aparecen en el extracto, pero pesan en cada mes de facturación.","p1ttl":"La Muerte por la Demora","p2ttl":"Invisibilidad en Google","p3ttl":"Fugas de Presupuesto","risk":"RIESGO ALTO","custofoot":"Los tres tienen la misma causa: una operación sin ingeniería.","custolink":"VER LA SOLUCIÓN →","p1tag":"ATENCIÓN","p2tag":"PRESENCIA DIGITAL","p3tag":"OPERACIÓN","p1copy":"de los clientes compran a quien responde primero. Una atención humana saturada entrega esas ventas a la competencia.","p2copy":"de los visitantes abandonan los sitios lentos. Sin optimización, tu negocio no aparece para nuevos clientes ni para los sistemas de IA.","p3copy":"del tiempo del equipo se va en tareas manuales, reduciendo la ganancia y exponiendo los datos a fallos amateurs.","m3copy":"del tiempo del equipo se va en tareas manuales, reduciendo la ganancia y exponiendo los datos a fallos.","m1lab":"01 · ATENCIÓN","m2lab":"02 · PRESENCIA","m3lab":"03 · OPERACIÓN","b1l1":"Respuesta · operación amateur","b1v1":"45 min","b1l2":"Respuesta · agente de IA","b1v2":"< 3 s","b2l1":"Abandonan el sitio lento","b2l2":"Permanecen","b3l1":"Tareas manuales","b3v1":"hasta 40%","b3l2":"Trabajo estratégico","solueye":"La solución Tapiti","soluh":"Nuestro Ecosistema de Soluciones","t1h":"Sitios Web Optimizados","t1tag":"SEO &amp; CONVERSIÓN","t1txt":"Convierte tu negocio en la principal autoridad local de Google. Desarrollamos páginas ultrarrápidas, a prueba de caídas y diseñadas con un único objetivo estructural: convertir visitantes en clientes que pagan.","t2h":"Atención por Chat y Llamada Automatizada con IA","t2lead":"El motor de tu escalabilidad.","t2txt":"Agentes de Inteligencia Artificial omnicanal que atienden, califican y agendan clientes simultáneamente por WhatsApp, redes sociales y llamadas telefónicas. Respuestas instantáneas y soporte en picos extremos sin necesidad de intervención humana.","chip1":"WHATSAPP","chip2":"REDES SOCIALES","chip3":"TELÉFONO","t3h":"Chatbot Humanizado","t3txt":"Olvídate de los frustrantes menús robóticos. Nuestros flujos de conversación están entrenados para interpretar intenciones, manteniendo un diálogo fluido, natural y empático que retiene al cliente hasta el cierre de la venta.","t4h":"Panel Administrativo Inteligente","t4txt":"El centro de comando de tu operación. Sigue métricas de conversión en tiempo real, volumen de atenciones por IA y horas pico. Datos accionables para que tomes decisiones de mercado basadas en matemáticas, no en corazonadas.","soon":"PRÓXIMAMENTE","t5sub":"Automatización de Relaciones y Gestión de Clientes.","t5txt":"El próximo paso evolutivo de Tapiti. Un CRM integrado de forma nativa a tus agentes de IA, que mapea todo el recorrido de tu cliente desde el primer clic hasta la recompra.","showcta":"Quiero Blindar Mi Atención al Cliente","pileye":"Los 4 pilares Tapiti","pilh":"Por qué Tapiti da el salto.","pw1":"Confiable","pw2":"Segura","pw3":"Ágil","pw4":"Inteligente","pk1":"PILAR 01 / 04","pk2":"PILAR 02 / 04","pk3":"PILAR 03 / 04","pk4":"PILAR 04 / 04","ph1":"Infraestructura robusta para nunca dejarte en la estacada.","pt1":"Nuestras soluciones corren sobre infraestructura redundante y monitoreada las 24 horas. Pico de ventas, campaña viral o madrugada de domingo: cuando tu cliente llama, Tapiti responde.","pc1a":"99,9% de uptime","pc1b":"Monitoreo 24/7","ph2":"Tus datos tratados con el cuidado que merecen.","pt2":"Usamos métodos de seguridad de nivel enterprise, los mismos del mercado financiero: cifrado de extremo a extremo, acceso controlado y registro de cada operación.","pc2a":"Cifrado AES-256","pc2b":"Conforme a la LGPD","ph3":"Todo tu ecosistema en línea en días, no semanas.","pt3":"Nuestra arquitectura plug-and-play conecta sitio web, agentes de IA y canales de atención con lo que ya usas. Sin obras, sin detener la operación.","pc3a":"Implementación en pocos días","pc3b":"Mantiene tu WhatsApp","ph4":"Decisiones más inteligentes, guiadas por tu público.","pt4":"Cada conversación y cada visita se convierten en información. Transformamos los datos de tus aplicaciones en respuestas claras sobre quién compra, cuándo y por qué.","pc4a":"Paneles en tiempo real","pc4b":"Insights por canal","proceye":"Implementación","proch":"Cómo Escalamos Tu Negocio","n1":"DIAGNÓSTICO","n2":"ADAPTACIÓN","n3":"LANZAMIENTO","s1h":"Diagnóstico","s1p":"Mapeo rápido y estructurado directamente por WhatsApp.","s2h":"Adaptación Plug-and-Play","s2p":"Integramos la IA y la nueva arquitectura directamente en tu operación actual.","s3h":"Lanzamiento Seguro","s3p":"Pruebas rigurosas garantizan la captación de clientes sin fallos desde el primer día.","ctawa":"Agendar Consultoría Gratuita por WhatsApp","pv1a":"Quiero automatizar mi atención al cliente.","pv1b":"Perfecto. ¿Qué canal recibe más clientes hoy?","pv1c":"Teléfono","pv2cap":"TU OPERACIÓN → TAPITI","pv2a":"Redes sociales","pv2b":"Llamadas","pv2c":"Sitio web","pv2d":"Agente IA","pv2e":"CALIFICA<br>AGENDA<br>REGISTRA","pv3a":"Flujos de conversación","pv3b":"Integraciones","pv3c":"Prueba de carga","pv3d":"Captación activa","pv3e":"EN VIVO","impeye":"El impacto","imph":"Las Matemáticas de una Operación Inteligente","opfull":"Operación ","opsfx":"","amadora":"Amateur","i1l":"DISPONIBILIDAD","i1ta":"al día, 7 días","i1aa":"al día","i1tn":"Agente de IA activo de noche, los fines de semana y feriados.","i1an":"Horario comercial. Fuera de él, el cliente espera o busca a la competencia.","i2l":"CAPACIDAD","i2ta":"en paralelo","i2aa":"cliente a la vez","i2tn":"Conversaciones simultáneas en WhatsApp, redes y teléfono, sin fila.","i2an":"Cada agente conversa con una persona. El resto entra en la fila.","i3l":"PRESENCIA DIGITAL","i3ta":"en Google local","i3aa":"Pág. 3+","i3ab":"en Google","i3tn":"Sitio rápido y SEO técnico para disputar las primeras posiciones.","i3an":"Quien busca tu servicio no encuentra tu empresa.","i4l":"COSTO POR ATENCIÓN*","i4a":"por conversación","i4tn":"El costo baja a medida que crece el volumen.","i4an":"Salario, cargas sociales y horas ociosas divididos por el volumen real.","isumt":"Atiende 24h, sin fila, en la 1.ª página, a una fracción del costo.","isuma":"Cierra a las 18h, atiende de a uno y no aparece en Google.","ifn":"* Costo estimado: empleado en relación de dependencia en Brasil (~R$ 4.500/mes con cargas, ~500 atenciones) vs. consumo promedio del agente de IA.","quemeye":"Quiénes somos","quemh":"La fuerza que tu negocio necesitaba","carta":"Carta abierta","role1":"Estrategia de Negocios","role2":"Ingeniería de Plataforma","role3":"Arquitectura &amp; IA","l1":"Para nosotros, tu negocio es mucho más que una simple empresa: <strong>es la base de nuestra comunidad.</strong> Creemos que cada emprendedor desempeña un papel fundamental en la innovación y el desarrollo de nuestro mercado.","l2":"Nuestra misión es simple y ambiciosa: tomar la misma robustez, seguridad e inteligencia de los sistemas backend complejos que usa el mercado corporativo y ponerlas a disposición para acelerar tu operación. Queremos equipar tu negocio con los estándares más avanzados de ingeniería de software, inteligencia artificial y estrategias de mercado.","l3":"Sabe que no estás solo en este camino. Queremos que tengas total libertad para enfocarte en lo que mejor sabes hacer. La tecnología, la automatización y el detrás de escena, puedes dejarlos con nosotros.","l4":"Creemos que el futuro pertenece a quienes se atreven a moldearlo. <strong>Nuestra apuesta es tu potencial. Vamos a construirlo juntos.</strong>","gh":"Garantía de Satisfacción de 30 Días","glead":"Confiamos en el nivel enterprise de nuestra arquitectura. Implementa Tapiti en tu operación. Si en 30 días nuestra tecnología no transforma la velocidad de tu atención y la solidez de tu presencia digital, te devolvemos tu inversión.","gfine":"*Se aplican condiciones de cobertura. <a data-wa href=\"https://wa.me/5511999999999\" target=\"_blank\" rel=\"noopener\">Escribe ahora mismo a nuestra Inteligencia Artificial por WhatsApp para consultar los términos exactos de forma transparente.</a>","fh":"¿Listo para Escalar Tu Operación?","fp":"Deja de perder ventas por el amateurismo. Haz clic abajo y experimenta la eficiencia de nuestra tecnología agendando ahora tu consultoría gratuita.","ctafinal":"Hablar con la Inteligencia de Tapiti","fmeta":"CNPJ: XX.XXX.XXX/0001-XX<br>[Ciudad/Sede], Brasil.","fterms":"Términos de Uso","fpriv":"Políticas de Privacidad","fcontact":"Contacto","fwa":"Hablar por WhatsApp","fbar":"© 2026 Tapiti Digital. Todos los derechos reservados.","title":"Tapiti Digital — Automatización Inteligente e Infraestructura Enterprise","desc":"Sitios de alto rendimiento y agentes de IA que atienden por WhatsApp, redes sociales y teléfono las 24 horas. Consultoría gratuita.","ogdesc":"Elimina los cuellos de botella en la atención y domina Google.","wamsg":"¡Hola! Quiero agendar la consultoría gratuita de Tapiti Digital."}};
+  var I18N_ATTR = {"pt":{"a_nav":"Navegação principal","a_logo":"Tapiti Digital — início","a_clients":"Clientes","a_metrics":"Métricas","a_probs":"Problemas","a_channels":"Canais","a_step1":"Ir ao passo 1: Diagnóstico","a_step2":"Ir ao passo 2: Adaptação","a_step3":"Ir ao passo 3: Lançamento","a_cmp":"Comparar operações","a_clientlogo":"Logo de cliente"},"en":{"a_nav":"Main navigation","a_logo":"Tapiti Digital — home","a_clients":"Clients","a_metrics":"Metrics","a_probs":"Problems","a_channels":"Channels","a_step1":"Go to step 1: Diagnosis","a_step2":"Go to step 2: Adaptation","a_step3":"Go to step 3: Launch","a_cmp":"Compare operations","a_clientlogo":"Client logo"},"es":{"a_nav":"Navegación principal","a_logo":"Tapiti Digital — inicio","a_clients":"Clientes","a_metrics":"Métricas","a_probs":"Problemas","a_channels":"Canales","a_step1":"Ir al paso 1: Diagnóstico","a_step2":"Ir al paso 2: Adaptación","a_step3":"Ir al paso 3: Lanzamiento","a_cmp":"Comparar operaciones","a_clientlogo":"Logo de cliente"}};
+  var CHAT = {"pt":[[{"sender":"user","text":"Olá! Sei que é tarde, mas preciso muito de uma consulta de urgência para meu filho amanhã."},{"sender":"ai","text":"Boa noite! A equipe humana já foi dormir, mas fique tranquila que estou aqui 24h. Vamos cuidar do seu pequeno. Qual o nome dele e o que ele está sentindo?"}],[{"sender":"ai","text":"Bom dia, apenas passando para lembrar do seu exame marcado para amanhã às 6h. Gostaria de revisar as recomendações de preparação para o exame?"},{"sender":"user","text":"Eita! Ja estava esquecendo. Pode confirmar. Muito obrigado."}],[{"sender":"user","text":"Fala, boa tarde! Consigo um horário pro corte e barba hoje no final da tarde?"},{"sender":"ai","text":"Boa tarde! Tenho um último encaixe hoje às 18h30. Já deixo reservado no seu nome ou prefere ver para amanhã?"}],[{"sender":"user","text":"Bom dia. Recebi uma notificação do processo agora de manhã, o que eu faço? Estou muito preocupado."},{"sender":"ai","text":"Bom dia. Fique calmo, já acessei o documento no sistema e nosso prazo está totalmente seguro. Quer que eu agende uma call rápida com o doutor hoje às 14h para te tranquilizar?"}],[{"sender":"user","text":"Oi, quebrei um pedaço do dente almoçando agora. Tem como me atenderem de emergência hoje?"},{"sender":"ai","text":"Poxa, sinto muito! Fique tranquilo, a doutora tem uma janela para urgências às 15h. Pode vir direto para cá que cuidamos disso. Confirmo sua vinda?"}],[{"sender":"user","text":"Boa noite! Queria fazer uma reserva para 8 pessoas no sábado, para comemorar um aniversário. Ainda tem mesa?"},{"sender":"ai","text":"Boa noite e parabéns adiantado para o aniversariante! Temos sim. Já bloqueei uma mesa excelente na varanda para sábado às 20h. Gostaria que eu enviasse nosso menu de grupos?"}],[{"sender":"ai","text":"Boa tarde! A revisão do seu carro foi concluída e ele já está liberado. A lavagem externa é cortesia nossa. Que horas você prefere vir retirar?"},{"sender":"user","text":"Nossa, que maravilha! Muito obrigado. Passo aí por volta das 17h para buscar."}]],"en":[[{"sender":"user","text":"Hi! I know it's late, but I really need an urgent appointment for my son tomorrow."},{"sender":"ai","text":"Good evening! Our human team has gone to bed, but don't worry, I'm here 24/7. Let's take care of your little one. What's his name and what is he feeling?"}],[{"sender":"ai","text":"Good morning, just a reminder about your exam scheduled for tomorrow at 6 a.m. Would you like to review the preparation guidelines for the exam?"},{"sender":"user","text":"Oh wow! I was about to forget. Yes, please confirm. Thank you so much."}],[{"sender":"user","text":"Hey, good afternoon! Can I get a haircut and beard trim slot today, late afternoon?"},{"sender":"ai","text":"Good afternoon! I have one last slot today at 6:30 p.m. Should I book it under your name, or would you rather check tomorrow?"}],[{"sender":"user","text":"Good morning. I got a notification about my case this morning, what should I do? I'm very worried."},{"sender":"ai","text":"Good morning. Stay calm, I've already opened the document in the system and our deadline is completely safe. Want me to schedule a quick call with the attorney today at 2 p.m. to put your mind at ease?"}],[{"sender":"user","text":"Hi, I just broke a piece of my tooth at lunch. Is there any way you can see me as an emergency today?"},{"sender":"ai","text":"Oh no, I'm so sorry! Don't worry, the doctor has an emergency window at 3 p.m. You can come straight in and we'll take care of it. Shall I confirm you're coming?"}],[{"sender":"user","text":"Good evening! I'd like to book a table for 8 people on Saturday to celebrate a birthday. Do you still have space?"},{"sender":"ai","text":"Good evening, and early happy birthday to the guest of honor! We do. I've already held a great table on the terrace for Saturday at 8 p.m. Would you like me to send our group menu?"}],[{"sender":"ai","text":"Good afternoon! Your car's service is complete and it's ready for pickup. The exterior wash is on us. What time would you like to come by?"},{"sender":"user","text":"Wow, that's great! Thank you so much. I'll stop by around 5 p.m. to pick it up."}]],"es":[[{"sender":"user","text":"¡Hola! Sé que es tarde, pero necesito urgente una consulta para mi hijo mañana."},{"sender":"ai","text":"¡Buenas noches! El equipo humano ya se fue a dormir, pero tranquila, yo estoy aquí las 24h. Vamos a cuidar a tu pequeño. ¿Cómo se llama y qué siente?"}],[{"sender":"ai","text":"Buen día, solo paso para recordarte tu examen programado para mañana a las 6h. ¿Quieres revisar las recomendaciones de preparación para el examen?"},{"sender":"user","text":"¡Uy! Ya se me estaba olvidando. Puedes confirmar. Muchas gracias."}],[{"sender":"user","text":"¡Buenas tardes! ¿Consigo un horario para corte y barba hoy a última hora de la tarde?"},{"sender":"ai","text":"¡Buenas tardes! Tengo un último espacio hoy a las 18:30. ¿Lo dejo reservado a tu nombre o prefieres ver para mañana?"}],[{"sender":"user","text":"Buen día. Recibí una notificación del proceso hoy por la mañana, ¿qué hago? Estoy muy preocupado."},{"sender":"ai","text":"Buen día. Tranquilo, ya accedí al documento en el sistema y nuestro plazo está totalmente seguro. ¿Quieres que agende una llamada rápida con el doctor hoy a las 14h para tranquilizarte?"}],[{"sender":"user","text":"Hola, me rompí un pedazo de diente almorzando. ¿Pueden atenderme de urgencia hoy?"},{"sender":"ai","text":"¡Qué pena! Tranquilo, la doctora tiene un espacio para urgencias a las 15h. Puedes venir directo y nos encargamos. ¿Confirmo tu visita?"}],[{"sender":"user","text":"¡Buenas noches! Quería reservar para 8 personas el sábado para celebrar un cumpleaños. ¿Todavía hay mesa?"},{"sender":"ai","text":"¡Buenas noches y feliz cumpleaños adelantado al agasajado! Sí tenemos. Ya bloqueé una excelente mesa en la terraza para el sábado a las 20h. ¿Quieres que te envíe nuestro menú para grupos?"}],[{"sender":"ai","text":"¡Buenas tardes! La revisión de tu auto ya terminó y está listo. El lavado exterior es cortesía nuestra. ¿A qué hora prefieres venir a retirarlo?"},{"sender":"user","text":"¡Qué maravilla! Muchas gracias. Paso por ahí alrededor de las 17h a buscarlo."}]]};
+  var LANGS = {pt:{html:'pt-BR',og:'pt_BR'}, en:{html:'en',og:'en_US'}, es:{html:'es',og:'es_ES'}};
+  var lang = 'pt', langHooks = [];
+  function t(k){ return (I18N[lang] && I18N[lang][k] != null) ? I18N[lang][k] : I18N.pt[k]; }
+  function pickLang(){
+    var ok = function(l){ return l && LANGS[l] ? l : null; }, q = null, st = null;
+    try { q = ok((new URLSearchParams(location.search).get('lang') || '').toLowerCase().slice(0, 2)); } catch(e){}
+    try { st = ok(localStorage.getItem('tapiti-lang')); } catch(e){}
+    var nav = ((navigator.languages && navigator.languages[0]) || navigator.language || 'pt').toLowerCase();
+    return q || st || (nav.indexOf('en') === 0 ? 'en' : nav.indexOf('es') === 0 ? 'es' : 'pt');
+  }
+  function applyLang(l, init){
+    lang = l;
+    document.documentElement.lang = LANGS[l].html;
+    if (!(init && l === 'pt')) {
+      [].forEach.call(document.querySelectorAll('[data-i18n]'), function(el){
+        var v = I18N[l][el.getAttribute('data-i18n')];
+        if (v != null) el.innerHTML = v;
+      });
+      [].forEach.call(document.querySelectorAll('[data-i18n-attr]'), function(el){
+        el.getAttribute('data-i18n-attr').split(';').forEach(function(p){
+          var a = p.split(':'), v = I18N_ATTR[l][a[1]];
+          if (v != null) el.setAttribute(a[0], v);
+        });
+      });
+    }
+    document.title = t('title');
+    var setMeta = function(sel, v){ var m = document.querySelector(sel); if (m) m.setAttribute('content', v); };
+    setMeta('meta[name="description"]', t('desc'));
+    setMeta('meta[property="og:title"]', t('title'));
+    setMeta('meta[property="og:description"]', t('ogdesc'));
+    setMeta('meta[property="og:locale"]', LANGS[l].og);
+    var wa = 'https://wa.me/5511999999999?text=' + encodeURIComponent(t('wamsg'));
+    [].forEach.call(document.querySelectorAll('a[data-wa]'), function(a){ a.setAttribute('href', wa); });
+    // language control
+    document.getElementById('langCode').textContent = l.toUpperCase();
+    [].forEach.call(document.querySelectorAll('.lang__opt'), function(o){
+      o.setAttribute('aria-selected', o.getAttribute('data-lang') === l ? 'true' : 'false');
+    });
+    if (!init) {
+      [].forEach.call(document.querySelectorAll('[data-count]'), function(el){
+        var d = parseInt(el.dataset.decimals || '0', 10);
+        el.textContent = (el.dataset.prefix || '') + fmt(parseFloat(el.dataset.count), d) + (el.dataset.suffix || '');
+      });
+    }
+    langHooks.forEach(function(h){ h(); });
+  }
+  lang = pickLang();
   function byId(id){ return document.getElementById(id); }
+
+  // Custo oculto: diagnóstico interativo (desktop). Cores das barras vêm de classes CSS.
+  function problems(){
+    return [
+      {tag:t('p1tag'), stat:'78%', copy:t('p1copy'),
+       bars:[{l:t('b1l1'),v:t('b1v1'),w:100,c:'is-red'},{l:t('b1l2'),v:t('b1v2'),w:3,c:'is-green'}]},
+      {tag:t('p2tag'), stat:'53%', copy:t('p2copy'),
+       bars:[{l:t('b2l1'),v:'53%',w:53,c:'is-red'},{l:t('b2l2'),v:'47%',w:47,c:'is-grey'}]},
+      {tag:t('p3tag'), stat:'40%', copy:t('p3copy'),
+       bars:[{l:t('b3l1'),v:t('b3v1'),w:40,c:'is-red'},{l:t('b3l2'),v:'60%',w:60,c:'is-grey'}]}
+    ];
+  }
+  var problemIdx = 0;
+  var problemTabs = [].slice.call(document.querySelectorAll('.custo__tab'));
   function selectProblem(i){
-    var it = problems[i];
+    problemIdx = i;
+    var it = problems()[i];
     problemTabs.forEach(function(t, k){
       t.classList.toggle('is-active', k === i);
       t.setAttribute('aria-selected', k === i ? 'true' : 'false');
@@ -1727,6 +1839,7 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
   if (problemTabs.length) {
     problemTabs.forEach(function(t, k){ t.addEventListener('click', function(){ selectProblem(k); }); });
     selectProblem(0);
+    langHooks.push(function(){ selectProblem(problemIdx); });
   }
 
   // Showroom: spotlight follows the cursor on each tile (desktop). Dividing by the
@@ -1804,57 +1917,29 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
     pilTrack = null;
   }
 
-  // Hero chat: animated demo of a real Tapiti agent exchange
+  // Hero chat: animated demo of a real Tapiti agent exchange (restarts when the language changes)
   var chatLog = byId('chatLog');
   if (chatLog) {
-    var chatScenarios = [
-      [
-        {sender:'user', text:'Olá! Sei que é tarde, mas preciso muito de uma consulta de urgência para meu filho amanhã.'},
-        {sender:'ai', text:'Boa noite! A equipe humana já foi dormir, mas fique tranquila que estou aqui 24h. Vamos cuidar do seu pequeno. Qual o nome dele e o que ele está sentindo?'}
-      ],
-      [
-        {sender:'ai', text:'Bom dia, apenas passando para lembrar do seu exame marcado para amanhã às 6h. Gostaria de revisar as recomendações de preparação para o exame?'},
-        {sender:'user', text:'Eita! Ja estava esquecendo. Pode confirmar. Muito obrigado.'}
-      ],
-      [
-        {sender:'user', text:'Fala, boa tarde! Consigo um horário pro corte e barba hoje no final da tarde?'},
-        {sender:'ai', text:'Boa tarde! Tenho um último encaixe hoje às 18h30. Já deixo reservado no seu nome ou prefere ver para amanhã?'}
-      ],
-      [
-        {sender:'user', text:'Bom dia. Recebi uma notificação do processo agora de manhã, o que eu faço? Estou muito preocupado.'},
-        {sender:'ai', text:'Bom dia. Fique calmo, já acessei o documento no sistema e nosso prazo está totalmente seguro. Quer que eu agende uma call rápida com o doutor hoje às 14h para te tranquilizar?'}
-      ],
-      [
-        {sender:'user', text:'Oi, quebrei um pedaço do dente almoçando agora. Tem como me atenderem de emergência hoje?'},
-        {sender:'ai', text:'Poxa, sinto muito! Fique tranquilo, a doutora tem uma janela para urgências às 15h. Pode vir direto para cá que cuidamos disso. Confirmo sua vinda?'}
-      ],
-      [
-        {sender:'user', text:'Boa noite! Queria fazer uma reserva para 8 pessoas no sábado, para comemorar um aniversário. Ainda tem mesa?'},
-        {sender:'ai', text:'Boa noite e parabéns adiantado para o aniversariante! Temos sim. Já bloqueei uma mesa excelente na varanda para sábado às 20h. Gostaria que eu enviasse nosso menu de grupos?'}
-      ],
-      [
-        {sender:'ai', text:'Boa tarde! A revisão do seu carro foi concluída e ele já está liberado. A lavagem externa é cortesia nossa. Que horas você prefere vir retirar?'},
-        {sender:'user', text:'Nossa, que maravilha! Muito obrigado. Passo aí por volta das 17h para buscar.'}
-      ]
-    ];
+    var chatIdx = Math.floor(Math.random() * CHAT.pt.length), chatGen = 0;
 
-    function addBubble(sender){
-      var bubble = document.createElement('p');
-      bubble.className = 'bubble bubble--' + sender;
-      chatLog.appendChild(bubble);
-      return bubble;
-    }
-
-    var chatScenario = chatScenarios[Math.floor(Math.random() * chatScenarios.length)];
-
-    if (reduced) {
-      chatScenario.forEach(function(msg){
-        var bubble = addBubble(msg.sender);
-        bubble.textContent = msg.text;
-        bubble.classList.add('is-in');
-      });
-    } else {
-      function chatAfter(fn, delay){ setTimeout(fn, delay); }
+    function startChat(){
+      var gen = ++chatGen, chatScenario = CHAT[lang][chatIdx];
+      chatLog.innerHTML = '';
+      function addBubble(sender){
+        var bubble = document.createElement('p');
+        bubble.className = 'bubble bubble--' + sender;
+        chatLog.appendChild(bubble);
+        return bubble;
+      }
+      if (reduced) {
+        chatScenario.forEach(function(msg){
+          var bubble = addBubble(msg.sender);
+          bubble.textContent = msg.text;
+          bubble.classList.add('is-in');
+        });
+        return;
+      }
+      function chatAfter(fn, delay){ setTimeout(function(){ if (gen === chatGen) fn(); }, delay); }
 
       function typeChar(el, text, i, onDone){
         el.textContent = text.slice(0, i);
@@ -1902,6 +1987,8 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 
       playMessage(0);
     }
+
+    langHooks.push(startChat);
   }
 
   // Header scrolled state + sticky mobile CTA
@@ -1911,7 +1998,7 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
 
   // Animated counters
   function fmt(v, decimals){
-    return decimals ? v.toFixed(decimals).replace('.', ',') : Math.round(v).toString();
+    return decimals ? (lang === 'en' ? v.toFixed(decimals) : v.toFixed(decimals).replace('.', ',')) : Math.round(v).toString();
   }
   function runCounter(el){
     var target = parseFloat(el.dataset.count);
@@ -2051,6 +2138,53 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
       });
     });
   }
+
+
+  // Language dropdown (globe button)
+  var langBtn = byId('langBtn'), langMenu = byId('langMenu');
+  var langOpts = [].slice.call(langMenu.querySelectorAll('.lang__opt'));
+  function langOpen(focusActive){
+    langMenu.hidden = false;
+    langBtn.setAttribute('aria-expanded', 'true');
+    langMenu.style.right = '0px';
+    var r = langMenu.getBoundingClientRect(), vw = document.documentElement.clientWidth;
+    if (r.left < 16) langMenu.style.right = (r.left - 16) + 'px';          // keep 16px from the screen edge
+    else if (r.right > vw - 16) langMenu.style.right = (r.right - (vw - 16)) + 'px';
+    if (focusActive) {
+      var cur = langOpts.filter(function(o){ return o.getAttribute('data-lang') === lang; })[0] || langOpts[0];
+      cur.focus();
+    }
+  }
+  function langClose(back){
+    if (langMenu.hidden) return;
+    langMenu.hidden = true;
+    langBtn.setAttribute('aria-expanded', 'false');
+    if (back) langBtn.focus();
+  }
+  function langChoose(l){
+    try { localStorage.setItem('tapiti-lang', l); } catch(e){}
+    applyLang(l, false);
+    langClose(true);
+  }
+  langBtn.addEventListener('click', function(){ langMenu.hidden ? langOpen(false) : langClose(false); });
+  langBtn.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); langOpen(true); }
+    else if (e.key === 'Escape') langClose(true);
+  });
+  langOpts.forEach(function(o, i){
+    o.addEventListener('click', function(){ langChoose(o.getAttribute('data-lang')); });
+    o.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowDown') { e.preventDefault(); langOpts[(i + 1) % langOpts.length].focus(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); langOpts[(i + langOpts.length - 1) % langOpts.length].focus(); }
+      else if (e.key === 'Home') { e.preventDefault(); langOpts[0].focus(); }
+      else if (e.key === 'End') { e.preventDefault(); langOpts[langOpts.length - 1].focus(); }
+      else if (e.key === 'Escape') { e.preventDefault(); langClose(true); }
+      else if (e.key === 'Tab') langClose(false);
+    });
+  });
+  document.addEventListener('click', function(e){ if (!byId('lang').contains(e.target)) langClose(false); });
+
+  applyLang(lang, true);
 
   var ticking = false;
   function onFrame(){
