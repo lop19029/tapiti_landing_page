@@ -10,7 +10,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -270,20 +270,44 @@
 </section>
 
 <section id="quem-somos" data-screen-label="Quem Somos" style="max-width:1160px;margin:0 auto;padding:clamp(56px,9vw,100px) clamp(16px,4vw,40px) clamp(20px,4vw,40px)">
-  <div style="font:600 12px 'JetBrains Mono';letter-spacing:.14em;text-transform:uppercase;color:#16D7DA;margin-bottom:16px">Quem somos</div>
-  <h2 style="font:800 clamp(25px,4.2vw,38px)/1.16 'Montserrat';letter-spacing:-.022em;margin:0 0 40px;max-width:26ch;text-wrap:pretty">A Intersecção entre Estratégia de Negócios e Engenharia de Alta Performance</h2>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:36px">
-    <sc-for list="{{ founders }}" as="f" hint-placeholder-count="3">
-      <div>
-        <div style="aspect-ratio:1/1;border-radius:18px;border:1px solid rgba(255,255,255,.12);background:repeating-linear-gradient(135deg,rgba(255,255,255,.055) 0 8px,transparent 8px 16px);display:flex;align-items:center;justify-content:center;filter:grayscale(1)">
-          <span style="font:500 10.5px 'JetBrains Mono';letter-spacing:.08em;color:#8792A6;text-align:center;padding:0 12px">{{ f.slot }}</span>
-        </div>
-        <div style="font:700 15px 'Montserrat';color:#fff;margin-top:14px">{{ f.name }}</div>
-        <div style="font:500 12px 'JetBrains Mono';color:#7E8DA8;margin-top:3px">{{ f.role }}</div>
-      </div>
-    </sc-for>
+  <div style="text-align:center;margin-bottom:clamp(36px,6vw,56px)">
+    <div style="font:600 12px 'JetBrains Mono';letter-spacing:.14em;text-transform:uppercase;color:#16D7DA;margin-bottom:16px">Quem somos</div>
+    <h2 style="font:800 clamp(25px,4.2vw,38px)/1.16 'Montserrat';letter-spacing:-.022em;margin:0 auto;max-width:22ch;text-wrap:pretty">A força que o seu negócio precisava</h2>
   </div>
-  <p style="font:400 clamp(15px,2vw,17px)/1.7 'Inter';color:#B9C6DB;margin:0;max-width:78ch;text-wrap:pretty">A Tapiti Digital nasce da união de três mentes estratégicas. Nossa liderança de negócios traz uma visão afiada para conversão e escalabilidade no mundo real. Nos bastidores, nossa força de engenharia possui vasta bagagem na construção de sistemas backend complexos, APIs REST, arquitetura de microsserviços em Java e ecossistema Spring Boot. Pegamos o rigor técnico, a segurança e a estabilidade exigidos pelo mercado financeiro corporativo e adaptamos esse poder de fogo exclusivamente para acelerar pequenos e médios negócios.</p>
+    <div style="position:relative;max-width:780px;margin:0 auto">
+    <div style="position:absolute;inset:0;border-radius:22px;background:#C9D3E6;opacity:.16;transform:rotate(-2.2deg) translateY(10px)"></div>
+    <div style="position:absolute;inset:0;border-radius:22px;background:#C9D3E6;opacity:.28;transform:rotate(1.2deg) translateY(4px)"></div>
+    <article style="position:relative;background:#F7F6F2;color:#1A2240;border-radius:22px;padding:clamp(28px,6.5vw,76px) clamp(22px,6.5vw,80px) clamp(32px,6vw,64px);box-shadow:0 40px 90px rgba(0,0,0,.45)">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:22px;border-bottom:1px solid #DEDDD6;margin-bottom:clamp(28px,5vw,44px)">
+        <div style="display:flex;align-items:center;gap:10px"><img src="assets/appicon-navy.png" alt="" style="width:30px;height:30px;border-radius:8px"><span style="font:800 15px 'Montserrat';color:#00082B">Tapiti Digital</span></div>
+        <span style="font:600 11px 'JetBrains Mono';letter-spacing:.12em;text-transform:uppercase;color:#0E7C8C">Carta aberta</span>
+      </div>
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,2vw,18px);margin-bottom:clamp(32px,5vw,48px)">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:#E4E6EC"><img src="assets/founder-1.jpg" alt="Monica" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block"></div>
+          <div><div style="font:700 14px 'Montserrat';color:#00082B">Monica</div><div style="font:500 11px 'JetBrains Mono';color:#5A6580;margin-top:2px">Estratégia de Negócios</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:#E4E6EC"><img src="assets/founder-2.jpg" alt="Alex" style="width:100%;height:100%;object-fit:cover;object-position:center 25%;display:block"></div>
+          <div><div style="font:700 14px 'Montserrat';color:#00082B">Alex</div><div style="font:500 11px 'JetBrains Mono';color:#5A6580;margin-top:2px">Engenharia de Plataforma</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:#E4E6EC"><img src="assets/founder-3.jpg" alt="Ivan" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block"></div>
+          <div><div style="font:700 14px 'Montserrat';color:#00082B">Ivan</div><div style="font:500 11px 'JetBrains Mono';color:#5A6580;margin-top:2px">Arquitetura &amp; IA</div></div>
+        </div>
+        </div>
+      <div style="display:flex;flex-direction:column;gap:1.15em;font:400 clamp(16px,2.1vw,18px)/1.75 'Inter';color:#2A3352;text-wrap:pretty">
+        <p style="margin:0">Para nós, o seu negócio vai muito além de uma simples empresa: <strong style="font-weight:600;color:#00082B">ele é a base da nossa comunidade.</strong> Acreditamos que cada empreendedor desempenha um papel fundamental na inovação e no desenvolvimento do nosso mercado.</p>
+        <p style="margin:0">Nossa missão é simples e ambiciosa: pegar a mesma robustez, segurança e inteligência de sistemas backend complexos utilizados pelo mercado corporativo e disponibilizá-los para acelerar a sua operação. Queremos equipar o seu negócio com os mais avançados padrões de engenharia de software, inteligência artificial e estratégias de mercado.</p>
+        <p style="margin:0">Saiba que não está sozinho nesta jornada. Queremos que você tenha total liberdade para focar naquilo que faz de melhor. A tecnologia, a automação e os bastidores, você pode deixar com a gente.</p>
+        <p style="margin:0">Acreditamos que o futuro pertence a quem ousa moldá-lo. <strong style="font-weight:600;color:#00082B">Nossa aposta é no seu potencial. Vamos construí-lo juntos.</strong></p>
+      </div>
+      <div style="margin-top:clamp(32px,5vw,48px)">
+        <div style="font:400 clamp(40px,6vw,54px)/1 'Mrs Saint Delafield',cursive;color:#0E4F7A;margin-bottom:6px">Monica, Alex &amp; Ivan</div>
+        <div style="font:500 12px 'JetBrains Mono';letter-spacing:.06em;color:#5A6580">Founders</div>
+      </div>
+    </article>
+  </div>
 </section>
 
 <section data-screen-label="Garantia" style="margin-top:clamp(56px,9vw,100px);background:#001B4D;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)">
@@ -342,12 +366,7 @@ class Component extends DCLogic {
       showLogos: this.props.showLogos ?? true,
       cnpj: this.props.cnpj ?? 'XX.XXX.XXX/0001-XX',
       cidade: this.props.cidade ?? '[Cidade/Sede]',
-      logos: [1, 2, 3, 4, 5, 6].map(n => ({ label: 'LOGO CLIENTE ' + n })),
-      founders: [
-        { slot: 'FOTO · FUNDADOR 1', name: 'Nome do Fundador', role: 'Estratégia de Negócios' },
-        { slot: 'FOTO · FUNDADOR 2', name: 'Nome do Fundador', role: 'Engenharia de Plataforma' },
-        { slot: 'FOTO · FUNDADOR 3', name: 'Nome do Fundador', role: 'Arquitetura & IA' }
-      ]
+      logos: [1, 2, 3, 4, 5, 6].map(n => ({ label: 'LOGO CLIENTE ' + n }))
     };
   }
 }

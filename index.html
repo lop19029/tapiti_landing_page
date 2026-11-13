@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="assets/appicon-navy.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
 <style>
 /* ============ TOKENS ============ */
 :root{
@@ -899,24 +899,44 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
   .imp__fn{margin-top:0;max-width:62ch;text-align:right;font-size:11px}
 }
 
-/* ============ FOUNDERS ============ */
-.founders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:32px}
-.founder:first-child{grid-column:span 2}
-@media (min-width:640px){
-  .founders{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .founder:first-child{grid-column:span 1}
+/* ============ QUEM SOMOS — CARTA ABERTA ============ */
+.carta__head{text-align:center;margin-bottom:clamp(36px,6vw,56px)}
+.carta__head .eyebrow{justify-content:center;margin-bottom:16px}
+.carta__head .eyebrow::before{display:none}
+.carta__head .h2{max-width:22ch;margin:0 auto;font-size:clamp(25px,4.2vw,38px);line-height:1.16;letter-spacing:-.022em;text-wrap:pretty}
+.carta{position:relative;max-width:780px;margin:0 auto}
+.carta__sheet{position:absolute;inset:0;border-radius:22px;background:#C9D3E6}
+.carta__sheet--back{opacity:.16;transform:rotate(-2.2deg) translateY(10px)}
+.carta__sheet--mid{opacity:.28;transform:rotate(1.2deg) translateY(4px)}
+.carta__paper{
+  position:relative;background:#F7F6F2;color:#1A2240;border-radius:22px;
+  padding:clamp(28px,6.5vw,76px) clamp(22px,6.5vw,80px) clamp(32px,6vw,64px);
+  box-shadow:0 40px 90px rgba(0,0,0,.45);
 }
+.carta__letterhead{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:22px;border-bottom:1px solid #DEDDD6;margin-bottom:clamp(28px,5vw,44px)}
+.carta__brand{display:flex;align-items:center;gap:10px;font:800 15px var(--font-display);color:#00082B}
+.carta__brand img{width:30px;height:30px;border-radius:8px}
+.carta__tag{font:600 11px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:#0E7C8C}
+.founders{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,2vw,18px);margin-bottom:clamp(32px,5vw,48px)}
+.founder{display:flex;flex-direction:column;gap:10px}
 .founder__photo{
-  aspect-ratio:1;border-radius:var(--r-lg);
-  border:1px solid var(--line);
-  background:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 8px,transparent 8px 16px);
+  aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:#E4E6EC;
   display:flex;align-items:center;justify-content:center;
-  font:500 10px var(--font-mono);letter-spacing:.08em;color:var(--text-4);
-  text-align:center;padding:10px;
 }
-img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
-.founder__name{font:700 15px var(--font-display);margin-top:13px}
-.founder__role{font:500 11.5px var(--font-mono);color:var(--text-4);margin-top:3px}
+.founder__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.founder__photo--ph{
+  background:repeating-linear-gradient(135deg,#E9E8E2 0 8px,#F1F0EB 8px 16px);
+  border:1px solid #DEDDD6;
+  font:500 10px var(--font-mono);letter-spacing:.08em;color:#6B7590;text-align:center;padding:0 8px;
+}
+.founder__name{font:700 14px var(--font-display);color:#00082B}
+.founder__role{font:500 11px var(--font-mono);color:#5A6580;margin-top:2px}
+.carta__body{display:flex;flex-direction:column;gap:1.15em;font:400 clamp(16px,2.1vw,18px)/1.75 var(--font-body);color:#2A3352;text-wrap:pretty}
+.carta__body p{margin:0}
+.carta__body strong{font-weight:600;color:#00082B}
+.carta__sign{margin-top:clamp(32px,5vw,48px)}
+.carta__sig{font:400 clamp(40px,6vw,54px)/1 'Mrs Saint Delafield',cursive;color:#0E4F7A;margin-bottom:6px}
+.carta__role{font:500 12px var(--font-mono);letter-spacing:.06em;color:#5A6580}
 
 /* ============ GUARANTEE ============ */
 .guarantee{
@@ -1575,26 +1595,44 @@ img.founder__photo{padding:0;object-fit:cover;width:100%;display:block}
 <!-- QUEM SOMOS -->
 <section id="quem-somos" class="section" aria-labelledby="quem-h">
   <div class="shell">
-    <p class="eyebrow">Quem somos</p>
-    <h2 class="h2" id="quem-h" style="max-width:26ch">A Intersecção entre Estratégia de Negócios e Engenharia de Alta Performance</h2>
-    <div class="founders">
-      <div class="founder reveal">
-        <img class="founder__photo" src="assets/founder-1.jpg" alt="Foto do fundador responsável por Estratégia de Negócios">
-        <div class="founder__name">Nome do Fundador</div>
-        <div class="founder__role">Estratégia de Negócios</div>
-      </div>
-      <div class="founder reveal">
-        <img class="founder__photo" src="assets/founder-2.jpg" alt="Foto do fundador responsável por Engenharia de Plataforma">
-        <div class="founder__name">Nome do Fundador</div>
-        <div class="founder__role">Engenharia de Plataforma</div>
-      </div>
-      <div class="founder reveal">
-        <div class="founder__photo">FOTO · FUNDADOR 3</div>
-        <div class="founder__name">Nome do Fundador</div>
-        <div class="founder__role">Arquitetura &amp; IA</div>
-      </div>
+    <div class="carta__head">
+      <p class="eyebrow">Quem somos</p>
+      <h2 class="h2" id="quem-h">A força que o seu negócio precisava</h2>
     </div>
-    <p class="lead" style="max-width:78ch">A Tapiti Digital nasce da união de três mentes estratégicas. Nossa liderança de negócios traz uma visão afiada para conversão e escalabilidade no mundo real. Nos bastidores, nossa força de engenharia possui vasta bagagem na construção de sistemas backend complexos, APIs REST, arquitetura de microsserviços em Java e ecossistema Spring Boot. Pegamos o rigor técnico, a segurança e a estabilidade exigidos pelo mercado financeiro corporativo e adaptamos esse poder de fogo exclusivamente para acelerar pequenos e médios negócios.</p>
+    <div class="carta">
+      <div class="carta__sheet carta__sheet--back" aria-hidden="true"></div>
+      <div class="carta__sheet carta__sheet--mid" aria-hidden="true"></div>
+      <article class="carta__paper">
+        <div class="carta__letterhead">
+          <div class="carta__brand"><img src="assets/appicon-navy.png" alt="" width="30" height="30"><span>Tapiti Digital</span></div>
+          <span class="carta__tag">Carta aberta</span>
+        </div>
+        <div class="founders">
+          <div class="founder">
+            <div class="founder__photo"><img src="assets/founder-1.jpg" alt="Monica" style="object-position:center 20%"></div>
+            <div><div class="founder__name">Monica</div><div class="founder__role">Estratégia de Negócios</div></div>
+          </div>
+          <div class="founder">
+            <div class="founder__photo"><img src="assets/founder-2.jpg" alt="Alex" style="object-position:center 25%"></div>
+            <div><div class="founder__name">Alex</div><div class="founder__role">Engenharia de Plataforma</div></div>
+          </div>
+          <div class="founder">
+            <div class="founder__photo"><img src="assets/founder-3.jpg" alt="Ivan" style="object-position:center 20%"></div>
+            <div><div class="founder__name">Ivan</div><div class="founder__role">Arquitetura &amp; IA</div></div>
+          </div>
+        </div>
+        <div class="carta__body">
+          <p>Para nós, o seu negócio vai muito além de uma simples empresa: <strong>ele é a base da nossa comunidade.</strong> Acreditamos que cada empreendedor desempenha um papel fundamental na inovação e no desenvolvimento do nosso mercado.</p>
+          <p>Nossa missão é simples e ambiciosa: pegar a mesma robustez, segurança e inteligência de sistemas backend complexos utilizados pelo mercado corporativo e disponibilizá-los para acelerar a sua operação. Queremos equipar o seu negócio com os mais avançados padrões de engenharia de software, inteligência artificial e estratégias de mercado.</p>
+          <p>Saiba que não está sozinho nesta jornada. Queremos que você tenha total liberdade para focar naquilo que faz de melhor. A tecnologia, a automação e os bastidores, você pode deixar com a gente.</p>
+          <p>Acreditamos que o futuro pertence a quem ousa moldá-lo. <strong>Nossa aposta é no seu potencial. Vamos construí-lo juntos.</strong></p>
+        </div>
+        <div class="carta__sign">
+          <div class="carta__sig">Monica, Alex &amp; Ivan</div>
+          <div class="carta__role">Founders</div>
+        </div>
+      </article>
+    </div>
   </div>
 </section>
 

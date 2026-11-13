@@ -3,6 +3,16 @@
 All notable changes to the Tapiti Digital landing page are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
+## [1.0.8] - 2026-11-12
+
+### Changed
+- "Quem somos" (`#quem-somos`) replaced per `design_handoff_carta_aberta` (option 1a) with an open letter from the founders: navy header, paper-style letter with two stacked sheets behind it, letterhead, 3-column 4:5 founder photos (Monica, Alex, Ivan), the four-paragraph letter and a handwritten "Monica, Alex & Ivan" signature (Mrs Saint Delafield added to the Google Fonts URL).
+  - Heading reads "A força que o seu negócio precisava"; Ivan's portrait added as `assets/founder-3.jpg`. Confirm with the client that `founder-2.jpg` is Alex.
+  - Applied to `index.html` (class-based CSS) and `Tapiti Landing Page.dc.html` (inline styles; unused `founders` array removed).
+
+### Removed
+- Old "A Intersecção entre Estratégia de Negócios e Engenharia de Alta Performance" heading, founder cards and paragraph.
+
 ## [1.0.7] - 2026-11-11
 
 ### Changed
